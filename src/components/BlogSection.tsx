@@ -100,6 +100,24 @@ export default function BlogSection({ initialType = 'tech' }: BlogSectionProps) 
         );
       }
 
+      // Markdown Images Support: ![alt](src)
+      if (trimmed.startsWith('![') && trimmed.endsWith(')')) {
+        const match = trimmed.match(/^!\[(.*?)\]\((.*?)\)$/);
+        if (match) {
+          const alt = match[1];
+          const src = match[2];
+          return (
+            <div key={idx} className="my-6 flex flex-col items-center">
+              <img 
+                src={src} 
+                alt={alt} 
+                className="rounded-xl border border-zinc-800/60 max-w-full md:max-w-2xl lg:max-w-3xl object-contain shadow-2xl shadow-black/50" 
+              />
+              {alt && <span className="text-zinc-500 font-mono text-xs mt-3 tracking-wide">{alt}</span>}
+            </div>
+          );
+        }
+      }
       // Divider
       if (trimmed === '---') {
         return <hr key={idx} className="border-zinc-800 my-8" />;

@@ -1,4 +1,7 @@
 import { BlogPost, SystemMindset } from './types';
+// @ts-ignore
+import cognitionStackImg from './assets/cognition-stack.png';
+
 
 export const SHREEHARSHA_BIO = {
   name: "Shreeharsha",
@@ -103,6 +106,280 @@ export const PROJECTS_DATABASE = [
 
 export const BLOG_POSTS: BlogPost[] = [
   // --- TECH BLOGS ---
+  {
+    id: "tech-activity-illusion",
+    type: "tech",
+    title: "The Activity Illusion: How Running More AI Agents Creates a Judgment Bottleneck",
+    subtitle: "More agents running does not mean more work shipped. It means a larger pile waiting for you.",
+    date: "2026-05-28",
+    readingTime: "4 min read",
+    category: "AI Systems",
+    tags: ["Agentic AI", "Developer Productivity", "Bottlenecks"],
+    intro: "Running more agents in parallel only multiplies the production side of your workflow. It does nothing to the review side — the part that requires you to actually understand what was built, catch what is wrong, and decide what ships.",
+    content: `### The Dashboard Lies
+
+20 agents active. Processes spinning. Outputs generating.
+
+It feels like leverage. It is not.
+
+Running more agents in parallel only multiplies the production side of your workflow. It does nothing to the review side — the part that requires you to actually understand what was built, catch what is wrong, and decide what ships.
+
+The activity is real. The productivity is an illusion.
+
+---
+
+### Think of a Factory Floor
+
+Upstream workers running at full capacity. Parts flying off the line. Every station fully loaded.
+
+But there is one quality inspector at the end.
+
+Adding more upstream workers does not increase throughput. It grows the pile in front of the inspector. Output rate was never set by the assemblers — it was always set by the inspector's capacity to verify and sign off.
+
+**You are the inspector.**
+
+Every agent you spawn produces output that must pass through your judgment before it ships. Running 20 agents does not give you 20x output. It gives you 20x the queue in front of your attention gate.
+
+---
+
+### The Orchestrator vs the Engineer
+
+The orchestrator sees a busy dashboard and calls it productivity.
+The engineer asks one question: how fast can I actually inspect?
+
+The orchestrator keeps spawning agents to feel in control.
+The engineer sizes the fleet to their real review rate — which for most people is a low single digit — and protects that capacity deliberately.
+
+One is managing the illusion. The other is managing the constraint.
+
+---
+
+### What the Constraint Actually Costs
+
+When agents outpace your review rate, you do not stay caught up by working harder. You start cutting corners — approving code you do not fully understand, skipping systemic checks, losing the mental model of your own codebase.
+
+The dashboard still looks healthy. Production is still active.
+
+But cognitive debt is compounding silently. It only surfaces when something breaks in production and you realise you no longer understand why.
+
+---
+
+### Three Moves That Actually Help
+
+1. **Scale agents to your review rate, not the UI limit.** The tool will let you spawn 20. Ignore it.
+
+2. **Route the routine work to machine verification** — tests, linting, screenshot checks. Reserve your judgment for decisions that actually require it.
+
+3. **Batch your reviews.** Context-switching between agents mid-session destroys the deep understanding you need to review well. Give agents a long leash, then process outputs in one focused block.
+
+---
+
+Managing AI workflows is not a discipline problem.
+
+It is an architecture problem.
+
+The bottleneck is not your agents. It is your judgment rate.
+
+Design around that, and the activity illusion disappears.`
+  },
+  {
+    id: "tech-cognition-stack",
+    type: "tech",
+    title: "Cognition Stack for AI-Native Building",
+    subtitle: "Spend tokens on thinking. Save tokens on doing.",
+    date: "2026-05-28",
+    readingTime: "4 min read",
+    category: "Developer Tooling",
+    tags: ["AI Workflows", "Cognition Stack", "Developer Tooling"],
+    intro: "Most people use AI in a way that feels productive but doesn’t scale. The secret to AI-native building lies in separating thinking from doing: spending tokens on exploration and specs so you can execute once, cleanly.",
+    content: `### The Problem with How We Use AI Today
+
+Most people are using AI in a way that feels productive but doesn’t scale.
+
+You open a tool, write a prompt, get an output, tweak it, regenerate, tweak again. This works for a while. But as the work gets more complex—codebases, product flows, presentations—the process starts breaking down.
+
+Outputs become messy. Structure drifts. You spend more time fixing than building.
+
+The issue isn’t the tools. It’s how we’re using them.
+
+Right now, most workflows look like this:
+
+Prompt → Output → Iterate → Repeat
+
+It’s a loop that pushes all the thinking into the execution phase. And that’s expensive.
+
+### Separating Thinking from Doing
+
+A better approach is to separate thinking from doing.
+
+Instead of treating AI as a generator, treat it as a system you move through in stages. Each stage has a purpose—and the right tools.
+
+![Cognition Stack Diagram](${cognitionStackImg})
+
+### Exploration: Go Wide First
+
+This is where you explore the problem space.
+
+Use tools like ChatGPT, Claude, and Gemini to:
+
+- brainstorm approaches
+- compare different ways to solve a problem
+- ask “what can go wrong?”
+- explore edge cases
+- waste tokens here, rather than inside your development workspace
+
+Don’t aim for clean outputs here. This is messy by design.
+
+Tip: Ask the same question across tools. Each model thinks differently—you’ll get better coverage.
+
+More importantly, this stage is **cheap**.
+
+These tools are either free or low-cost compared to production environments. You can afford to:
+
+- ask more questions
+- explore multiple directions
+- discard ideas freely
+- waste tokens here, and not inside your workspace
+
+There’s no pressure to “get it right” in one shot.
+
+In contrast, work tools—like Cursor, design tools, or generation pipelines—are where tokens become expensive. Every iteration there:
+
+- consumes more resources
+- creates messy artifacts
+- adds rework later
+
+If you skip exploration and jump straight into execution, you end up paying for thinking with expensive tokens.
+
+So use this stage intentionally.
+
+Spend tokens here to understand the problem deeply, so you don’t have to spend them later fixing unclear outputs.
+
+### Structuring: Turn Ideas into Decisions
+
+This is the step most people skip—and where most efficiency is gained.
+
+Take what you explored and turn it into something clear:
+
+- steps
+- constraints
+- components
+- flows
+
+Use ChatGPT or Claude to do:
+
+- “Summarize decisions”
+- “Create a final spec”
+- “List assumptions and constraints”
+
+Then store it in something like Notion or Obsidian.
+
+At this point, you should have a clean, stable spec. If this isn’t clear, execution will be messy no matter what tool you use.
+
+### Memory: Build a Reusable Knowledge Base
+
+Good thinking shouldn’t disappear.
+
+Use NotebookLM to:
+
+- upload your docs, specs, and research
+- query across past work
+- refine ideas over time
+
+This becomes your long-term advantage. Instead of rethinking from scratch, you evolve your thinking.
+
+### Simulation: Test Before You Build
+
+Before jumping into execution, simulate.
+
+Use ChatGPT or Claude to:
+
+- act as a user
+- walk through your flow
+- identify edge cases
+- stress test your assumptions
+
+This step catches issues early—before you write code or design UI.
+
+### Execution: Generate with Clarity
+
+Now move to production tools.
+
+For code:
+
+- Cursor
+- Antigravity-style workflows
+
+For UI / product:
+
+- Lovable
+- Figma
+
+For presentations:
+
+- Claude or ChatGPT (structured slide generation)
+
+At this stage, you’re not exploring anymore. You’re executing a clear plan.
+
+This is where you should aim for one or two prompts—not ten.
+
+### Refinement: Iterate Without Breaking Everything
+
+Iteration still happens, but it’s controlled.
+
+Instead of:
+“Regenerate everything”
+
+Do:
+
+- “Change only this section”
+- “Improve clarity without changing structure”
+- “Refactor this component only”
+
+Tools like Cursor are especially powerful here because they allow targeted edits instead of full regeneration.
+
+### Flipping the Default
+
+Most people try to save tokens during thinking and then waste them during execution.
+
+This flips it.
+
+You spend tokens upfront to think properly, so you don’t have to keep redoing the work later.
+
+### Why This Matters as You Scale
+
+As your work grows—larger codebases, more complex products, multi-step workflows—the cost of bad structure compounds.
+
+Without structure:
+
+- every change leads to rework
+- outputs drift
+- systems become harder to maintain
+
+With structure:
+
+- execution becomes predictable
+- changes are easier
+- outputs stay consistent
+
+### Rethinking Where the Work Happens
+
+AI is extremely good at helping you think—if you let it.
+
+But if you rush into generation, you’re forcing it to think and build at the same time. That’s where most inefficiency comes from.
+
+AI doesn’t remove thinking. It just exposes poor thinking faster.
+
+If you rush into execution, you pay for it later—in messy outputs, repeated prompts, and constant rework.
+
+If you slow down and get clarity first, execution becomes almost trivial.
+
+The difference isn’t how much you use AI. It’s where you use it.
+
+Use AI to explore, question, and structure your thinking. Then use it to execute—once, cleanly.
+
+Think wide. Structure clearly. Execute once.`
+  },
   {
     id: "tech-agentic-ui",
     type: "tech",
@@ -276,6 +553,116 @@ Because every evaluation is a pure projection over immutable historical entries:
 ಈ ಸಂಶ್ಲೇಷಣಾತ್ಮಕ ಗುಣವನ್ನು (Agglutinative nature) ಎಐ ಮಾದರಿಗಳು ಸಮರ್ಪಕವಾಗಿ ಕಲಿಯಬೇಕೆಂದರೆ, ನಾವು ಪದಗಳ ಸಂಕೋಲೆಯನ್ನು ನಿಯಮಗಳ ಚೌಕಟ್ಟಿನಲ್ಲಿ ವ್ಯಾಖ್ಯಾನಿಸಬೇಕು. ಇದನ್ನು ನಾನು **ನಿಯಮ-ಆಧಾರಿತ ಜಂಟಿ ವ್ಯವಸ್ಥೆ** (Constraint-based Joint Systems) ಎಂದು ಕರೆಯುತ್ತೇನೆ. 
 
 `
+  },
+  {
+    id: "kannada-drones",
+    type: "kannada",
+    title: "ಬಹೂಪಯೋಗಿ ಹಾರುವ ತಟ್ಟೆ",
+    subtitle: "ರಿಮೋಟ್ ಮೂಲಕ ನಿಯಂತ್ರಿಸಬಹುದಾದ ಡ್ರೋನ್ ತಂತ್ರಜ್ಞಾನ ಹಾಗೂ ವಿವಿಧ ವಲಯಗಳಲ್ಲಿ ಅದರ ಬಳಕೆ.",
+    date: "2026-02-15",
+    readingTime: "5 min read",
+    category: "ತಂತ್ರಜ್ಞಾನ (Technology)",
+    tags: ["ದಾಪುಗಾಲ", "ಡ್ರೋನ್ಸ್", "ತಂತ್ರಜ್ಞಾನ", "ಉತ್ಥಾನ"],
+    intro: "ಹಾರುವ ತಟ್ಟೆಗಳು ಅಥವಾ ವಸ್ತುಗಳ ಬಗ್ಗೆ ವದಂತಿಗಳು ಇತಿಹಾಸ. ಆದರೆ ರಿಮೋಟ್ ಮೂಲಕ ನಿಯಂತ್ರಿಸಬಹುದಾದ ಡ್ರೋನ್ ತಂತ್ರಜ್ಞಾನಗಳು ನಮ್ಮ ಮನೆಬಾಗಿಲಿಗೆ ಲಗ್ಗೆಯಿಡುತ್ತಿವೆ.",
+    kannadaTitle: "Multipurpose Flying Saucer: The Ascent of Drone Technology",
+    content: `*ಈ ಲೇಖನವನ್ನು ಮೂಲತಃ **ಉತ್ಥಾನ** ಮಾಸಪತ್ರಿಕೆಯ ನನ್ನ **ದಾಪುಗಾಲ** (Daapugaalu) ಅಂಕಣದಲ್ಲಿ ಬರೆಯಲಾಗಿದೆ.*
+
+### ಡ್ರೋನ್ ಕ್ರಾಂತಿ
+
+ಹಾರುವ ತಟ್ಟೆಗಳು ಅಥವಾ ವಸ್ತುಗಳ ಬಗ್ಗೆ ವದಂತಿಗಳು, ಅಂತೆಕಂತೆಗಳು - ಎಲ್ಲವನ್ನೂ ಹಲವು ಬಾರಿ ಕೇಳಿದ್ದೇವೆ. ಅತೀಂದ್ರಿಯವಾದ ಅಂತಹವುಗಳನ್ನು ನಂಬುತ್ತೇವೋ ಇಲ್ಲವೋ ಎಂಬುದು ಬೇರೆ ವಿಷಯ; ಆದರೆ ವೈಜ್ಞಾನಿಕವಾದ ಅಂತಹ ಯಂತ್ರಗಳು ಈಗಾಗಲೇ ಹಲವು ರೀತಿಗಳಲ್ಲಿ ಬಳಕೆಗೆ ಬಂದಿವೆ.
+
+ಮಾನವನನ್ನು ಹೊತ್ತೊಯ್ಯುವ ವಿಮಾನಗಳೂ ಹೆಲಿಕಾಪ್ಟರ್‌ಗಳೂ ಅತ್ಯಂತ ದುಬಾರಿಯ ವಸ್ತುಗಳು. ಸಾಮಾನ್ಯರ ಕೈಗೆ ಅವು ಗಗನಕುಸುಮಗಳೇ. ಆದರೆ ಇದೀಗ ರಿಮೋಟ್ ಮೂಲಕ ನಿಯಂತ್ರಿಸಬಹುದಾದ ’ಡ್ರೋನ್’ಗಳು ತಮ್ಮ ಹೆಜ್ಜೆ ಗುರುತನ್ನು ಎಲ್ಲೆಡೆ ಮೂಡಿಸಲಾರಂಭಿಸಿವೆ. ತನ್ನಿಂದತಾನೇ ಹಾರಾಡುವ ’ಡ್ರೋನ್’ಗಳು ಹಲವು ರೀತಿಗಳಲ್ಲಿ ಜನಜೀವನದ ಭಾಗವಾಗಿ ಸೇರಿಕೊಳ್ಳುವ ದಿನ ದೂರವಿಲ್ಲ.
+
+---
+
+### ವಿವಿಧ ಕ್ಷೇತ್ರಗಳಲ್ಲಿ ಡ್ರೋನ್ ಬಳಕೆ
+
+- **ಹಾರುವ ಛಾಯಾಗ್ರಾಹಕಗಳಾಗಿ:** ವಿಸ್ತಾರವಾಗಿರುವ ಪ್ರದೇಶದ ಪಕ್ಷಿನೋಟದ ದೃಶ್ಯಗಳನ್ನು ಸೆರೆಹಿಡಿಯಲು ಹಾರುವ ಕ್ಯಾಮೆರಾಗಳು ಇಂದು ಜನಪ್ರಿಯವಾಗುತ್ತಿವೆ.
+- **ಗಸ್ತು ಮತ್ತು ಕಣ್ಗಾವಲು:** ಪೊಲೀಸರು ಮತ್ತು ಮಿಲಿಟರಿ ತಮ್ಮ ಗಸ್ತುವೀಕ್ಷಣೆಗೆ ಹಾರಾಡುವ ಸಿಸಿ ಕ್ಯಾಮೆರಾಗಳಾಗಿ ಡ್ರೋನ್ ಬಳಸಲು ಆರಂಭಿಸಿದ್ದಾರೆ.
+- **ಕೃಷಿ ಉಸ್ತುವಾರಿ:** ಔಷಧ ಸಿಂಪಡಣೆ, ಹೊಲ-ತೋಟಗಳ ಕಾವಲು ಇತ್ಯಾದಿಗಳನ್ನು ಮನೆಯಿಂದಲೇ ನಿಯಂತ್ರಿಸಲು ಡ್ರೋನ್‌ಗಳು ಸಹಕಾರಿಯಾಗಿವೆ.
+- **ಹೋಮ್ ಡೆಲಿವರಿ:** ಅಮೆಜಾನ್‌ನಂತಹ ಸಂಸ್ಥೆಗಳು ವಸ್ತುಗಳನ್ನು ಮನೆಬಾಗಿಲಿಗೆ ರವಾನಿಸಲು 'ಏರ್‌ಬೋರ್ನ್ ಫುಲ್ಫಿಲ್ಮೆಂಟ್ ಸೆಂಟರ್' ಮೂಲಕ ಡ್ರೋನ್ ಡೆಲಿವರಿಯ ಪ್ರಯೋಗಗಳನ್ನು ನಡೆಸುತ್ತಿವೆ.
+- **ನಕ್ಷೆ ತಯಾರಿಕೆ ಮತ್ತು ಸಮೀಕ್ಷೆ:** ಪ್ರಕೃತಿವಿಕೋಪಗಳ ಸಂದರ್ಭದಲ್ಲಿ ಸಮೀಕ್ಷೆಗೆ ಹಾಗೂ ರೈಲ್ವೇಟ್ರ್ಯಾಕ್‌ಗಳ ಕಣ್ಗಾವಲಿಗೂ ಡ್ರೋನ್ ಬಳಕೆ ಉಂಟಾಗಿದೆ.
+
+---
+
+### ಹೇಗೆ ಕಾರ್ಯ ನಿರ್ವಹಿಸುತ್ತವೆ?
+
+ಡ್ರೋನ್‌ಗಳ ಮೇಲ್ಭಾಗಗಳಲ್ಲಿ ನಾಲ್ಕು ಮೂಲೆಯಲ್ಲಿಯೂ ಫ್ಯಾನ್‌ಗಳಿರುತ್ತವೆ. ಅವು ಗಾಳಿಯನ್ನು ಕೆಳಕ್ಕೆ ತಳ್ಳುವ ಮೂಲಕ ಮೇಕ್ಕೇರುವ ಒತ್ತಡ ನಿರ್ಮಿಸಿಕೊಳ್ಳುತ್ತವೆ. ದೂರದಲ್ಲಿರುವ ರಿಮೋಟ್ ಮೂಲಕ ಅವುಗಳ ವೇಗ ಹಾಗೂ ದಿಕ್ಕನ್ನು ನಿಯಂತ್ರಿಸಲಾಗುತ್ತದೆ. ವೈರ್‌ಲೆಸ್ ತರಂಗಗಳ ಮೂಲಕ ರಿಮೋಟ್ ಕಳುಹಿಸುವ ಸಂದೇಶಗಳು ಡ್ರೋನನ್ನು ತಲಪುತ್ತವೆ.
+
+ಅದರಲ್ಲಿರುವ ಪುಟ್ಟ ಬ್ಯಾಟರಿಯ ಮೂಲಕ ಇದು ಕಾರ್ಯನಿರ್ವಹಿಸುವುದರಿಂದ ಹಾರಾಟದ ಸಮಯವು ಪರಿಮಿತವಾಗಿರುತ್ತದೆ. ಜಿಪಿಎಸ್ ಮೂಲಕ ತಾನಿರುವ ಸ್ಥಳವನ್ನು ನಿಖರವಾಗಿ ಪತ್ತೆಹಚ್ಚುವ ವ್ಯವಸ್ಥೆಯೂ ಇದರಲ್ಲಿದೆ.`
+  },
+  {
+    id: "kannada-cybersecurity",
+    type: "kannada",
+    title: "ಆನ್‌ಲೈನ್‌ಗೆ ಕನ್ನಹಾಕುವವರು ಇದ್ದಾರೆ, ಎಚ್ಚರ!",
+    subtitle: "ನಮ್ಮ ಈಮೈಲ್, ಸಾಮಾಜಿಕ ಜಾಲತಾಣಗಳು ಹಾಗೂ ಬ್ಯಾಂಕ್ ಖಾತೆಗಳ ಸುರಕ್ಷತೆ ಮತ್ತು ಹ್ಯಾಕಿಂಗ್ ತಡೆಗಟ್ಟುವ ವಿಧಾನಗಳು.",
+    date: "2025-12-01",
+    readingTime: "5 min read",
+    category: "ಸುರಕ್ಷತೆ (Cybersecurity)",
+    tags: ["ದಾಪುಗಾಲ", "ಸೈಬರ್ ಸೆಕ್ಯುರಿಟಿ", "ಹ್ಯಾಕಿಂಗ್", "ಉತ್ಥಾನ"],
+    intro: "ಮಿಂಚಂಚೆ, ಫೇಸ್‌ಬುಕ್ ಹಾಗೂ ಬ್ಯಾಂಕ್ ಖಾತೆಗಳ ಸುರಕ್ಷತೆ ಇಂದು ಅತ್ಯಂತ ಮುಖ್ಯವಾದುದು. ಸೈಬರ್ ಜಗತ್ತಿನಲ್ಲಿ ನಮ್ಮ ವೈಯಕ್ತಿಕ ವಿವರಗಳನ್ನು ರಕ್ಷಿಸಿಕೊಳ್ಳುವುದು ಹೇಗೆ?",
+    kannadaTitle: "Beware of Cyber Intruders: Securing Your Digital Footprint",
+    content: `*ಈ ಲೇಖನವನ್ನು ಮೂಲತಃ **ಉತ್ಥಾನ** ಮಾಸಪತ್ರಿಕೆಯ ನನ್ನ **ದಾಪುಗಾಲ** (Daapugaalu) ಅಂಕಣದಲ್ಲಿ ಬರೆಯಲಾಗಿದೆ.*
+
+### ಇ-ಕಳ್ಳರ ಕರಾಮತ್ತು
+
+ನಿಮ್ಮ ಫೇಸ್‌ಬುಕ್ ಖಾತೆಯಲ್ಲಿ ನಿಮಗರಿವಿಲ್ಲದೆಯೇ ನಿಮ್ಮ ಹೆಸರಿನಲ್ಲಿ ಪೋಸ್ಟ್‌ಗಳು ಬರುತ್ತಿದ್ದರೆ, ನಿಮ್ಮ ಬ್ಯಾಂಕ್ ಖಾತೆಯಲ್ಲಿ ಹಣ ಇದ್ದಕ್ಕಿದ್ದಂತೆಯೇ ಕಡಿಮೆಯಾದರೆ, ನಿಮ್ಮ ಮಿಂಚಂಚೆ ಖಾತೆಯಿಂದ ಸ್ನೇಹಿತರಿಗೆ ತಾನಾಗಿಯೇ ಮೈಲ್ ಹೋಗುತ್ತಿದ್ದರೆ, ಅದು ಭೂತ-ಪಿಶಾಚಿಗಳಲ್ಲ - ಆಧುನಿಕ ಇ-ಕಳ್ಳರ ಕರಾಮತ್ತು!
+
+ಸಾಮಾಜಿಕ ತಾಣಗಳು ಹಾಗೂ ಬ್ಯಾಂಕ್ ಖಾತೆಗಳಿಗೆ ಕನ್ನ ಹಾಕಲು ಕಳ್ಳರು ಮುಖ್ಯವಾಗಿ ಎರಡು ವಿಧಾನಗಳನ್ನು ಅವಲಂಬಿಸಿರುತ್ತಾರೆ:
+
+---
+
+### 1. ವೆಬ್-ಸೈಟುಗಳಲ್ಲಿನ ಭದ್ರತಾ ದೋಷಗಳು
+
+ನಮ್ಮ ಕಂಪ್ಯೂಟರ್ ಜಾಲಗಳು ರೌಟರ್ ಮೂಲಕ ಅಂತರ್ಜಾಲಕ್ಕೆ ಸಂಪರ್ಕ ಹೊಂದುತ್ತವೆ. ನಂತರ ನಿಜವಾದ ಮೂಲ ವೆಬ್‌ಸರ್ವರ್ ತಲಪುತ್ತವೆ. ಸರ್ವರ್ ಎಂಬ ಕಂಪ್ಯೂಟರಿನಲ್ಲಿ ಆಪರೇಟಿಂಗ್ ಸಿಸ್ಟಮ್, ಡೇಟಾಬೇಸ್ ಸಾಫ್ಟ್‌ವೇರ್ ಮುಂತಾದ ಹಲವು ಪದರಗಳು ಕೆಲಸ ಮಾಡುತ್ತವೆ.
+
+ಇಂತಹ ಸಂಕೀರ್ಣ ವ್ಯವಸ್ಥೆಯಲ್ಲಿನ ಒಂದು ಸಣ್ಣ ಭದ್ರತಾ ದೋಷವನ್ನು (Vulnerability) ಹ್ಯಾಕರ್‌ಗಳು ಪತ್ತೆ ಹಚ್ಚಿದರೂ ಸಾಕು - ಅದನ್ನೇ ಬಳಸಿ ಮಾಹಿತಿ ಕದಿಯಬಹುದು. ಈ ರೀತಿಯ ಲೋಪದೋಷಗಳನ್ನು ಸರಿಪಡಿಸಲು ಕಂಪನಿಗಳು ಭದ್ರತಾ ಪರಿಣತರನ್ನು ನೇಮಿಸಿ ತಂತ್ರಜ್ಞಾನವನ್ನು ನಿರಂತರವಾಗಿ ನವೀಕರಿಸುತ್ತವೆ. ಬಳಕೆದಾರರಾಗಿ ನಾವು ನಂಬಿಕೆಗರ್ಹವಾದ ಸೇವೆಗಳನ್ನು ಮಾತ್ರ ಬಳಸಬೇಕು.
+
+---
+
+### 2. ಬಳಕೆದಾರರ ತಿಳುವಳಿಕೆಯ ಕೊರತೆ (ಫಿಶಿಂಗ್)
+
+- **ಆಮಿಷಗಳು:** ಲಾಟರಿ ಗೆದ್ದಿದ್ದೀರಿ ಎಂಬ ಆಮಿಷದ ಮಿಂಚಂಚೆಗಳನ್ನು ನಂಬಿ ಹಣ ಪಾವತಿಸಬೇಡಿ.
+- **ಗುಪ್ತ ಮಾಹಿತಿ:** ಯಾವುದೇ ಬ್ಯಾಂಕ್ ಫೋನ್ ಅಥವಾ ಈಮೈಲ್ ಮೂಲಕ ನಿಮ್ಮ ಪಿನ್, ಒಟಿಪಿ ಅಥವಾ ಗುಪ್ತಪದಗಳನ್ನು ಕೇಳುವುದಿಲ್ಲ.
+- **ನಕಲಿ ಲಿಂಕ್‌ಗಳು:** ಫೇಸ್‌ಬುಕ್‌ನಂತೆಯೇ ಕಾಣುವ ನಕಲಿ ವಿನ್ಯಾಸದ ಲಿಂಕ್‌ಗಳನ್ನು ಕ್ಲಿಕ್ಕಿಸಿ ನಿಮ್ಮ ಲಾಗಿನ್ ವಿವರಗಳನ್ನು ನೀಡಬೇಡಿ. ಹೆಸರಿನ ಸಾಮ್ಯತೆ ಇದ್ದರೂ ಜಾಗರೂಕರಾಗಿರಿ (ಉದಾಹರಣೆಗೆ facebook.com ಬದಲಿಗೆ facedook.com).
+
+ನಮ್ಮ ಸೈಬರ್ ಸುರಕ್ಷತೆ ನಮ್ಮ ಜವಾಬ್ದಾರಿ. ಡಿಜಿಟಲ್ ಹೆಜ್ಜೆಗುರುತುಗಳನ್ನು ಜಾಗರೂಕತೆಯಿಂದ ಇರಿಸಿದಾಗ ಮಾತ್ರ ಸೈಬರ್ ದಾಳಿಗಳಿಂದ ಪಾರಾಗಲು ಸಾಧ್ಯ.`
+  },
+  {
+    id: "kannada-cashless",
+    type: "kannada",
+    title: "ನಗದು ಬೇಕಿಲ್ಲ ಕಾರ್ಡ್, ಮೊಬೈಲಲ್ಲೇ ವ್ಯವಹಾರವೆಲ್ಲ!",
+    subtitle: "ಭೌತಿಕ ಹಣದಿಂದ ಡಿಜಿಟಲ್ ಆರ್ಥಿಕತೆಯತ್ತ ಮುನ್ನಡೆಯುತ್ತಿರುವ ವಿಶ್ವ.",
+    date: "2025-11-01",
+    readingTime: "5 min read",
+    category: "ತಂತ್ರಜ್ಞಾನ (Technology)",
+    tags: ["ದಾಪುಗಾಲ", "ಡಿಜಿಟಲ್ ಪೇಮೆಂಟ್ಸ್", "ಮೊಬೈಲ್ ಬ್ಯಾಂಕಿಂಗ್", "ಉತ್ಥಾನ"],
+    intro: "ವಸ್ತು ವಿನಿಮಯ ಕಾಲದಿಂದ ನಾಣ್ಯ, ನೋಟುಗಳ ಹಂತ ದಾಟಿ ಜಗತ್ತು ಈಗ ಇ-ದುಡ್ಡು ಮತ್ತು ಮೊಬೈಲ್ ಪಾವತಿಗಳ ಕಡೆಗೆ ದಾಪುಗಾಲು ಹಾಕುತ್ತಿದೆ.",
+    kannadaTitle: "No Cash Needed: The Rise of Digital and Card Payments",
+    content: `*ಈ ಲೇಖನವನ್ನು ಮೂಲತಃ **ಉತ್ಥಾನ** ಮಾಸಪತ್ರಿಕೆಯ ನನ್ನ **ದಾಪುಗಾಲ** (Daapugaalu) ಅಂಕಣದಲ್ಲಿ ಬರೆಯಲಾಗಿದೆ.*
+
+### ಆರ್ಥಿಕತೆಯ ಸ್ಥಿತ್ಯಂತರಗಳು
+
+ಪ್ರಾಚೀನ ಕಾಲದಲ್ಲಿ ಕೊಡು-ಕೊಳ್ಳುವ ವಸ್ತುಗಳಿಗೆ ವಸ್ತುಗಳನ್ನೇ ಬದಲಾಯಿಸುವ ವಸ್ತು ವಿನಿಮಯ ಪದ್ಧತಿ ಜಾರಿಯಲ್ಲಿತ್ತು. ನಂತರ ಅದು ನಾಣ್ಯ, ಕಾಗದದ ನೋಟು ಹಾಗೂ ಚೆಕ್‌ಗಳಿಗೆ ಬದಲಾಯಿತು. ಇಂದು ತಂತ್ರಜ್ಞಾನದ ಜೊತೆಯಲ್ಲಿ ದುಡ್ಡೂ ಡಿಜಿಟಲ್ ಸ್ವರೂಪ ಪಡೆದು ಕ್ಷಣಾರ್ಧದಲ್ಲಿ ವಿಶ್ವದ ಇನ್ನೊಂದು ಮೂಲೆಗೆ ರವಾನೆಯಾಗುತ್ತಿದೆ.
+
+---
+
+### ಡಿಜಿಟಲ್ ಹಣದ ವಿವಿಧ ಮುಖಗಳು
+
+- **ಪ್ಲಾಸ್ಟಿಕ್ ಮನಿ (ಕಾರ್ಡುಗಳು):** ಡೆಬಿಟ್ ಹಾಗೂ ಕ್ರೆಡಿಟ್ ಕಾರ್ಡುಗಳು ಹಣವನ್ನು ಭೌತಿಕವಾಗಿ ಹೊತ್ತೊಯ್ಯುವ ತೊಂದರೆಯನ್ನು ನಿವಾರಿಸಿವೆ.
+- **ನೆಟ್ ಬ್ಯಾಂಕಿಂಗ್:** ಮನೆಯಲ್ಲೇ ಕುಳಿತು ಬಿಲ್ ಪಾವತಿಸುವುದು, ಆನ್‌ಲೈನ್ ಶಾಪಿಂಗ್ ಮಾಡುವುದು ಮುಂತಾದ ಸೌಲಭ್ಯಗಳನ್ನು ಇಂಟರ್ನೆಟ್ ಮೂಲಕ ಒದಗಿಸುತ್ತದೆ.
+- **ಮೊಬೈಲ್ ದುಡ್ಡು:** ಮೊಬೈಲ್ ಮೂಲಕ ನಗದು ರಹಿತ ವ್ಯವಹಾರ ನಡೆಸುವುದು ಈಗ ಸುಲಭವಾಗಿದೆ. ಭವಿಷ್ಯದಲ್ಲಿ ಮೊಬೈಲೇ ನಿಮ್ಮ ಪರ್ಸ್ ಆಗಿ ಬದಲಾಗಲಿದೆ.
+
+---
+
+### ಸುರಕ್ಷತಾ ಕ್ರಮಗಳು
+
+ಡಿಜಿಟಲ್ ಹಣದ ಹರಿವಿನೊಂದಿಗೆ ಆನ್‌ಲೈನ್ ವಂಚನೆಗಳೂ ಹೆಚ್ಚಾಗುತ್ತಿವೆ.
+1. ನಿಮ್ಮ ಗುಪ್ತಪದವನ್ನು ಯಾರಿಗೂ ಹಂಚಿಕೊಳ್ಳಬೇಡಿ.
+2. ಸಾರ್ವಜನಿಕ ಇಂಟರ್ನೆಟ್ ಅಥವಾ ಅಜ್ಞಾತ ವೆಬ್‌ಸೈಟ್‌ಗಳಲ್ಲಿ ಬ್ಯಾಂಕ್ ವಿವರಗಳನ್ನು ಬಳಸಬೇಡಿ.
+3. ಒಟಿಪಿ (OTP) ಸಂಖ್ಯೆಗಳನ್ನು ಬೇರೆಯವರೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಬೇಡಿ.
+
+ತಂತ್ರಜ್ಞಾನದ ಸಹಾಯದಿಂದ ಆರ್ಥಿಕ ಶಿಸ್ತು ಕಾಯ್ದುಕೊಳ್ಳುವುದು ಇಂದು ಅನಿವಾರ್ಯವಾಗಿದೆ.`
   },
   {
     id: "kannada-malenadu-monsoon",
