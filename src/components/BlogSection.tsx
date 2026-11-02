@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
-  ArrowLeft, Search, Calendar, Clock, Tag, MapPin, 
+  ArrowLeft, ArrowRight, Search, Calendar, Clock, Tag, MapPin, 
   Compass, Mountain, Hash, Languages, Globe 
 } from 'lucide-react';
 import { BlogPost, BlogType } from '../types';
@@ -270,6 +270,38 @@ export default function BlogSection({ initialType = 'tech' }: BlogSectionProps) 
                 </button>
               </div>
             </div>
+
+            {/* Dedicated Taiwan Diaries Spotlight Banner */}
+            {selectedType === 'travel' && (
+              <div className="relative overflow-hidden rounded-2xl border border-emerald-500/30 bg-gradient-to-r from-emerald-950/40 via-zinc-900/80 to-zinc-900/50 p-5 sm:p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 shadow-2xl backdrop-blur-sm">
+                <div className="flex items-start sm:items-center space-x-4">
+                  <div className="p-3 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex-shrink-0">
+                    <Compass className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <div className="flex items-center space-x-2">
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-400 font-bold px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20">
+                        Interactive Field Expedition
+                      </span>
+                      <span className="text-zinc-500 text-xs font-mono">• 8 Curated Stops (Day 1 & Day 2)</span>
+                    </div>
+                    <h4 className="text-lg font-bold text-white tracking-tight mt-1">
+                      Taiwan Diaries: Taipei, Wanhua, Jiufen & Coastal Trails
+                    </h4>
+                    <p className="text-xs sm:text-sm text-zinc-300 mt-1 max-w-2xl leading-relaxed">
+                      Interactive field notes across Day 1 (Taoyuan Airport, Taipei Main Station, Ximending, Longshan Temple, Guangzhou Night Market) and Day 2 (Jiufen Old Street, Qingyun Temple, Badouzi Trail).
+                    </p>
+                  </div>
+                </div>
+                <a
+                  href="#taiwan"
+                  className="px-5 py-2.5 rounded-xl bg-emerald-500 text-zinc-950 text-xs font-bold hover:bg-emerald-400 transition-all shadow-md flex items-center space-x-2 whitespace-nowrap self-stretch md:self-auto justify-center cursor-pointer active:scale-95"
+                >
+                  <span>Launch Taiwan Diaries</span>
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+              </div>
+            )}
 
             {/* Controls Bar: Search & Tag Filters */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">

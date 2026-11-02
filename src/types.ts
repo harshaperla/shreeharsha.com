@@ -50,3 +50,34 @@ export interface SavedMessage extends ContactFormInput {
   timestamp: string;
   status: 'received' | 'processing' | 'queued';
 }
+
+export interface AccomplishmentItem {
+  id: string;
+  title: string;
+  subtitle: string;
+  category: 'National Recognition' | 'Cybersecurity Audit' | 'Digital Governance';
+  date: string;
+  source: string;
+  url?: string;
+  secondaryUrl?: string;
+  secondarySource?: string;
+  badge: string;
+  iconType: 'modi' | 'security' | 'governance';
+  summary: string;
+  bullets: string[];
+  quote?: string;
+  quoteAuthor?: string;
+  quoteUrl?: string;
+}
+
+export interface ProjectItem {
+  id: string;
+  title: string;
+  role: string;
+  type: string;
+  description: string;
+  tech: string[];
+  stats: string;
+  category?: 'vlsi' | 'indic' | 'systems' | 'ai' | string;
+  url?: string;
+}

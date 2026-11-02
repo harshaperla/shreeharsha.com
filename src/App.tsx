@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Mail, Github, Linkedin, Twitter, Terminal, Copyright } from 'lucide-react';
 import Navigation from './components/Navigation';
 import ProfileSection from './components/ProfileSection';
 import BlogSection from './components/BlogSection';
 import ContactSection from './components/ContactSection';
+import TaiwanDiaries from './components/TaiwanDiaries';
 import { SHREEHARSHA_BIO } from './data';
 import { BlogType } from './types';
 
@@ -12,6 +13,44 @@ export default function App() {
   const [activeSection, setActiveSection] = useState<string>('profile');
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [blogSectionInitialType, setBlogSectionInitialType] = useState<BlogType>('tech');
+  const [initialTaiwanPlaceId, setInitialTaiwanPlaceId] = useState<string | null>(null);
+
+  // Theme state: defaults to dark or persists user selection
+  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark' || saved === 'light') return saved;
+    return 'dark';
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    document.body.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
+  // Sync with URL hash for shareable links and direct navigation
+  useEffect(() => {
+    const handleHash = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash.startsWith('taiwan')) {
+        const parts = hash.split('/');
+        if (parts[1]) {
+          setInitialTaiwanPlaceId(parts[1]);
+        }
+        setActiveSection('taiwan');
+      } else if (hash === 'travel' || hash === 'tech' || hash === 'kannada' || hash === 'contact' || hash === 'profile') {
+        setActiveSection(hash);
+      }
+    };
+
+    handleHash();
+    window.addEventListener('hashchange', handleHash);
+    return () => window.removeEventListener('hashchange', handleHash);
+  }, []);
 
   // Triggered from Profile sections or hero shortcuts to jump directly to specific blogs
   const handleNavigateToBlogsSetting = (type: string) => {
@@ -24,6 +63,8 @@ export default function App() {
         setActiveSection('kannada');
       } else if (type === 'travel') {
         setActiveSection('travel');
+      } else if (type === 'taiwan') {
+        setActiveSection('taiwan');
       } else {
         setActiveSection('tech');
       }
@@ -42,9 +83,9 @@ export default function App() {
       <div className="absolute top-[50%] left-[10%] w-[40vw] h-[40vw] bg-sky-500/5 rounded-full blur-[110px] pointer-events-none" />
 
       {/* Grid line pattern overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#141417_1px,transparent_1px),linear-gradient(to_bottom,#141417_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none opacity-40" />
+      <div className="absolute inset-0 theme-grid-lines bg-[linear-gradient(to_right,#141417_1px,transparent_1px),linear-gradient(to_bottom,#141417_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none opacity-40" />
       {/* Modern micro dotted mesh grid for high visual texture */}
-      <div className="absolute inset-0 bg-[radial-gradient(#27272a_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none opacity-[0.25]" />
+      <div className="absolute inset-0 theme-grid-dots bg-[radial-gradient(#27272a_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none opacity-[0.25]" />
 
       {/* Main sticky header navigation panel */}
       <Navigation
@@ -58,9 +99,12 @@ export default function App() {
             setBlogSectionInitialType('travel');
           }
           setActiveSection(sec);
+          window.location.hash = sec;
         }}
         mobileMenuOpen={mobileMenuOpen}
         setMobileMenuOpen={setMobileMenuOpen}
+        theme={theme}
+        toggleTheme={toggleTheme}
       />
 
       {/* Immersive core view area with page-change transitions */}
@@ -117,6 +161,24 @@ export default function App() {
             </motion.div>
           )}
 
+          {activeSection === 'taiwan' && (
+            <motion.div
+              key="taiwan"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.15 }}
+            >
+              <TaiwanDiaries 
+                onNavigateSection={(sec) => {
+                  setActiveSection(sec);
+                  window.location.hash = sec;
+                }}
+                initialPlaceId={initialTaiwanPlaceId}
+              />
+            </motion.div>
+          )}
+
           {activeSection === 'contact' && (
             <motion.div
               key="contact"
@@ -143,7 +205,7 @@ export default function App() {
               </span>
             </div>
             <p className="font-sans text-[11px] text-zinc-500 text-center md:text-left">
-              Systems Architect & Developer Platform Builder • Bengaluru, IN
+              Systems Architect • Indic Typography & Silicon Verification • Bengaluru, IN
             </p>
           </div>
 
@@ -192,7 +254,7 @@ export default function App() {
           {/* Copyright badge */}
           <div className="flex items-center space-x-1 font-mono text-[10px] text-zinc-500">
             <Copyright className="w-3.5 h-3.5" />
-            <span>2026 {SHREEHARSHA_BIO.domain}. All Rights Stated.</span>
+            <span>2026 {SHREEHARSHA_BIO.domain} • <span className="text-zinc-600 font-light">Shree</span><span className="text-zinc-300">harsha Perla</span>. All Rights Stated.</span>
           </div>
         </div>
       </footer>

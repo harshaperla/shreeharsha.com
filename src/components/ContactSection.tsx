@@ -170,7 +170,7 @@ export default function ContactSection() {
         <div className="bg-zinc-900/10 p-5 border border-zinc-800/20 rounded-xl text-left hidden lg:block">
           <span className="font-mono text-[9px] text-zinc-500 block uppercase">GUARANTEE PROMPT</span>
           <p className="font-sans text-xs text-zinc-400 leading-relaxed mt-2">
-            No automated email responses or canned customer workflows. Every system pipeline is audited and operated manually by Shreeharsha directly.
+            No automated email responses or canned customer workflows. Every system pipeline is audited and operated manually by Shreeharsha Perla directly.
           </p>
         </div>
       </div>
