@@ -132,6 +132,26 @@ export const TAIWAN_HIGHLIGHTS: TaiwanHighlightSlide[] = [
     imageUrl: '/taiwan/badouzi-trail.jpg',
     placeId: 'badouzi-trail',
   },
+  {
+    id: 'hl-taipei-101',
+    type: 'photo',
+    title: 'Taipei 101 Observatory: 508m Megatall Icon & 660-Tonne Wind Damper',
+    subtitle: 'Ultra-high-speed aerodynamic elevator, 89F panoramic night skyline, and the visible engineering marvel pendulum',
+    location: 'Xinyi District, Taipei City',
+    badge: 'DAY 3 • SKYSCRAPER & DAMPER',
+    imageUrl: '/taiwan/taipei-101-night-exterior.jpg',
+    placeId: 'taipei-101',
+  },
+  {
+    id: 'hl-xinyi-district',
+    type: 'photo',
+    title: 'Xinyi District & Xiangti Avenue: Dazzling Skybridge Cityscape',
+    subtitle: 'Illuminated tree-lined avenues, elevated pedestrian skywalks, and vibrant modern shopping architecture',
+    location: 'Xinyi District, Taipei City',
+    badge: 'DAY 3 • MODERN ARCHITECTURE & NIGHTLIFE',
+    imageUrl: '/taiwan/xiangti-avenue-plaza.jpg',
+    placeId: 'xinyi-district',
+  },
 ];
 
 export const TAIWAN_PLACES: TaiwanPlace[] = [
@@ -757,171 +777,537 @@ export const TAIWAN_PLACES: TaiwanPlace[] = [
         thumbnailUrl: '/taiwan/badouzi-trail.jpg'
       }
     ]
+  },
+
+  // ==========================================
+  // DAY 3 PLACES
+  // ==========================================
+  {
+    id: 'taipei-101',
+    name: 'Taipei 101 Observatory & Tuned Mass Damper',
+    chineseName: '台北101觀景台與風阻尼球',
+    category: 'landmark',
+    categoryLabel: 'Architectural Icon & Engineering',
+    thumbnail: '/taiwan/taipei-101-night-exterior.jpg',
+    oneLiner: 'Taiwan’s 508-meter bamboo-stepped megatall skyscraper, featuring the Guinness world-record 819 m/min pressurized elevator and a visible 660-tonne golden wind damper.',
+    tags: ['Taipei 101', 'Observatory', 'Wind Damper', 'Engineering Marvel', 'Xinyi'],
+    location: 'Xinyi District, Taipei City',
+    region: 'Taipei East (Xinyi)',
+    recommendedDuration: '2 - 2.5 Hours',
+    bestTime: 'Evening / Golden Hour into night for illuminated skyline and cloudscapes',
+    transitEase: 'Easy (Direct MRT)',
+    overview: [
+      'Soaring 508 meters above the Taipei Basin, Taipei 101 is an internationally renowned icon of modern Taiwanese engineering, culture, and sustainable architecture. Designed by C.Y. Lee & Partners, its tiered silhouette evokes a segmented stalk of blooming bamboo or a traditional multi-tier Chinese pagoda, symbolizing eternal resilience and perpetual upward growth.',
+      'Visitors board the Guinness World Record pressurized aerodynamic double-deck elevators, which blast passengers from the 5th floor shopping mall to the 89th floor indoor observatory in just 37 seconds at a blistering speed of 819 meters per minute (over 60 km/h) under an enchanting constellation-lit ceiling.',
+      'Between the 87th and 91st floors hangs the building’s crowning engineering marvel: a monumental 660-metric-ton golden steel Tuned Mass Damper (風阻尼球). Suspended by eight thick braided steel cables and visible to the public, this colossal pendulum sways dynamically to counteract typhoons and seismic vibrations, ensuring structural equilibrium and visitor comfort high above the clouds.'
+    ],
+    specialties: [
+      {
+        title: '660-Metric-Ton Tuned Mass Damper (風阻尼球)',
+        description: 'The world’s largest and heaviest publicly visible tuned mass damper sphere, engineered with 41 circular steel plates welded together to absorb up to 40% of tower sway during typhoons and earthquakes.'
+      },
+      {
+        title: 'Guinness World Record Pressurized Elevator (819 m/min)',
+        description: 'Aerodynamic rocket-fast elevators ascending 84 floors in 37 seconds, complete with automated atmospheric pressure regulation and starry celestial ceiling displays.'
+      },
+      {
+        title: '89F Indoor & Outdoor Observation Deck',
+        description: 'Floor-to-ceiling panoramic glass walls commanding 360-degree views across the illuminated neon grid of Taipei, surrounding mountain basins, and the Keelung River.'
+      },
+      {
+        title: 'Seasonal Installations & High-Altitude Garden',
+        description: 'Curated artistic floral gardens, illuminated crescent moon lounges, and interactive multi-media projections high above the city.'
+      }
+    ],
+    howToGo: {
+      metroOrTrain: 'Take Taipei MRT Red (Tamsui-Xinyi Line) directly to Taipei 101/World Trade Center Station (R03), Exit 4 opens right into the Taipei 101 Mall basement.',
+      bookingAndTickets: 'Observatory ticketing counter and elevator boarding entrance are located on the 5th floor of the Taipei 101 Mall. Advance online booking is recommended for sunset hours.',
+      easyCardInfo: 'Tap your EasyCard or Taipei FunPASS directly on the MRT Red Line to arrive effortlessly at station R03.',
+      tips: [
+        'Visit around 6:30 PM to catch the dramatic transition from twilight dusk to the blazing night skyline lights of Taipei.',
+        'Don\'t miss walking down the stairs between the 89th and 88th floors to stand directly in front of the massive golden damper ball.',
+        'Audio guide devices and multilingual interactive panoramic screens are available throughout the observation deck.'
+      ]
+    },
+    gallery: [
+      {
+        id: 't101-m1',
+        type: 'photo',
+        url: '/taiwan/taipei-101-night-exterior.jpg',
+        title: 'Taipei 101 Towering Night Silhouette',
+        caption: 'Looking up at the illuminated bamboo-segmented pagoda architecture of Taipei 101 rising into the night clouds.'
+      },
+      {
+        id: 't101-m2',
+        type: 'photo',
+        url: '/taiwan/taipei-101-damper-ball.jpg',
+        title: '660-Tonne Tuned Mass Damper Sphere',
+        caption: 'The immense golden steel pendulum suspended between the 87th and 91st floors to safeguard the tower against typhoons.'
+      },
+      {
+        id: 't101-m3',
+        type: 'photo',
+        url: '/taiwan/taipei-101-damper-specs.jpg',
+        title: 'Wind Damper Engineering Wall',
+        caption: 'Interactive specifications wall detailing the 5.5-meter diameter, 660-ton mass, and 40% sway reduction capabilities.'
+      },
+      {
+        id: 't101-m4',
+        type: 'photo',
+        url: '/taiwan/taipei-101-rain-tower.jpg',
+        title: 'Taipei 101 Piercing Monsoon Clouds',
+        caption: 'Atmospheric night shot of the illuminated crown and Chinese character LED displays glowing through rain mist.'
+      },
+      {
+        id: 't101-m5',
+        type: 'photo',
+        url: '/taiwan/taipei-101-observatory-interior.jpg',
+        title: '89F Observatory Traditional Garden Pavilion',
+        caption: 'The tranquil "Zhuangyuan Jidi" classical pavilion installation on the 89th floor observation deck overlooking the city.'
+      },
+      {
+        id: 't101-m6',
+        type: 'photo',
+        url: '/taiwan/taipei-101-moon-installation.jpg',
+        title: 'Illuminated Crescent Moon Observation Lounge',
+        caption: 'Artistic illuminated moon sculpture surrounded by starlight fairy drops inside the 89F panoramic hall.'
+      },
+      {
+        id: 't101-v1',
+        type: 'video',
+        url: '/taiwan/taipei-101-elevator.mp4',
+        title: 'Guinness Record Elevator Ascent (819 m/min)',
+        caption: 'Real video inside the pressurized aerodynamic elevator rocketing to the 89th floor in 37 seconds.',
+        duration: '0:30',
+        thumbnailUrl: '/taiwan/taipei-101-elevator-thumb.jpg'
+      },
+      {
+        id: 't101-v2',
+        type: 'video',
+        url: '/taiwan/taipei-101-damper.mp4',
+        title: 'Tuned Mass Damper Ball Up-Close',
+        caption: 'Video capturing the massive suspended golden sphere and Damper Baby mascot at 380 meters elevation.',
+        duration: '0:20',
+        thumbnailUrl: '/taiwan/taipei-101-damper-thumb.jpg'
+      }
+    ]
+  },
+  {
+    id: 'xinyi-district',
+    name: 'Xinyi Shopping District & Xiangti Avenue Plaza',
+    chineseName: '信義商圈與香緹大道廣場',
+    category: 'landmark',
+    categoryLabel: 'Urban Architecture & Nightlife',
+    thumbnail: '/taiwan/xiangti-avenue-plaza.jpg',
+    oneLiner: 'The dazzling modern heart of Taipei, connected by elevated pedestrian skybridges, illuminated tree-lined avenues, luxury malls, and vibrant evening street energy.',
+    tags: ['Xinyi District', 'Xiangti Avenue', 'Skybridge Walk', 'Shopping', 'Nightlife', 'Taipei 101'],
+    location: 'Xinyi District, Taipei City',
+    region: 'Taipei East (Xinyi)',
+    recommendedDuration: '1.5 - 2 Hours',
+    bestTime: 'Night (7:00 PM – 10:30 PM) when all fairy lights and neon facades illuminate',
+    transitEase: 'Easy (Direct MRT)',
+    overview: [
+      'Often celebrated as the "Manhattan of Taipei," the Xinyi Commercial District (信義商圈) is Taiwan\'s premier epicenter of international commerce, luxury fashion, modern architecture, and kinetic nightlife.',
+      'What sets Xinyi apart from conventional metropolitan business districts is its visionary second-story pedestrian skybridge network. Travelers can stroll seamlessly between Taipei 101, ATT 4 FUN, Shin Kong Mitsukoshi, and Breeze Nan Shan entirely above street traffic, enjoying open-air lookouts onto glowing neon billboards and bustling avenues below.',
+      'At the district’s core lies Xiangti Avenue Plaza (香緹大道廣場)—a pedestrian-only promenade lined with majestic trees adorned with year-round fairy lights. Here, open-air cafes, street musicians, pop-up artisan installations, and upscale department stores create an unforgettable urban evening ambiance.'
+    ],
+    specialties: [
+      {
+        title: 'Second-Story Elevated Skybridge Network',
+        description: 'Miles of continuous covered and open-air pedestrian bridges linking multiple mega-malls, allowing visitors to walk above street level without waiting at traffic intersections.'
+      },
+      {
+        title: 'Xiangti Avenue Plaza Fairy-Light Promenade',
+        description: 'Vibrant tree-lined central walking boulevard illuminated with thousands of fairy lights, hosting live buskers, street acrobats, and outdoor pop-ups.'
+      },
+      {
+        title: 'World-Class Gastronomy & Rooftop Lounges',
+        description: 'From Michelin-starred Taiwanese dumplings at Din Tai Fung to high-altitude cocktail terraces and late-night artisan tea salons.'
+      },
+      {
+        title: 'Architectural Skyline Panoramas',
+        description: 'Unmatched ground-level and skybridge vantage points framing the full illuminated vertical stature of Taipei 101 alongside modern glass towers.'
+      }
+    ],
+    howToGo: {
+      metroOrTrain: 'Take Taipei MRT Blue (Bannan Line) to Taipei City Hall Station (BL18), Exit 3; or Red Line to Taipei 101/World Trade Center Station (R03). Both stations connect directly into the Xinyi skybridge walkways.',
+      easyCardInfo: 'EasyCard and Taipei FunPASS accepted across all metro stations and YouBike docking stations bordering the pedestrian plazas.',
+      tips: [
+        'Walk along the second-floor skybridge connecting ATT 4 FUN and Shin Kong Mitsukoshi for the most photogenic night view of Taipei 101 towering above.',
+        'Visit on weekend evenings when Xiangti Avenue comes alive with talented local acoustic musicians and street magicians.',
+        'A wonderful evening pairing right after descending from the Taipei 101 Observatory.'
+      ]
+    },
+    gallery: [
+      {
+        id: 'xy-m1',
+        type: 'photo',
+        url: '/taiwan/xiangti-avenue-plaza.jpg',
+        title: 'Xiangti Avenue Plaza Fairy-Light Promenade',
+        caption: 'The glittering tree-lined pedestrian avenue between Shin Kong Mitsukoshi department stores illuminated with fairy lights.'
+      },
+      {
+        id: 'xy-m2',
+        type: 'photo',
+        url: '/taiwan/xinyi-skybridge-night.jpg',
+        title: 'Elevated Skybridge Overlooking Xinyi Nightlife',
+        caption: 'Standing on the pedestrian skywalk framing illuminated skyscrapers and glowing neon billboards in Xinyi.'
+      },
+      {
+        id: 'xy-m3',
+        type: 'photo',
+        url: '/taiwan/xinyi-mitsukoshi-night.jpg',
+        title: 'Shin Kong Mitsukoshi Luxury Arcade',
+        caption: 'Modern department store corridors and covered shopping colonnades buzzing with evening shoppers.'
+      },
+      {
+        id: 'xy-v1',
+        type: 'video',
+        url: '/taiwan/xiangti-avenue-walk.mp4',
+        title: 'Xiangti Avenue Skybridge Walk Video',
+        caption: 'Walking along the elevated open-air skybridge surrounded by glowing trees and modern city lights.',
+        duration: '0:15',
+        thumbnailUrl: '/taiwan/xiangti-avenue-walk-thumb.jpg'
+      }
+    ]
   }
 ];
 
-export interface TaiwanFact {
+export interface TaiwanObservation {
   id: string;
-  category: 'transit' | 'convenience' | 'food' | 'civic';
+  category: 'culture' | 'transit' | 'convenience' | 'civic' | 'food';
   categoryLabel: string;
   title: string;
   chineseTitle?: string;
+  story: string;
+  imageUrl?: string;
+  imageCaption?: string;
+  iconName: 'Flame' | 'Sparkles' | 'Train' | 'Store' | 'Utensils' | 'Music' | 'ShieldCheck' | 'Umbrella' | 'Smile' | 'Receipt';
+  moments: string[];
+  personalReflection: string;
+  // Aliases for compatibility
   summary: string;
-  iconName: 'Train' | 'Store' | 'Utensils' | 'Music' | 'ShieldCheck' | 'Umbrella' | 'Smile' | 'Receipt';
   details: string[];
   etiquetteTip: string;
 }
 
-export const TAIWAN_FACTS: TaiwanFact[] = [
+export type TaiwanFact = TaiwanObservation;
+
+export const TAIWAN_OBSERVATIONS: TaiwanObservation[] = [
   {
-    id: 'fact-escalator',
+    id: 'obs-paper-burning',
+    category: 'culture',
+    categoryLabel: 'Spiritual Culture & Rituals',
+    title: 'Sidewalk Furnaces: Sending Gold Currency to Ancestors',
+    chineseTitle: '燒金紙 (Shāo Jīnzhǐ)',
+    imageUrl: '/taiwan/joss-paper-burning.jpg',
+    imageCaption: 'Stainless-steel furnace smoking on the sidewalk as locals fold and burn gold joss paper currency for ancestors.',
+    story: 'Walking down the sidewalks of Wanhua and narrow alleys off Taipei Main Station, I was stopped in my tracks by the smell of burning paper and woodsmoke. Right outside modern storefronts and tea shops, locals had placed circular stainless-steel barrel furnaces directly on the pavement. Shopkeepers, grandmothers, and young workers in sneakers were standing by the curb, rhythmically folding thick stacks of gold and silver foil ghost paper (joss money) and feeding them into the fire one by one. It wasn\'t an isolated temple ceremony—it was an everyday community duty. On the 1st and 15th days of the lunar month, the city\'s sidewalks turn into an open-air conduit sending financial blessings to ancestors and the local Earth God (Tudi Gong).',
+    iconName: 'Flame',
+    moments: [
+      'Locals giving each sheet a gentle crease before tossing it into the furnace so oxygen circulates and it combusts without heavy smoke.',
+      'High-tech computer repair shops with neon signs operating normally while a traditional steel fire barrel smoked peacefully on their front curb.',
+      'Larger temples using specialized eco-furnaces with localized negative-pressure air filtration to catch particulates while preserving ancient spiritual duty.'
+    ],
+    personalReflection: 'What struck me was the complete lack of cognitive dissonance. In the heart of an ultra-modern Asian tech capital, feeding stacks of gold paper currency to the spirit realm is as natural and honored as answering an email.',
+    summary: 'Sidewalk stainless-steel furnaces burning gold and silver joss paper currency for ancestors and Earth Gods on the 1st and 15th of the lunar month.',
+    details: [
+      'Locals giving each sheet a gentle crease before tossing it into the furnace so oxygen circulates and it combusts cleanly.',
+      'High-tech computer repair shops with neon signs operating normally while a traditional steel fire barrel smoked peacefully on their front curb.',
+      'Larger temples using specialized eco-furnaces with localized negative-pressure air filtration to catch particulates.'
+    ],
+    etiquetteTip: 'Do not step over burning furnaces on sidewalks or touch offerings; walk respectfully around the smoke.'
+  },
+  {
+    id: 'obs-temple-snacks',
+    category: 'culture',
+    categoryLabel: 'Spiritual Culture & Rituals',
+    title: 'Oreos, HeySong Soda & Green Kuai Kuai for the Gods',
+    chineseTitle: '拜拜零食：神明的現代下午茶',
+    imageUrl: '/taiwan/temple-kuai-kuai-altar.jpg',
+    imageCaption: 'Green Kuai Kuai coconut puffs, Oreo biscuits, and cold sodas stacked on temple altars as modern offerings.',
+    story: 'Inside Longshan Temple and the elevated mountain hall of Qingyun Temple, I anticipated the traditional offering tables stacked with pomelos, apples, and yellow chrysanthemums. But as I walked up close to the altars, I broke into a smile: stacked neatly on the round red plastic offering plates were six-packs of HeySong Sarsaparilla, family-size boxes of Oreo cookies, chilled bottled green teas, Doritos, and bright green bags of coconut Kuai Kuai corn puffs! Worshippers bow devoutly with smoldering sandalwood incense in hand, then place their favorite convenience store snacks right at the feet of Guanyin and the Shennong Emperor.',
+    iconName: 'Sparkles',
+    moments: [
+      'The legendary green "Kuai Kuai" (乖乖) packs: since "Kuai Kuai" means "be good" or "listen obediently", people offer green packs to gods, and famously place them on top of factory machines, office computers, and ATM servers across Taiwan so they run smoothly without errors.',
+      'Families praying together, leaving the packaged treats on the altar during their prayers, and then packing them into tote bags to take home as blessed snacks for their children.',
+      'Zero formality barriers: you offer the deities whatever brings you joy in your real daily life.'
+    ],
+    personalReflection: 'I loved how warm, down-to-earth, and affectionate this felt. The gods here aren\'t treated as aloof or stern judges; worshippers bring them afternoon tea and favorite treats like beloved grandparents visiting for the weekend.',
+    summary: 'Altars laden with Oreo biscuits, canned cold sodas, bubble tea, and green coconut Kuai Kuai puffs alongside traditional incense.',
+    details: [
+      'The green "Kuai Kuai" (乖乖) talisman: offered to gods and placed on computers across Taiwan so systems "behave" without crashing.',
+      'Families taking the blessed snack packages home after worship to share good luck with children.',
+      'Deities are treated with familiar warmth, receiving real everyday treats rather than distant formal offerings.'
+    ],
+    etiquetteTip: 'Notice the green Kuai Kuai bags resting on office servers and temple altars; only the green coconut flavor is used because green signals "system running normal".'
+  },
+  {
+    id: 'obs-escalator',
     category: 'transit',
-    categoryLabel: 'MRT & Transit Etiquette',
-    title: 'Escalator Rule: Stand on the Right, Walk on the Left',
+    categoryLabel: 'Transit & Metro Observations',
+    title: 'The Right-Side Escalator Pact: Silent Commuter Choreography',
     chineseTitle: '電梯靠右站立',
-    summary: 'Across all metro and railway stations, commuters stand strictly on the right side of escalators, keeping the left lane open for walkers.',
+    imageUrl: '/taiwan/mrt-escalator-etiquette.jpg',
+    imageCaption: 'Taipei MRT commuters standing in single file strictly on the right side of escalators, leaving the left open.',
+    story: 'My very first morning navigating the underground transfer labyrinth at Taipei Main Station, I was captivated by the escalators. Without a single station guard barking orders or a loudspeaker reminder, hundreds of bustling commuters instinctively stepped strictly onto the right side of every moving stairway. A flawless, silent single-file line formed naturally, leaving the entire left lane open like a high-speed express overtaking corridor for those walking up in a hurry.',
     iconName: 'Train',
-    details: [
-      'Even during packed morning and evening rush hours, single-file lines naturally form at the base of every escalator with total civil courtesy.',
-      'While transit authorities officially promote standing on both sides for passenger throughput, the etiquette is so deeply ingrained in Taiwanese civic muscle memory that locals intuitively maintain the custom.',
-      'Standing stationary on the left side during a rush will quickly earn you a gentle, polite "不好意思" (Bù hǎoyìsi) or light tap on the shoulder.'
+    moments: [
+      'Even at the height of morning rush hour with thousands pouring through the turnstiles, the left side remained completely unobstructed.',
+      'If a traveler with bulky luggage stood on the left by mistake, no one yelled or sighed; someone would just offer a soft "Bù hǎoyìsi" with a gentle head tilt, and the person immediately tucked in.',
+      'Transit authorities have actually posted notices saying riders can stand on both sides to balance wear, but the civic custom is so deep in commuters\' muscle memory that everyone keeps the lane open anyway.'
     ],
-    etiquetteTip: 'Always step onto the right side immediately. If carrying luggage or a backpack, keep it directly in front of you on the same step to leave the left side clear.'
+    personalReflection: 'It was my first glimpse of Taiwan\'s spontaneous collective consideration: individuals instinctively giving up half of their space so that strangers in a rush can move freely.',
+    summary: 'Commuters standing strictly on the right side of every moving escalator, keeping the left lane open for walkers.',
+    details: [
+      'Flawless single-file lines forming naturally at every station escalator without station staff intervention.',
+      'Gentle social correction: standing on the left prompts polite soft-spoken reminders.',
+      'Deeply ingrained in civic muscle memory despite official balance advisories.'
+    ],
+    etiquetteTip: 'Step onto the right side immediately upon boarding escalators, keeping bags in front of you.'
   },
   {
-    id: 'fact-yellow-line',
+    id: 'obs-yellow-line',
     category: 'transit',
-    categoryLabel: 'MRT & Transit Etiquette',
-    title: 'The Yellow Line: Zero Food, Drinks, or Chewing Gum',
+    categoryLabel: 'Transit & Metro Observations',
+    title: 'The Sacred Yellow Line: A Subway So Clean You Could Sleep On It',
     chineseTitle: '捷運黃線禁食區',
-    summary: 'The moment your foot crosses the bright yellow line at any MRT station, eating, drinking water, and chewing gum are strictly prohibited by law.',
+    imageUrl: '/taiwan/taoyuan-airport-walkway.jpg',
+    imageCaption: 'Spotless metro walkways and clear yellow floor boundaries where eating and drinking are strictly forbidden.',
+    story: 'Right at the entrance gates of every Taipei MRT station, a bold, thick yellow stripe is painted across the granite floor. The moment your foot crosses that line, all food, drinks, chewing gum, and even taking a sip of plain drinking water become strictly illegal. I watched commuters downing the last gulp of their iced tea two feet before the line, slipping the cup into a carry sleeve, and tapping through with entirely clean hands.',
     iconName: 'Train',
-    details: [
-      'Violations are enforced with strict fines ranging from NT$1,500 to NT$7,500 (~$50 to $250 USD).',
-      'This uncompromising rule is why Taipei MRT is celebrated internationally as one of the cleanest, safest, and most odorless subway networks in the world—no sticky floors, no spilled cups, and no pests.',
-      'Even taking a quick sip of plain water or holding an open bubble tea cup can prompt friendly reminders from station staff or fellow riders.'
+    moments: [
+      'Over days of riding lines from Taoyuan to Danshui, I did not spot a single stray cup, grease stain, sticky drip, or stray wrapper on any station floor or train seat.',
+      'The complete absence of subway odor: no fried food smells, no coffee spills, and no sticky handrails.',
+      'Enforced by strict statutory fines (NT$1,500 – NT$7,500), but sustained primarily by shared civic pride.'
     ],
-    etiquetteTip: 'Finish or pack away all snacks, water bottles, and boba cups deep into your bag before tapping your EasyCard through the turnstile gates.'
+    personalReflection: 'It proved to me that public transit doesn\'t have to be grimy or neglected. The collective discipline produces what is hands-down the cleanest, most comfortable subway network I have ridden anywhere.',
+    summary: 'Strict prohibition of food, drinks, chewing gum, and water the instant you cross the yellow line at MRT stations.',
+    details: [
+      'Zero tolerance enforced by fines, leading to pristine, odorless stations and train cars.',
+      'Commuters carrying cups in fabric drink sleeves with straws capped.',
+      'Universal civic compliance without visible police enforcement.'
+    ],
+    etiquetteTip: 'Finish or pack away all water bottles and drinks deep into your daypack before passing turnstiles.'
   },
   {
-    id: 'fact-convenience',
+    id: 'obs-convenience-hub',
     category: 'convenience',
     categoryLabel: 'Everyday Convenience',
-    title: '7-Eleven & FamilyMart: The Ultimate Life Support Hubs',
+    title: '7-Eleven & FamilyMart: The Real Neighborhood Living Rooms',
     chineseTitle: '便利商店萬能生活圈',
-    summary: 'With over 13,000 stores island-wide, Taiwan has one of the world’s highest densities of 24/7 convenience stores that do far more than sell snacks.',
+    imageUrl: '/taiwan/7eleven-tea-eggs.jpg',
+    imageCaption: 'Simmering pots of herbal tea eggs infused with black tea and spices at the 7-Eleven counter.',
+    story: 'Within 24 hours of landing, I realized that convenience stores in Taiwan belong in a completely different category than what we know elsewhere. With two or three stores on virtually every block, they function as neighborhood community centers. The moment the sliding door chimes, you are greeted by the comforting aroma of black tea and star anise wafting from cauldrons of simmering herbal tea eggs (茶葉蛋), alongside roasted sweet potatoes and hot oden broths.',
     iconName: 'Store',
-    details: [
-      'A single store allows you to pay utility bills and taxes, pick up and ship e-commerce parcels, call a taxi, print documents from your smartphone, buy high-speed rail tickets, and recharge transit cards.',
-      'Every store features sit-down dining counters, clean restrooms, simmering cauldrons of herbal tea eggs (茶葉蛋), hot roasted sweet potatoes, and fresh oden broth.',
-      'Open 24/7/365 in every neighborhood, they serve as brightly illuminated safe havens and essential social infrastructure.'
+    moments: [
+      'Seeing neighborhood residents sitting at counter tables charging phones, schoolkids doing homework, and elderly friends chatting over NT$35 Americanos.',
+      'The all-in-one "ibon" and "FamiPort" multi-function kiosks: in five minutes you can pay residential electricity bills, buy high-speed rail tickets, print color photos straight from your phone, and ship parcels across the country.',
+      'Open 24/7/365, brightly illuminated, providing an omnipresent safety net and welcoming warmth on any dark street.'
     ],
-    etiquetteTip: 'Do not throw away your receipts! Every Taiwanese receipt is an official government lottery ticket with cash prizes up to NT$10M (see Invoice Lottery).'
+    personalReflection: 'You never feel alone or stranded in Taiwan. No matter what hour it is or what neighborhood you find yourself in, there is a warm, glowing refuge two minutes away.',
+    summary: '24/7 convenience store hubs serving as community living rooms, post offices, dining rooms, and bill-payment centers.',
+    details: [
+      'Simmering tea eggs, roasted sweet potatoes, and hot oden counters welcoming customers.',
+      'Sit-down dining counters equipped with power outlets, Wi-Fi, and clean public restrooms.',
+      'Over 13,000 stores nationwide creating an omnipresent neighborhood safety net.'
+    ],
+    etiquetteTip: 'Hold onto your paper receipts—every store receipt is an official national lottery ticket.'
   },
   {
-    id: 'fact-garbage-trucks',
+    id: 'obs-musical-garbage',
     category: 'civic',
-    categoryLabel: 'Civic Culture & Ecology',
-    title: 'The Musical Garbage Trucks & Zero-Waste Civic Ritual',
-    chineseTitle: '音樂垃圾車與資源回收',
-    summary: 'There are virtually no public street trash cans in Taiwan, yet cities are exceptionally clean thanks to a daily musical recycling ritual.',
+    categoryLabel: 'Neighborhood Life & Habits',
+    title: 'Beethoven\'s Für Elise: The Neighborhood Nightly Trash Ritual',
+    chineseTitle: '音樂垃圾車與鄰里相聚',
+    imageUrl: '/taiwan/musical-garbage-truck.jpg',
+    imageCaption: 'A bright yellow garbage truck playing Für Elise as apartment neighbors assemble with sorted recycling bags.',
+    story: 'One evening around 7:15 PM while walking through a quiet residential neighborhood, I began hearing a familiar chime echoing down the street: a high-pitched, cheerful rendition of Beethoven\'s "Für Elise" playing through a loudspeaker. Suddenly, front gates clicked open all along the lane. Apartment dwellers of all ages stepped out onto the sidewalk carrying blue official government trash bags, compost pails, and flattened cardboard boxes, waiting for the bright yellow garbage truck to pull up.',
     iconName: 'Music',
-    details: [
-      'To prevent littering and vermin, street bins were phased out. Citizens carry their personal trash home or discard small items at convenience store sorting stations.',
-      'Twice daily, bright yellow collection trucks play Beethoven’s "Für Elise" or Tekla Bądarzewska’s "Maiden’s Prayer" through loudspeakers as they drive through neighborhoods.',
-      'When the classical music chimes, whole apartment blocks spill out onto sidewalks holding color-coded official waste bags, compost pails, and recyclables to chat with neighbors.'
+    moments: [
+      'Neighbors chatting and trading evening greetings while waiting in an orderly roadside line.',
+      'Tossing bags directly into the truck compactor yourself: there are no roadside dumpsters sitting out in Taiwan, which eliminates street odors and rodent issues entirely.',
+      'Rigorous sorting: a second truck trails behind specifically taking separated plastics, glass, paper, and food scraps for pig feed or composting.'
     ],
-    etiquetteTip: 'Keep a small plastic bag in your daypack to hold fruit peels or tissue until you return to your hotel or find a convenience store recycling bin.'
+    personalReflection: 'By taking away static street dumpsters and turning collection into a musical, synchronized neighborhood ritual, Taiwan transformed waste disposal from an unsightly problem into a civic social event.',
+    summary: 'Classical music chiming through streets twice daily as neighbors gather to hand-deliver sorted recycling.',
+    details: [
+      'No permanent street dumpsters, eliminating odors and keeping sidewalks immaculate.',
+      'Residents purchasing official municipal color-coded bags to fund recycling infrastructure.',
+      'An evening communal ritual where apartment neighbors meet and chat on the street.'
+    ],
+    etiquetteTip: 'Keep a small pouch in your daypack for personal wrappers, as public street bins are rare.'
   },
   {
-    id: 'fact-easycard',
+    id: 'obs-funpass',
+    category: 'transit',
+    categoryLabel: 'Transit & Day Passes',
+    title: 'Taipei FunPASS 1-Day: The Unlimited Transit Passport',
+    chineseTitle: '台北交通暢遊一日券 (Taipei FunPASS)',
+    imageUrl: '/taiwan/taipei-funpass-1day.jpg',
+    imageCaption: 'My physical Taipei FunPASS 1-Day Transportation Pass featuring Jiufen tea kettle and crimson lantern artwork.',
+    story: 'When setting out for a packed day hopping between Taipei\'s rapid subway lines and regional buses, the physical Taipei FunPASS 1-Day Transportation Pass (交通暢遊 一日券) was an absolute game-changer. The card itself is a keepsake piece of art—illustrated with a copper tea kettle, quaint stone mountain steps, and crimson lanterns reminiscent of Jiufen. From the moment I first tapped it at the MRT turnstile, it unlocked unlimited rides across the entire Taipei MRT network, New Taipei City buses, and five dedicated Taiwan Tourist Shuttle routes. I didn\'t have to calculate individual zone fares, count coins, or monitor my balance; I just tapped, explored, and hopped from station to station with total freedom.',
+    iconName: 'Train',
+    moments: [
+      'Artistic keepsake design: unlike plain generic plastic transit tokens, the physical card features hand-painted tea culture and mountain village motifs.',
+      'Comprehensive coverage: valid for unlimited rides on all Taipei MRT subway lines, city buses, and 5 key tourist shuttle routes (including routes to Jiufen, Pingxi, and northern coastlines) for the entire calendar day.',
+      'Effortless tap-and-go: no transaction friction or reloading required at kiosks—simply tap the reader at metro turnstiles or bus fare boxes and glide through.'
+    ],
+    personalReflection: 'Having an unlimited day pass fundamentally changes how you explore a city. Instead of hesitating about whether a spontaneous two-stop detour is "worth the fare", you just jump on the next train and follow your curiosity.',
+    summary: 'Unlimited 1-day travel across Taipei MRT, city buses, and 5 scenic tourist shuttle routes on a beautifully illustrated physical card.',
+    details: [
+      'Valid for unlimited rides on Taipei MRT, Taipei City buses, and New Taipei City buses on the day of first tap.',
+      'Includes 5 Taiwan Tourist Shuttle routes servicing mountain villages and coastal heritage areas.',
+      'Beautifully illustrated physical collectible card with Jiufen tea and red lantern artwork.'
+    ],
+    etiquetteTip: 'The 1-Day Pass is activated upon your very first tap and remains valid until the last scheduled train of that calendar day.'
+  },
+  {
+    id: 'obs-easycard',
     category: 'convenience',
     categoryLabel: 'Everyday Convenience',
-    title: 'The Universal EasyCard (悠遊卡 - Yōuyóu Kǎ)',
-    chineseTitle: '一卡在手的悠遊生活',
-    summary: 'A single contactless RFID smart card that effortlessly unifies Taiwan’s entire transit, bike-share, and retail payment ecosystems.',
+    title: 'The Ubiquitous EasyCard: Taiwan’s Contactless Lifeline',
+    chineseTitle: '一卡在手的悠遊生活 (Yōuyóu Kǎ)',
+    imageUrl: '/taiwan/taiwan-easycard-wachifield.jpg',
+    imageCaption: 'My collectible Wachifield Dayan Cat edition Taiwan EasyCard with contactless smart transit chip.',
+    story: 'While the FunPASS was my unlimited key for intensive transit days, the standard EasyCard (悠遊卡 - Yōuyóu Kǎ) is the true cashless lifeblood of Taiwan. I loaded NT$500 onto it at the airport, and it practically replaced cash for the entire journey. It isn\'t just a transit card—it is accepted across TRA regional railways, Taipei and Kaohsiung metros, High Speed Rail unreserved cars, YouBike street bicycle docks, and virtually every 7-Eleven, FamilyMart, and night market fruit stand on the island.',
     iconName: 'Receipt',
-    details: [
-      'Accepted across Taipei & Kaohsiung MRT, TRA regional railways, THSR bullet trains (non-reserved cars), metropolitan city buses, and coastal ferries.',
-      'Seamlessly unlocks YouBike street bicycles, pays for parking garages, taxis, vending machines, zoo entries, and purchases at supermarkets and night market stalls.',
-      'You can find creative novelty EasyCards shaped like miniature bubble tea cups, instant noodle bowls, and lucky amulets that beep at the gates.'
+    moments: [
+      'Locals tapping novelty EasyCards shaped like miniature 3D bubble tea cups, pocket-sized instant ramen bowls, and cartoon lucky charms dangling from keychains.',
+      'Built-in transfer discounts: transferring between the MRT and a municipal city bus within 60 minutes automatically discounts the fare.',
+      'Zero lag at the gates: you just graze the card against the sensor without breaking stride, while also using it to buy chilled tea eggs at 7-Eleven.'
     ],
-    etiquetteTip: 'Keep at least NT$200 loaded on your card. Tapping between the MRT and city buses within one hour yields automatic transit transfer discounts.'
+    personalReflection: 'It is the gold standard of public transit and micro-payment integration. Combined with the 1-Day FunPASS for heavy sightseeing days, traveling across Taiwan feels completely frictionless.',
+    summary: 'A unified contactless RFID smart card powering subways, bullet trains, YouBikes, and night markets.',
+    details: [
+      'Universal acceptance across Taipei and Kaohsiung metro, regional railways, and mountain buses.',
+      'Creative novelty cards shaped like mini boba cups and lucky amulets.',
+      'Automatic transfer discounts between subway lines and metropolitan buses.'
+    ],
+    etiquetteTip: 'Keep both: use the 1-Day FunPASS for high-density transit days, and your EasyCard for YouBikes, regional trains, and convenience store bites.'
   },
   {
-    id: 'fact-boba-culture',
+    id: 'obs-boba-science',
     category: 'food',
-    categoryLabel: 'Food & Night Market Culture',
-    title: 'Boba Customization: Precision Handcrafted Tea Rituals',
-    chineseTitle: '手搖飲客製化哲學',
-    summary: 'Invented in Taiwan in the 1980s, ordering fresh made-to-order tea is an exact, highly personalized cultural science.',
+    categoryLabel: 'Culinary Culture',
+    title: 'The Exact Science of Boba: Tailoring Sweetness & Ice',
+    chineseTitle: '手搖飲的客製哲學',
+    imageUrl: '/taiwan/boba-customization.jpg',
+    imageCaption: 'A tea shop menu chart displaying sweetness (100% to 0%) and ice levels next to freshly sealed drinks.',
+    story: 'Ordering tea in Taiwan is a serious personal customization ritual. The first time I stepped up to a neighborhood tea counter, the barista looked at me with pen poised, ready to record my exact specifications: Sweetness (100% Regular, 70% Less, 50% Half, 30% Micro, or 0% Sugar-Free) and Ice Level (Regular, Less Ice, No Ice, or Warm). It\'s not a generic drink poured from a pitcher; it\'s tailored on the spot like a chemist\'s formulation.',
     iconName: 'Utensils',
-    details: [
-      'Every order is customized across Sweetness (甜度): Regular 100%, Less 70%, Half 50%, Micro 30%, or Sugar-Free 0%; and Ice Level (冰塊): Regular, Less Ice, No Ice, Room Temp, or Hot.',
-      'Toppings span far beyond tapioca pearls: grass jelly (仙草), coconut nata de coco, egg pudding, taro balls, and salted cheese foam.',
-      'Under nationwide environmental policy, bringing your own reusable cup earns an instant NT$5 discount at every beverage stand.'
+    moments: [
+      'Locals almost universally ordering "Micro Sugar" (微糖, 30%) with roasted Alishan high-mountain oolong, so the subtle floral tea aroma isn\'t overwhelmed by syrup.',
+      'The hypnotic sound of the mechanical shaker arms vigorously blending the tea with ice, followed by the heat-sealer stamping the plastic lid with a soft hiss.',
+      'Nationwide green incentive: pulling out your own reusable tumbler earns an immediate NT$5 discount on every drink.'
     ],
-    etiquetteTip: 'If you prefer natural tea aroma without excessive sweetness, "Half Sugar" (半糖, 50%) or "Micro Sugar" (微糖, 30%) is the local sweet spot.'
+    personalReflection: 'It elevates everyday street drinks into an artisanal craft where everyone has their own finely tuned formula.',
+    summary: 'Precision handcrafted tea ordering customized by exact percentage of sweetness and temperature of ice.',
+    details: [
+      'Five standard sweetness levels and four temperature/ice choices on every menu.',
+      'Freshly brewed whole-leaf tea bases rather than instant powders or concentrates.',
+      'Instant NT$5 discount at every shop when bringing your own reusable tumbler.'
+    ],
+    etiquetteTip: 'Try "Micro Sugar" (30%) and "Less Ice" for the ideal balance of tea fragrance and chewy boba texture.'
   },
   {
-    id: 'fact-bu-haoyisi',
+    id: 'obs-bu-haoyisi',
     category: 'civic',
-    categoryLabel: 'Civic Culture & Etiquette',
-    title: 'The Magic Phrase: "Bù Hǎoyìsi" (不好意思)',
-    chineseTitle: '台灣的社交潤滑劑：不好意思',
-    summary: 'The most commonly spoken phrase on the island, expressing modesty, respect, consideration, and social harmony.',
+    categoryLabel: 'Social Habits & Warmth',
+    title: 'The Island\'s Magic Phrase: "Bù Hǎoyìsi"',
+    chineseTitle: '不好意思的日常溫柔',
+    imageUrl: '/taiwan/ximending.jpg',
+    imageCaption: 'Bustling pedestrian streets where "Bù Hǎoyìsi" is exchanged with gentle head tilts to keep interactions serene.',
+    story: 'If there is one phrase that defines the auditory landscape of Taiwan, it is "Bù Hǎoyìsi" (不好意思). I heard it dozens of times every single day—on crowded trains, at restaurant counters, in elevator doorways, and on street crossings. It is impossible to translate with a single English word because it simultaneously expresses "excuse me", "pardon me", "sorry to trouble you", and "thank you for your kindness".',
     iconName: 'Smile',
-    details: [
-      'It translates simultaneously as "excuse me", "pardon me", "sorry to bother you", and "thank you for your trouble".',
-      'Locals use it to step through a crowded train door, flag down a restaurant server, apologize for a minor inconvenience, or acknowledge a kind gesture.',
-      'It embodies Taiwan’s soft-spoken empathy and collective desire to put others at ease.'
+    moments: [
+      'Commuters murmuring it softly with a gentle head nod as they slide past you to reach a train door.',
+      'Waiters saying it before setting a plate down on your table, expressing respect for interrupting your conversation.',
+      'How instantly it softens the social atmosphere: the moment someone says "Bù hǎoyìsi", any potential tension vanishes.'
     ],
-    etiquetteTip: 'Using "Bù hǎoyìsi" paired with a slight head nod will instantly dissolve any awkward social barrier and elicit warm local smiles.'
+    personalReflection: 'It embodies Taiwan\'s profound collective empathy. People are constantly, gently signaling that they are trying not to inconvenience anyone around them.',
+    summary: 'The versatile cultural phrase expressing modesty, respect, consideration, and social warmth.',
+    details: [
+      'Used universally to excuse oneself, initiate a question, or acknowledge kindness.',
+      'Accompanied by a gentle head nod that immediately dissolves interpersonal friction.',
+      'Reflects an island culture deeply attentive to the comfort of others.'
+    ],
+    etiquetteTip: 'A soft "Bù hǎoyìsi" with a slight nod opens doors and elicits instant local smiles.'
   },
   {
-    id: 'fact-safety-trust',
+    id: 'obs-trust-paradox',
     category: 'civic',
-    categoryLabel: 'Civic Culture & Etiquette',
-    title: 'The Trust Paradox: Table "Chope" Culture & Public Safety',
+    categoryLabel: 'Social Habits & Warmth',
+    title: 'The Trust Paradox: Laptops on Unattended Tables',
     chineseTitle: '令人安心的社會信任',
-    summary: 'Taiwan consistently ranks among the top 3 safest societies globally, fostering an extraordinary level of everyday trust.',
+    imageUrl: '/taiwan/ximending-street-1.jpg',
+    imageCaption: 'Lively, secure open cafe streets where belongings are left untouched while owners step away.',
+    story: 'While sitting in a busy coffee shop near Ximending, I watched a college student get up, leave her MacBook, smartphone, and leather purse sitting in plain view on an open table, and walk away to the restroom for ten minutes. Nobody glanced twice, and nobody touched her things. Later, in food courts and night markets, I saw people leave phones and umbrella handles on empty tables to "chope" (reserve) their spot while ordering food.',
     iconName: 'ShieldCheck',
-    details: [
-      'In crowded cafes and night market food courts, patrons routinely leave smartphones, wallets, or laptops unattended on tables to reserve a seat while ordering.',
-      'Lost items—including phones, bags, and transit cards containing hundreds of dollars—turned into police or metro lost-and-found stations are returned intact over 90% of the time.',
-      'Solo travelers, particularly women, frequently note the reassuring feeling of safety walking through quiet suburban alleyways late at night.'
+    moments: [
+      'Walking through dimly lit alleys in Wanhua late at night with zero sense of threat, vigilance, or anxiety.',
+      'Stories from expats of dropping transit cards or wallets on buses and finding them intact at the terminal lost-and-found station the next afternoon.',
+      'High personal accountability: public trust is maintained because everyone feels ownership over the community space.'
     ],
-    etiquetteTip: 'While standard situational awareness is always prudent, you will immediately feel the liberating sense of community peace in public spaces.'
+    personalReflection: 'Experiencing a true high-trust society in person is deeply liberating. It reminds you how much mental energy we normally spend on defensive caution elsewhere.',
+    summary: 'Extraordinary public safety where phones and laptops are routinely left unattended to hold cafe seats.',
+    details: [
+      'Consistently ranked among the top 3 safest places globally with minimal street crime.',
+      'High return rates for lost wallets, phones, and transit cards handed into police.',
+      'Solo travelers walking suburban alleyways at midnight with total peace of mind.'
+    ],
+    etiquetteTip: 'Enjoy the liberating community peace while maintaining ordinary sensible traveler awareness.'
   },
   {
-    id: 'fact-qilou',
+    id: 'obs-qilou',
     category: 'convenience',
-    categoryLabel: 'Urban Design & Weather',
-    title: 'Qilou: The Recessed Covered Sidewalk Arcades',
+    categoryLabel: 'Urban Architecture',
+    title: 'Qilou Colonnades: The Rainproof Sidewalk Architecture',
     chineseTitle: '避雨防曬的騎樓建築',
-    summary: 'Urban architecture featuring continuous covered colonnade walkways built into the ground floor of street buildings.',
+    imageUrl: '/taiwan/ximending-arcade.jpg',
+    imageCaption: 'The continuous sheltered Qilou colonnade sidewalks allowing dry walking under monsoon showers.',
+    story: 'During an afternoon walk through Old Taipei, the skies suddenly opened up with a torrential subtropical downpour. To my surprise, hardly anyone stopped to open an umbrella. Everyone simply stepped under the "Qilou" (騎樓)—the continuous covered colonnade sidewalks carved into the ground floor of street buildings—and kept walking smoothly along the block without getting a drop of rain on their shoulders.',
     iconName: 'Umbrella',
-    details: [
-      'Designed specifically for Taiwan’s subtropical monsoon climate: sudden torrential downpours and blazing summer heat.',
-      'Allows pedestrians to traverse entire neighborhoods without opening an umbrella or getting drenched by passing rain squalls.',
-      'At night, these covered arcades become sheltered social arteries lined with noodle stalls, fruit vendors, and parked motor scooters.'
+    moments: [
+      'Scooters parked in neat parallel rows just outside the pillar lines, leaving the covered walkway clear for pedestrians.',
+      'Small noodle stalls, steaming soup pots, and fruit vendors operating comfortably under the dry stone eaves.',
+      'In summer, the same colonnades provide deep shade and shelter from the blazing tropical sun.'
     ],
-    etiquetteTip: 'When sudden afternoon rain strikes, simply duck into the nearest Qilou covered walkway and continue walking smoothly along the block.'
+    personalReflection: 'Architecture shaped entirely by geography and climate: simple, practical urban design that turns stormy weather from a nuisance into a cozy street walk.',
+    summary: 'Continuous recessed sidewalk arcades providing shelter from torrential rains and subtropical summer sun.',
+    details: [
+      'Overhanging second stories forming continuous sheltered colonnades along entire blocks.',
+      'Sidewalks staying dry and walkable during heavy monsoon rain squalls.',
+      'Vibrant evening social arteries lined with tea shops and parked motor scooters.'
+    ],
+    etiquetteTip: 'When sudden afternoon squalls strike, step under the nearest Qilou arcade to walk dry.'
   },
   {
-    id: 'fact-receipt-lottery',
+    id: 'obs-receipt-lottery',
     category: 'convenience',
     categoryLabel: 'Everyday Convenience',
-    title: 'The Uniform Invoice Lottery: Cash Prizes on Every Receipt',
-    chineseTitle: '發票對獎：全民對獎樂趣',
-    summary: 'Every official sales receipt issued in Taiwan doubles as a government lottery ticket with bi-monthly prizes up to NT$10,000,000.',
+    title: 'The Receipt Jackpot: Turning Taxes into Nationwide Fun',
+    chineseTitle: '發票對獎：全民的對獎樂趣',
+    imageUrl: '/taiwan/receipt-lottery.jpg',
+    imageCaption: 'Uniform Invoice receipts with bold 8-digit government lottery numbers alongside charity donation drop-boxes.',
+    story: 'After buying a bottle of cold green tea at a family grocery, the cashier handed me a paper receipt with a bold 8-digit number printed prominently across the top. A local friend laughed and told me not to toss it: every store receipt in Taiwan doubles as a ticket in the government\'s bi-monthly Uniform Invoice Lottery, with cash jackpots reaching up to NT$10,000,000 (~$310,000 USD).',
     iconName: 'Receipt',
-    details: [
-      'Introduced in 1951 to encourage businesses to declare revenues and incentivize customers to demand official tax receipts.',
-      'Drawings take place on the 25th of every odd-numbered month (January, March, May, etc.) on live television.',
-      'Clear acrylic donation boxes sit next to cash registers everywhere so customers can donate their receipts directly to local charities.'
+    moments: [
+      'Clear acrylic donation boxes sitting by cash registers everywhere where customers happily drop their receipts so charities can claim the winnings.',
+      'The 25th of every odd month: people gathering with stacks of accumulated receipts or scanning them with smartphone apps to see if they won NT$200, NT$40,000, or the grand prize.',
+      'Created back in 1951 to incentivize customers to demand official receipts, curbing tax evasion by turning tax compliance into a nationwide game.'
     ],
-    etiquetteTip: 'Tourists can also win! Check your receipt numbers using the Taiwan Lottery app; prizes can be redeemed at banks and convenience stores.'
+    personalReflection: 'A stroke of sheer behavioral-design genius: transforming what is normally discarded paper trash into a nationwide thrill and an engine for charity donations.',
+    summary: 'Official government sales receipts doubling as bi-monthly lottery tickets with prizes up to NT$10,000,000.',
+    details: [
+      'Bi-monthly televised drawings on the 25th of every odd month.',
+      'Clear acrylic receipt drop-boxes at store exits funding local charitable foundations.',
+      'Brilliant behavioral economics incentivizing customer tax invoice compliance.'
+    ],
+    etiquetteTip: 'Tourists can also win! Check numbers via the Taiwan Receipt Lottery app or donate them at cash register boxes.'
   }
 ];
+
+export const TAIWAN_FACTS = TAIWAN_OBSERVATIONS;
+
 

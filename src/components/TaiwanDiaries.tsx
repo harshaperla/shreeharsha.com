@@ -5,11 +5,12 @@ import {
   Clock, Calendar, Info, CheckCircle2, Search, Filter,
   Share2, Volume2, VolumeX, Maximize2, Sparkles, ExternalLink,
   Tag, Train, Mountain, Building2, Utensils, TreePine, Eye,
-  Store, Music, ShieldCheck, Umbrella, Smile, Receipt, Lightbulb
+  Store, Music, ShieldCheck, Umbrella, Smile, Receipt, Lightbulb, Flame
 } from 'lucide-react';
 import {
   TaiwanPlace,
   TaiwanHighlightSlide,
+  TaiwanObservation,
   TaiwanFact,
   TAIWAN_HIGHLIGHTS,
   TAIWAN_PLACES,
@@ -53,6 +54,7 @@ export default function TaiwanDiaries({ onNavigateSection, initialPlaceId = null
   const [isMuted, setIsMuted] = useState(true);
   const [mediaFilter, setMediaFilter] = useState<'all' | 'photo' | 'video'>('all');
   const [copiedLink, setCopiedLink] = useState(false);
+  const [previewObservationImage, setPreviewObservationImage] = useState<{ url: string; title: string; caption?: string } | null>(null);
 
   // Auto-play for highlight slides
   useEffect(() => {
@@ -213,7 +215,7 @@ export default function TaiwanDiaries({ onNavigateSection, initialPlaceId = null
     }
   };
 
-  // Filtered Interesting Facts
+  // Filtered Field Stories & Observations
   const filteredFacts = useMemo(() => {
     return TAIWAN_FACTS.filter((fact) => {
       if (selectedFactCategory !== 'all' && fact.category !== selectedFactCategory) {
@@ -223,10 +225,11 @@ export default function TaiwanDiaries({ onNavigateSection, initialPlaceId = null
         const q = factSearchQuery.toLowerCase();
         const matchesTitle = fact.title.toLowerCase().includes(q);
         const matchesChinese = fact.chineseTitle ? fact.chineseTitle.toLowerCase().includes(q) : false;
-        const matchesSummary = fact.summary.toLowerCase().includes(q);
-        const matchesTip = fact.etiquetteTip.toLowerCase().includes(q);
-        const matchesDetails = fact.details.some(d => d.toLowerCase().includes(q));
-        if (!matchesTitle && !matchesChinese && !matchesSummary && !matchesTip && !matchesDetails) {
+        const matchesStory = fact.story ? fact.story.toLowerCase().includes(q) : false;
+        const matchesReflection = fact.personalReflection ? fact.personalReflection.toLowerCase().includes(q) : false;
+        const matchesMoments = fact.moments ? fact.moments.some(m => m.toLowerCase().includes(q)) : false;
+        const matchesSummary = fact.summary ? fact.summary.toLowerCase().includes(q) : false;
+        if (!matchesTitle && !matchesChinese && !matchesStory && !matchesReflection && !matchesMoments && !matchesSummary) {
           return false;
         }
       }
@@ -236,6 +239,8 @@ export default function TaiwanDiaries({ onNavigateSection, initialPlaceId = null
 
   const getFactIcon = (iconName: string) => {
     switch (iconName) {
+      case 'Flame': return Flame;
+      case 'Sparkles': return Sparkles;
       case 'Train': return Train;
       case 'Store': return Store;
       case 'Utensils': return Utensils;
@@ -244,7 +249,7 @@ export default function TaiwanDiaries({ onNavigateSection, initialPlaceId = null
       case 'Umbrella': return Umbrella;
       case 'Smile': return Smile;
       case 'Receipt': return Receipt;
-      default: return Lightbulb;
+      default: return Sparkles;
     }
   };
 
@@ -275,7 +280,7 @@ export default function TaiwanDiaries({ onNavigateSection, initialPlaceId = null
             </div>
             <div className="text-center px-2 py-1 border-x border-zinc-800">
               <span className="block text-lg sm:text-xl font-bold font-mono text-amber-400">{TAIWAN_FACTS.length}</span>
-              <span className="text-[10px] uppercase tracking-wider text-zinc-500">Cultural Facts</span>
+              <span className="text-[10px] uppercase tracking-wider text-zinc-500">Field Stories</span>
             </div>
             <div className="text-center px-2 py-1">
               <span className="block text-lg sm:text-xl font-bold font-mono text-cyan-400">2 Regions</span>
@@ -312,8 +317,8 @@ export default function TaiwanDiaries({ onNavigateSection, initialPlaceId = null
           }`}
           id="taiwan-tab-facts"
         >
-          <Lightbulb className={`w-4 h-4 ${activeMainTab === 'facts' ? 'text-amber-400' : 'text-zinc-400'}`} />
-          <span>Interesting Facts & Etiquette</span>
+          <Sparkles className={`w-4 h-4 ${activeMainTab === 'facts' ? 'text-amber-400' : 'text-zinc-400'}`} />
+          <span>Stories & Observations</span>
           <span className="text-xs px-2 py-0.5 rounded-full bg-zinc-900 text-zinc-400 font-mono border border-zinc-800">
             {TAIWAN_FACTS.length}
           </span>
@@ -681,30 +686,30 @@ export default function TaiwanDiaries({ onNavigateSection, initialPlaceId = null
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
             <div>
               <h2 className="text-2xl font-bold text-white tracking-tight flex items-center space-x-2">
-                <Lightbulb className="w-6 h-6 text-amber-400" />
-                <span>Taiwan Life, Etiquette & Cultural Insights</span>
+                <Sparkles className="w-6 h-6 text-amber-400" />
+                <span>Field Stories & Cultural Observations</span>
               </h2>
               <p className="text-sm text-zinc-400 mt-1 max-w-3xl">
-                General civic etiquette, transit rules, 24/7 convenience culture, and social customs experienced across Taiwan — not tied to any single location.
+                Personal reflections, street rituals, and everyday cultural moments observed firsthand while exploring the temples, metro corridors, and neighborhood alleys of Taiwan.
               </p>
             </div>
 
-            {/* Search Input for Facts */}
+            {/* Search Input for Stories */}
             <div className="relative w-full md:w-72">
               <Search className="w-4 h-4 text-zinc-500 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 value={factSearchQuery}
                 onChange={(e) => setFactSearchQuery(e.target.value)}
-                placeholder="Search rules, boba, receipts..."
+                placeholder="Search paper burning, Kuai Kuai, boba..."
                 className="w-full bg-zinc-900/90 border border-zinc-800 rounded-lg pl-9 pr-8 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-amber-400/70 transition"
                 id="taiwan-fact-search-input"
               />
               {factSearchQuery && (
                 <button
                   onClick={() => setFactSearchQuery('')}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300"
-                  aria-label="Clear fact search"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300 cursor-pointer"
+                  aria-label="Clear story search"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -712,14 +717,15 @@ export default function TaiwanDiaries({ onNavigateSection, initialPlaceId = null
             </div>
           </div>
 
-          {/* Fact Category Filter Chips */}
+          {/* Story Category Filter Chips */}
           <div className="flex items-center space-x-2 overflow-x-auto pb-3 mb-6 scrollbar-none">
             {[
-              { id: 'all', label: 'All Insights', count: TAIWAN_FACTS.length },
-              { id: 'transit', label: 'MRT & Transit Etiquette', count: TAIWAN_FACTS.filter(f => f.category === 'transit').length },
+              { id: 'all', label: 'All Stories', count: TAIWAN_FACTS.length },
+              { id: 'culture', label: 'Spiritual & Temple Rituals', count: TAIWAN_FACTS.filter(f => f.category === 'culture').length },
+              { id: 'transit', label: 'Transit & Metro', count: TAIWAN_FACTS.filter(f => f.category === 'transit').length },
               { id: 'convenience', label: 'Everyday Convenience', count: TAIWAN_FACTS.filter(f => f.category === 'convenience').length },
-              { id: 'food', label: 'Food & Tea Culture', count: TAIWAN_FACTS.filter(f => f.category === 'food').length },
-              { id: 'civic', label: 'Civic Etiquette & Trust', count: TAIWAN_FACTS.filter(f => f.category === 'civic').length },
+              { id: 'civic', label: 'Neighborhood & Civic Habits', count: TAIWAN_FACTS.filter(f => f.category === 'civic').length },
+              { id: 'food', label: 'Culinary Culture', count: TAIWAN_FACTS.filter(f => f.category === 'food').length },
             ].map((cat) => (
               <button
                 key={cat.id}
@@ -740,18 +746,18 @@ export default function TaiwanDiaries({ onNavigateSection, initialPlaceId = null
             ))}
           </div>
 
-          {/* Facts Grid */}
+          {/* Stories Grid */}
           {filteredFacts.length === 0 ? (
             <div className="p-12 text-center border border-dashed border-zinc-800 rounded-2xl bg-zinc-900/30">
-              <Lightbulb className="w-10 h-10 text-zinc-600 mx-auto mb-3" />
-              <h3 className="text-base font-semibold text-zinc-300">No matching cultural facts found</h3>
-              <p className="text-sm text-zinc-500 mt-1">Try searching for terms like escalator, water, boba, or receipts.</p>
+              <Sparkles className="w-10 h-10 text-zinc-600 mx-auto mb-3" />
+              <h3 className="text-base font-semibold text-zinc-300">No matching observations found</h3>
+              <p className="text-sm text-zinc-500 mt-1">Try searching for terms like paper burning, Kuai Kuai, escalator, or boba.</p>
               <button
                 onClick={() => {
                   setFactSearchQuery('');
                   setSelectedFactCategory('all');
                 }}
-                className="mt-4 px-4 py-2 rounded-lg bg-zinc-800 text-xs font-semibold text-zinc-300 hover:bg-zinc-700 transition"
+                className="mt-4 px-4 py-2 rounded-lg bg-zinc-800 text-xs font-semibold text-zinc-300 hover:bg-zinc-700 transition cursor-pointer"
               >
                 Reset Filter
               </button>
@@ -770,7 +776,7 @@ export default function TaiwanDiaries({ onNavigateSection, initialPlaceId = null
                   >
                     <div>
                       {/* Top Header Row: Icon, Category Badge & Chinese Name */}
-                      <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center space-x-3">
                           <div className="p-2.5 rounded-xl bg-zinc-800/80 border border-zinc-700/60 text-amber-400 group-hover:scale-105 transition-transform">
                             <FactIcon className="w-5 h-5" />
@@ -788,33 +794,73 @@ export default function TaiwanDiaries({ onNavigateSection, initialPlaceId = null
                         </div>
                       </div>
 
+                      {/* Photo Explaining the Observation Story */}
+                      {fact.imageUrl && (
+                        <div className="mb-4">
+                          <div
+                            onClick={() => setPreviewObservationImage({
+                              url: fact.imageUrl!,
+                              title: fact.title,
+                              caption: fact.imageCaption
+                            })}
+                            className="relative w-full aspect-[16/10] rounded-xl overflow-hidden border border-zinc-800/80 bg-zinc-950 group/img cursor-pointer shadow-inner"
+                            title="Click to view full image"
+                          >
+                            <img
+                              src={fact.imageUrl}
+                              alt={fact.title}
+                              className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500"
+                              loading="lazy"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-80 group-hover/img:opacity-60 transition-opacity" />
+                            
+                            <div className="absolute top-2.5 right-2.5 p-1.5 rounded-lg bg-black/60 backdrop-blur-md border border-white/10 text-white/80 group-hover/img:text-white group-hover/img:scale-110 transition-all shadow-md">
+                              <Maximize2 className="w-3.5 h-3.5" />
+                            </div>
+
+                            {fact.imageCaption && (
+                              <div className="absolute bottom-0 inset-x-0 p-3 bg-gradient-to-t from-black/95 via-black/75 to-transparent">
+                                <p className="text-[11.5px] text-zinc-300 font-sans leading-snug line-clamp-2">
+                                  {fact.imageCaption}
+                                </p>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      )}
+
                       {/* Title */}
-                      <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight mb-2.5 group-hover:text-amber-200 transition-colors">
+                      <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight mb-3 group-hover:text-amber-200 transition-colors">
                         {fact.title}
                       </h3>
 
-                      {/* Summary */}
+                      {/* First-person Narrative Story */}
                       <p className="text-sm text-zinc-300 leading-relaxed mb-4">
-                        {fact.summary}
+                        {fact.story || fact.summary}
                       </p>
 
-                      {/* Observations / Details */}
-                      <ul className="space-y-2 mb-5">
-                        {fact.details.map((detail, idx) => (
-                          <li key={idx} className="text-xs sm:text-sm text-zinc-400 flex items-start space-x-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-zinc-500 mt-1.5 flex-shrink-0" />
-                            <span className="leading-relaxed">{detail}</span>
-                          </li>
-                        ))}
-                      </ul>
+                      {/* Scenes Noticed On The Ground */}
+                      <div className="mb-5 bg-zinc-950/40 rounded-xl p-3.5 border border-zinc-800/60">
+                        <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-500 block mb-2 font-semibold">
+                          What caught my eye:
+                        </span>
+                        <ul className="space-y-2">
+                          {(fact.moments || fact.details).map((moment, idx) => (
+                            <li key={idx} className="text-xs sm:text-sm text-zinc-400 flex items-start space-x-2">
+                              <span className="w-1.5 h-1.5 rounded-full bg-amber-400/80 mt-1.5 flex-shrink-0" />
+                              <span className="leading-relaxed">{moment}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
 
-                    {/* Etiquette Tip / Traveler Rule Box */}
+                    {/* Personal Reflection Box */}
                     <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-3.5 flex items-start space-x-2.5">
-                      <Lightbulb className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
+                      <Sparkles className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
                       <div className="text-xs text-amber-200/90 leading-relaxed">
-                        <strong className="text-amber-300 font-semibold mr-1">Traveler Etiquette Tip:</strong>
-                        <span>{fact.etiquetteTip}</span>
+                        <strong className="text-amber-300 font-semibold mr-1">My Reflection:</strong>
+                        <span>{fact.personalReflection || fact.etiquetteTip}</span>
                       </div>
                     </div>
                   </motion.div>
@@ -1208,6 +1254,53 @@ export default function TaiwanDiaries({ onNavigateSection, initialPlaceId = null
                   <span>Next Attraction</span>
                   <ChevronRight className="w-4 h-4" />
                 </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* Observation Photo Lightbox Modal */}
+      <AnimatePresence>
+        {previewObservationImage && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md"
+            onClick={() => setPreviewObservationImage(null)}
+            role="dialog"
+            aria-modal="true"
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 10 }}
+              transition={{ duration: 0.2 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative max-w-4xl w-full bg-zinc-950 border border-zinc-800 rounded-2xl overflow-hidden shadow-2xl flex flex-col my-auto"
+            >
+              <div className="p-4 sm:px-6 border-b border-zinc-800 flex items-center justify-between bg-zinc-900/50">
+                <div className="pr-4">
+                  <h3 className="text-base sm:text-lg font-bold text-white">
+                    {previewObservationImage.title}
+                  </h3>
+                  {previewObservationImage.caption && (
+                    <p className="text-xs text-zinc-400 mt-0.5 leading-relaxed">
+                      {previewObservationImage.caption}
+                    </p>
+                  )}
+                </div>
+                <button
+                  onClick={() => setPreviewObservationImage(null)}
+                  className="p-2 rounded-xl bg-zinc-800/80 border border-zinc-700/60 text-zinc-400 hover:text-white hover:bg-zinc-700 transition cursor-pointer flex-shrink-0"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              <div className="max-h-[75vh] overflow-hidden flex items-center justify-center bg-zinc-950 p-2 sm:p-4">
+                <img
+                  src={previewObservationImage.url}
+                  alt={previewObservationImage.title}
+                  className="w-full h-auto max-h-[70vh] object-contain rounded-lg"
+                />
               </div>
             </motion.div>
           </div>
