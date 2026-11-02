@@ -794,8 +794,28 @@ export default function TaiwanDiaries({ onNavigateSection, initialPlaceId = null
                         </div>
                       </div>
 
-                      {/* Photo Explaining the Observation Story */}
-                      {fact.imageUrl && (
+                      {/* Media Explaining the Observation Story (Video or Photo) */}
+                      {fact.videoUrl ? (
+                        <div className="mb-4">
+                          <div className="relative w-full aspect-[16/10] rounded-xl overflow-hidden border border-zinc-800/80 bg-black shadow-inner">
+                            <video
+                              src={fact.videoUrl}
+                              controls
+                              playsInline
+                              preload="metadata"
+                              poster={fact.imageUrl}
+                              className="w-full h-full object-cover"
+                            />
+                            {fact.videoCaption && (
+                              <div className="p-2.5 bg-zinc-950/90 border-t border-zinc-800/60">
+                                <p className="text-[11.5px] text-zinc-300 font-sans leading-snug">
+                                  {fact.videoCaption}
+                                </p>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      ) : fact.imageUrl ? (
                         <div className="mb-4">
                           <div
                             onClick={() => setPreviewObservationImage({
@@ -827,7 +847,7 @@ export default function TaiwanDiaries({ onNavigateSection, initialPlaceId = null
                             )}
                           </div>
                         </div>
-                      )}
+                      ) : null}
 
                       {/* Title */}
                       <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight mb-3 group-hover:text-amber-200 transition-colors">

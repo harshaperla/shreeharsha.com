@@ -972,6 +972,8 @@ export interface TaiwanObservation {
   imageUrl?: string;
   imageCaption?: string;
   iconName: 'Flame' | 'Sparkles' | 'Train' | 'Store' | 'Utensils' | 'Music' | 'ShieldCheck' | 'Umbrella' | 'Smile' | 'Receipt';
+  videoUrl?: string;
+  videoCaption?: string;
   moments: string[];
   personalReflection: string;
   // Aliases for compatibility
@@ -1038,15 +1040,18 @@ export const TAIWAN_OBSERVATIONS: TaiwanObservation[] = [
     title: 'The Right-Side Escalator Pact: Silent Commuter Choreography',
     chineseTitle: '電梯靠右站立',
     imageUrl: '/taiwan/mrt-escalator-etiquette.jpg',
-    imageCaption: 'Taipei MRT commuters standing in single file strictly on the right side of escalators, leaving the left open.',
-    story: 'My very first morning navigating the underground transfer labyrinth at Taipei Main Station, I was captivated by the escalators. Without a single station guard barking orders or a loudspeaker reminder, hundreds of bustling commuters instinctively stepped strictly onto the right side of every moving stairway. A flawless, silent single-file line formed naturally, leaving the entire left lane open like a high-speed express overtaking corridor for those walking up in a hurry.',
+    imageCaption: 'Taipei MRT commuters standing in single file strictly on the right side of escalators, keeping the left side open for walking.',
+    videoUrl: '/taiwan/mrt-escalator-commute.mp4',
+    videoCaption: 'Real footage: MRT commuters instinctively stopping on the right side of the escalator, leaving the left lane completely open for people walking up.',
+    story: 'My very first morning navigating the underground transfer labyrinth at Taipei Main Station, I was captivated by the escalators. Without a single station guard barking orders or a loudspeaker reminder, hundreds of bustling commuters instinctively stepped strictly onto the right side of every moving stairway and stood still. A flawless, silent single-file line formed naturally, leaving the entire left lane open like a high-speed express overtaking corridor for anyone walking up in a hurry.',
     iconName: 'Train',
     moments: [
-      'Even at the height of morning rush hour with thousands pouring through the turnstiles, the left side remained completely unobstructed.',
-      'If a traveler with bulky luggage stood on the left by mistake, no one yelled or sighed; someone would just offer a soft "Bù hǎoyìsi" with a gentle head tilt, and the person immediately tucked in.',
-      'Transit authorities have actually posted notices saying riders can stand on both sides to balance wear, but the civic custom is so deep in commuters\' muscle memory that everyone keeps the lane open anyway.'
+      'Commuters stopping and standing strictly on the right side, with everyone walking briskly along the open left lane.',
+      'Even at the height of peak transit rush hour with thousands pouring through the turnstiles, the left side remained completely unobstructed.',
+      'If a traveler with bulky luggage stood on the left by mistake, no one yelled or sighed; someone would just offer a soft "Bù hǎoyìsi" with a gentle head tilt, and the person immediately tucked into the right.',
+      'Transit authorities have actually posted notices saying riders can stand on both sides to balance escalator wear, but the civic custom is so deep in commuters\' muscle memory that everyone stops right and walks left anyway.'
     ],
-    personalReflection: 'It was my first glimpse of Taiwan\'s spontaneous collective consideration: individuals instinctively giving up half of their space so that strangers in a rush can move freely.',
+    personalReflection: 'It was my first glimpse of Taiwan\'s spontaneous collective consideration: individuals instinctively giving up half of their space so that strangers in a rush can walk through without obstruction.',
     summary: 'Commuters standing strictly on the right side of every moving escalator, keeping the left lane open for walkers.',
     details: [
       'Flawless single-file lines forming naturally at every station escalator without station staff intervention.',
