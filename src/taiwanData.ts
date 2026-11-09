@@ -151,7 +151,122 @@ export const TAIWAN_HIGHLIGHTS: TaiwanHighlightSlide[] = [
       badge: 'DAY 3 • MODERN ARCHITECTURE & NIGHTLIFE',
       imageUrl: '/taiwan/xiangti-avenue-plaza.jpg',
       placeId: 'xinyi-district',
-    }
+    },
+  {
+    id: 'hl-thsr',
+    type: 'video',
+    title: 'Taiwan High Speed Rail: 300 km/h Bullet Train to Kaohsiung',
+    subtitle: 'Sleek aerodynamic 700T bullet train racing across Taiwan in 90 minutes with zero vibration',
+    location: 'Taipei to Kaohsiung Corridor',
+    badge: 'DAY 4 • BULLET TRAIN TRANSIT',
+    imageUrl: '/taiwan/thsr-speedometer-300kmh.jpg',
+    videoDuration: '0:05',
+    placeId: 'thsr-bullet-train',
+  },
+  {
+    id: 'hl-foguangshan',
+    type: 'photo',
+    title: 'Fo Guang Shan Buddha Museum: 108m Bronze Colossus & Eight Pagodas',
+    subtitle: 'Monumental seated Buddha presiding over the symmetrical Great Pathway and sacred monastic halls',
+    location: 'Dashu District, Kaohsiung',
+    badge: 'DAY 4 • SACRED BUDDHIST MONUMENT',
+    imageUrl: '/taiwan/foguangshan-buddha.jpg',
+    placeId: 'fo-guang-shan',
+  },
+  {
+    id: 'hl-pier2',
+    type: 'photo',
+    title: 'Pier-2 Art Center: Sugar Warehouses, Giant Statues & Waterfront Light Rail',
+    subtitle: 'Sprawling creative hub revitalizing Kaohsiung harbor with industrial sculptures and modern street art',
+    location: 'Yancheng District, Kaohsiung',
+    badge: 'DAY 4 • CREATIVE HARBOR DISTRICT',
+    imageUrl: '/taiwan/pier2-art-center.jpg',
+    placeId: 'pier2-art-center',
+  },
+  {
+    id: 'hl-cijin',
+    type: 'photo',
+    title: 'Cijin Island: Coastal Fortress & Taiwan Strait Sunset',
+    subtitle: 'Barrier island reachable by scenic harbor ferry boasting Qing-era Cihou Fort cliff viewpoints',
+    location: 'Cijin District, Kaohsiung',
+    badge: 'DAY 4 • COASTAL ISLAND & FORTRESS',
+    imageUrl: '/taiwan/cijin-island-ferry.jpg',
+    placeId: 'cijin-island',
+  },
+  {
+    id: 'hl-alishan-station',
+    type: 'photo',
+    title: 'Alishan Forest Railway: Century-Old Timber Rail & Mountain Station',
+    subtitle: 'Historic narrow-gauge alpine timber line and curved wooden station floating 2,216m above sea level',
+    location: 'Alishan Township, Chiayi County',
+    badge: 'DAY 5 • ALPINE TIMBER RAILWAY',
+    imageUrl: '/taiwan/alishan-mountain-station.jpg',
+    placeId: 'alishan-forest-railway',
+  },
+  {
+    id: 'hl-alishan-giant-trees',
+    type: 'video',
+    title: 'Alishan Giant Tree Plank Trail: 2,000-Year Sacred Cypress Woods',
+    subtitle: 'Boardwalk through primeval alpine forests shrouded in mountain mist and colossal ancient trees',
+    location: 'Alishan National Scenic Area, Chiayi',
+    badge: 'DAY 5 • SACRED CYPRESS FOREST',
+    imageUrl: '/taiwan/alishan-sacred-giant-trees.jpg',
+    videoDuration: '0:07',
+    placeId: 'alishan-giant-trees',
+  },
+  {
+    id: 'hl-xiaoyoukeng',
+    type: 'photo',
+    title: 'Xiaoyoukeng Geothermal Fumaroles: Sulfur Crystals & Volcanic Vents',
+    subtitle: 'Active post-volcanic crater on Mount Qixing venting roaring steam and crystalline sulfur deposits',
+    location: 'Yangmingshan National Park, Taipei',
+    badge: 'DAY 6 • ACTIVE VOLCANIC FUMAROLES',
+    imageUrl: '/taiwan/xiaoyoukeng-sulfur-fumaroles.jpg',
+    placeId: 'xiaoyoukeng-fumaroles',
+  },
+  {
+    id: 'hl-qingtiangang',
+    type: 'video',
+    title: 'Qingtiangang Grassland: Lava Plateau Meadows & Water Buffaloes',
+    subtitle: 'Rolling highland volcanic pastures grazed by wild water buffaloes wrapped in mountain fog',
+    location: 'Yangmingshan National Park, Taipei',
+    badge: 'DAY 6 • VOLCANIC LAVA PLATEAU',
+    imageUrl: '/taiwan/qingtiangang-highland-meadows.jpg',
+    videoDuration: '0:06',
+    placeId: 'qingtiangang-grassland',
+  },
+  {
+    id: 'hl-beitou-thermal',
+    type: 'photo',
+    title: 'Xinbeitou Thermal Valley: Emerald Jade Sulfur Lake in Steaming Mist',
+    subtitle: 'Enigmatic 90°C green sulfur lake perpetually cloaked in ethereal thermal steam plumes',
+    location: 'Beitou District, Taipei City',
+    badge: 'DAY 7 • EMERALD GEOTHERMAL LAKE',
+    imageUrl: '/taiwan/beitou-thermal-valley-lake.jpg',
+    placeId: 'beitou-thermal-valley',
+  },
+  {
+    id: 'hl-beitou-sulfur',
+    type: 'video',
+    title: 'Beitou Sulfur Valley: Volcanic Caldera & Billowing Steam Vents',
+    subtitle: 'Dramatic amphitheater of bubbling thermal springs and steaming sulfur vents with wooden walkways',
+    location: 'Beitou District, Taipei City',
+    badge: 'DAY 7 • VOLCANIC CALDERA BASIN',
+    imageUrl: '/taiwan/beitou-sulfur-valley-geothermal.jpg',
+    videoDuration: '0:03',
+    placeId: 'beitou-sulfur-valley',
+  },
+  {
+    id: 'hl-shilin-night-market',
+    type: 'video',
+    title: 'Shilin Night Market: Taipei’s Grandest Food Labyrinth & Carnival Arcades',
+    subtitle: 'Bustling night market alleys packed with hot star chicken, flame beef cubes, and retro carnival arcades',
+    location: 'Shilin District, Taipei City',
+    badge: 'DAY 7 • PREMIER NIGHT BAZAAR',
+    imageUrl: '/taiwan/shilin-night-market-arcade.jpg',
+    videoDuration: '0:06',
+    placeId: 'shilin-night-market',
+  }
 ];
 
 export const TAIWAN_PLACES: TaiwanPlace[] = [
@@ -959,7 +1074,1038 @@ export const TAIWAN_PLACES: TaiwanPlace[] = [
           thumbnailUrl: '/taiwan/xiangti-avenue-walk-thumb.jpg'
         }
       ]
-    }
+    },
+  // ================= DAY 4 =================
+  {
+    id: 'thsr-bullet-train',
+    name: 'Taiwan High-Speed Rail (THSR) 700T',
+    chineseName: '台灣高鐵 (台北至左營)',
+    category: 'transit',
+    categoryLabel: 'High-Speed Rail Transit',
+    thumbnail: '/taiwan/thsr-bullet-train-cabin.jpg',
+    oneLiner: 'Sleek Japanese Shinkansen-derived 700T bullet train racing across Taiwan’s western plain at 300 km/h from Taipei to Kaohsiung in just 90 minutes.',
+    tags: ['Day 4', 'Transit', 'THSR', 'Bullet Train', '300 km/h', 'Transit & Rail'],
+    location: 'Taipei Main Station to Kaohsiung Zuoying Station',
+    region: 'Western Taiwan Corridor',
+    recommendedDuration: '1.5 - 2 hours',
+    bestTime: 'Morning departures for full-day southern exploration',
+    transitEase: 'Express (THSR / Train)',
+    overview: [
+      'The Taiwan High Speed Rail (THSR) revolutionized travel across the island. Covering 350 kilometers between Taipei in the north and Zuoying (Kaohsiung) in the south in as little as 90 minutes, it compresses an entire cross-country journey into a whisper-quiet, ultra-smooth glide.',
+      'Modeled on Japan’s legendary Series 700 Shinkansen, the aerodynamic orange-and-white 700T trainsets cruise comfortably at 300 km/h past central Taiwan’s agricultural heartlands, tea farms, and subtropical mountain ridges.',
+      'Onboard amenities include generous legroom, swivel airline-style seating, power outlets, silent carriages, and delicious THSR bento boxes (高鐵便當) sold by attendants pushing beverage carts through the aisles.'
+    ],
+    specialties: [
+      {
+        title: '300 km/h Cruising Speed',
+        description: 'Digital in-cabin speedometer displays speeds hitting 298–300 km/h with virtually no vibration or sway.'
+      },
+      {
+        title: 'THSR High-Speed Bento Boxes',
+        description: 'Freshly prepared specialty lunchboxes featuring pork chops, roasted chicken, or vegetarian seasonal greens.'
+      },
+      {
+        title: 'Punctuality & Engineering Perfection',
+        description: 'Average delay per train across the system is under 15 seconds, setting a world benchmark for rail reliability.'
+      }
+    ],
+    howToGo: {
+      metroOrTrain: 'Board directly at Taipei Main Station (B2 level THSR gates) or Nangang Station. Arrives at Zuoying Station in Kaohsiung.',
+      busDetails: 'Direct transfers to Kaohsiung Red Line MRT and local tourist buses are right inside Zuoying Station.',
+      bookingAndTickets: 'Tickets can be booked online via THSR T Express mobile app, 7-Eleven ibon kiosks, or ticket counters. Early bird discounts up to 35% off.',
+      easyCardInfo: 'Co-branded credit card EasyCards with auto-reload can tap directly for non-reserved cars (Cars 10–12). Standard EasyCard requires buying a ticket first.',
+      tips: [
+        'Reserve seats on Express trains (train numbers 1xx or 2xx) which make only 2–3 stops and complete the trip in 94 minutes.',
+        'Seats A and E are window seats with expansive countryside vistas.',
+        'Zuoying Station has luggage lockers and luggage delivery services directly to hotels.'
+      ]
+    },
+    gallery: [
+      {
+        id: 'thsr-m1',
+        type: 'photo',
+        url: '/taiwan/thsr-bullet-train-cabin.jpg',
+        title: 'Comfortable 700T Bullet Train Cabin',
+        caption: 'Clean, spacious interior seating with wide legroom and overhead luggage racks cruising smoothly.'
+      },
+      {
+        id: 'thsr-m2',
+        type: 'photo',
+        url: '/taiwan/thsr-speedometer-300kmh.jpg',
+        title: 'Digital Display Reaching 300 km/h',
+        caption: 'The carriage speedometer confirming the 300 km/h cruising velocity through the central plains.'
+      },
+      {
+        id: 'thsr-m3',
+        type: 'photo',
+        url: '/taiwan/thsr-station-platform.jpg',
+        title: 'THSR 700T on the Station Platform',
+        caption: 'Sleek aerodynamic nose of the 700T trainset ready for boarding at the subterranean platform.'
+      },
+      {
+        id: 'thsr-v1',
+        type: 'video',
+        url: '/taiwan/thsr-high-speed-ride.mp4',
+        title: 'High-Speed Rail 300 km/h Ride Video',
+        caption: 'Gliding effortlessly past countryside scenery at full 300 km/h cruising speed.',
+        duration: '0:05',
+        thumbnailUrl: '/taiwan/thsr-high-speed-thumb.jpg'
+      }
+    ]
+  },
+  {
+    id: 'fo-guang-shan',
+    name: 'Fo Guang Shan Buddha Museum',
+    chineseName: '佛光山佛陀紀念館',
+    category: 'heritage',
+    categoryLabel: 'Sacred Sanctuary & Colossal Buddha',
+    thumbnail: '/taiwan/foguangshan-buddha.jpg',
+    oneLiner: 'Monumental 108-meter seated bronze Buddha framed by eight soaring pagodas, Bodhi Square, and sacred Buddhist relics in Kaohsiung.',
+    tags: ['Day 4', 'Kaohsiung', 'Buddhism', 'Bronze Buddha', 'Eight Pagodas', 'Historic & Temples'],
+    location: 'Dashu District, Kaohsiung City',
+    region: 'Southern Taiwan',
+    recommendedDuration: '3 - 4 hours',
+    bestTime: 'Morning or late afternoon for clear lighting over the Great Pathway',
+    transitEase: 'Express (THSR / Train)',
+    overview: [
+      'Arriving at Fo Guang Shan Buddha Museum is an awe-inspiring sensory experience. The scale of the complex is breathtaking: an expansive central boulevard named the Great Pathway to Buddhahood stretches directly towards a monumental 108-meter bronze Buddha seated serenely against the southern Taiwanese sky.',
+      'Flanking both sides of the central esplanade stand eight stately Chinese-style pagodas, each representing fundamental Buddhist concepts and housing educational galleries, traditional calligraphy tea houses, and tranquil contemplation chambers.',
+      'Walking past Bodhi Square and entering the Main Pagoda beneath the giant Buddha reveals sacred galleries displaying Buddhist art treasures, ancient tooth relics, and serene multi-lingual prayer halls welcoming visitors from every corner of the world.'
+    ],
+    specialties: [
+      {
+        title: 'The 108-Meter Bronze Great Buddha',
+        description: 'World’s tallest seated bronze Buddha statue, cast using over 1,800 tonnes of metal, radiating calm above the mountain horizon.'
+      },
+      {
+        title: 'Eight Stately Pagodas & Great Pathway',
+        description: 'Perfect symmetrical axial design creating stunning geometric perspectives framed by lush gardens and lotus ponds.'
+      },
+      {
+        title: 'Buddhist Vegetarian Culinary Hall',
+        description: 'Renowned organic vegetarian buffet and tea ceremony spaces serving refined local Taiwanese monastic dishes.'
+      }
+    ],
+    howToGo: {
+      metroOrTrain: 'Take THSR to Zuoying Station (Kaohsiung). From Zuoying Station Exit 1/Bus Platform 2, board the direct E02 Harvard Express Bus (哈佛快線).',
+      busDetails: 'The E02 Harvard Express bus takes approximately 35-45 minutes directly to Fo Guang Shan Buddha Museum main gate.',
+      bookingAndTickets: 'EasyCard and iPASS accepted on both THSR station buses and city buses. Museum entry is completely free of charge.',
+      easyCardInfo: 'Tap in and tap out on the E02 bus. Balance should be at least NT$100.',
+      tips: [
+        'Dress respectfully with covered shoulders and knees for temple halls.',
+        'Allow at least 3 hours to stroll the grounds and visit the underground exhibits.',
+        'Electric shuttles are available inside the grounds for visitors needing mobility assistance.'
+      ]
+    },
+    gallery: [
+      {
+        id: 'fgs-m1',
+        type: 'photo',
+        url: '/taiwan/foguangshan-buddha.jpg',
+        title: 'The Great Seated Bronze Buddha',
+        caption: 'Looking up at the 108m bronze seated Buddha presiding over the Bodhi Square under the southern sky.'
+      },
+      {
+        id: 'fgs-m2',
+        type: 'photo',
+        url: '/taiwan/foguangshan-pagodas.jpg',
+        title: 'Eight Symmetrical Pagodas Along the Axis',
+        caption: 'The stately pagodas flanking the Great Pathway to Buddhahood in dramatic architectural symmetry.'
+      },
+      {
+        id: 'fgs-m3',
+        type: 'photo',
+        url: '/taiwan/foguangshan-great-pathway.jpg',
+        title: 'The Great Pathway to Buddhahood',
+        caption: 'Walking down the grand open-air marble promenade leading towards the main sanctuary.'
+      },
+      {
+        id: 'fgs-m4',
+        type: 'photo',
+        url: '/taiwan/foguangshan-bodhi-square.jpg',
+        title: 'Bodhi Square & Arhat Statues',
+        caption: 'Carved stone statues of the Eighteen Arhats lining the wide plaza with the main stupa behind.'
+      },
+      {
+        id: 'fgs-m5',
+        type: 'photo',
+        url: '/taiwan/foguangshan-temple-architecture.jpg',
+        title: 'Traditional Temple Roofs & Eaves',
+        caption: 'Intricate golden glazed tile roofs and eaves reflecting classical Tang and Song monastic architecture.'
+      }
+    ]
+  },
+  {
+    id: 'pier2-art-center',
+    name: 'Pier-2 Art Center & Kaohsiung Harbor',
+    chineseName: '駁二藝術特區與高雄港',
+    category: 'landmark',
+    categoryLabel: 'Harbor Arts & Creative District',
+    thumbnail: '/taiwan/pier2-art-center.jpg',
+    oneLiner: 'Vibrant revitalized sugar and harbor warehouses showcasing massive ironworker statues, vivid wall murals, and the modern waterfront light rail.',
+    tags: ['Day 4', 'Kaohsiung', 'Pier-2', 'Street Art', 'Light Rail', 'Harbor', 'Landmark & Youth District'],
+    location: 'Yancheng District, Kaohsiung City',
+    region: 'Southern Taiwan',
+    recommendedDuration: '2 - 3 hours',
+    bestTime: 'Late afternoon through evening sunset',
+    transitEase: 'Easy (Direct MRT)',
+    overview: [
+      'Pier-2 Art Center is Kaohsiung’s most triumphant urban revitalization project. Formerly abandoned 1970s harbor warehouses built to store sugar and maritime freight have been transformed into a sprawling seaside arts, design, and live performance sanctuary.',
+      'The open-air grounds are alive with giant colorful industrial worker statues, whimsical iron sculptures, vibrant multi-story building murals, and the green lawn where the Kaohsiung Circular Light Rail glides silently past.',
+      'Just steps away, the Great Harbor Bridge (Dagang Bridge) rotates horizontally across the water to let boats pass, offering sweeping views of the Kaohsiung Music Center and the sparkling modern skyline of Kaohsiung Port.'
+    ],
+    specialties: [
+      {
+        title: 'Industrial Worker & Fisherwoman Statues',
+        description: 'Iconic fiberglass statues painted in hundreds of unique community and artist themes throughout the park.'
+      },
+      {
+        title: 'Great Harbor Rotating Bridge',
+        description: 'Asia’s longest rotating pedestrian swing bridge spanning 110 meters, swinging 90 degrees daily at 3 PM.'
+      },
+      {
+        title: 'Kaohsiung Circular Light Rail',
+        description: 'Sleek catenary-free green light rail gliding directly through the art park lawn and along the wharf.'
+      }
+    ],
+    howToGo: {
+      metroOrTrain: 'Take Kaohsiung MRT Orange Line to Yanchengpu Station (O2) Exit 1 (5-minute walk), or take the Circular Light Rail directly to Dayi Pier-2 Station (C12) or Penglai Pier-2 Station (C13).',
+      busDetails: 'Buses 0 South, 11, 33, 50, and 214 stop near the harbor warehouses.',
+      bookingAndTickets: 'Free entry to all outdoor art installations and warehouses. Special contemporary art exhibits have separate low-cost admission.',
+      easyCardInfo: 'EasyCard and iPASS are fully supported across the Kaohsiung MRT and Light Rail.',
+      tips: [
+        'Catch the Dagang Bridge rotation ceremony daily at 3:00 PM (and 7:00 PM on Fri/Sat/Sun).',
+        'Rent a YouBike or ride the Light Rail along the waterfront towards the Kaohsiung Music Center.',
+        'Evenings bring gentle sea breezes, live street buskers, and outdoor beer bars.'
+      ]
+    },
+    gallery: [
+      {
+        id: 'p2-m1',
+        type: 'photo',
+        url: '/taiwan/pier2-art-center.jpg',
+        title: 'Pier-2 Warehouse District Entrance',
+        caption: 'Historic red-brick sugar warehouses adorned with contemporary signage and outdoor sculptures.'
+      },
+      {
+        id: 'p2-m2',
+        type: 'photo',
+        url: '/taiwan/pier2-warehouse-murals.jpg',
+        title: 'Vibrant Multi-Story Murals',
+        caption: 'Massive street art murals covering former maritime storage buildings with imaginative nautical motifs.'
+      },
+      {
+        id: 'p2-m3',
+        type: 'photo',
+        url: '/taiwan/pier2-giant-sculptures.jpg',
+        title: 'Giant Industrial Worker Sculpture',
+        caption: 'Monumental stylized worker sculpture celebrating Kaohsiung’s deep industrial and dockworker heritage.'
+      },
+      {
+        id: 'p2-m4',
+        type: 'photo',
+        url: '/taiwan/kaohsiung-harbor-lightrail.jpg',
+        title: 'Light Rail Gliding by Kaohsiung Harbor',
+        caption: 'The Kaohsiung Circular Light Rail traveling silently across the lush lawn tracks fronting the harbor.'
+      }
+    ]
+  },
+  {
+    id: 'cijin-island',
+    name: 'Cijin Island & Cihou Fort',
+    chineseName: '旗津島與旗後砲台',
+    category: 'nature',
+    categoryLabel: 'Coastal Island & Ocean Fortress',
+    thumbnail: '/taiwan/cijin-island-ferry.jpg',
+    oneLiner: 'Sun-drenched barrier island reachable by a short 5-minute ferry, boasting historical Qing-dynasty fort viewpoints over the Taiwan Strait and seafood lanes.',
+    tags: ['Day 4', 'Kaohsiung', 'Cijin', 'Ferry', 'Fortress', 'Taiwan Strait', 'Coastal Trail & Ocean Views'],
+    location: 'Cijin District, Kaohsiung City',
+    region: 'Southern Taiwan',
+    recommendedDuration: '2 - 3 hours',
+    bestTime: 'Golden hour and sunset over the sea',
+    transitEase: 'Moderate (Bus / Transfer)',
+    overview: [
+      'Just a brisk five-minute ferry ride across the harbor from Gushan Ferry Pier lies Cijin Island, a slender sandbar island protecting Kaohsiung Harbor from the churning waters of the Taiwan Strait.',
+      'Stepping off the ferry immediately transports you into a breezy coastal holiday atmosphere. Visitors can rent electric quad-cycles or stroll up to Cihou Fort, a red-brick military fortification constructed in 1875 by Qing-dynasty general Shen Baozhen to defend southern Taiwan.',
+      'Perched high on the cliff, the open cannon ramparts deliver panoramic 360-degree vistas: looking north towards Sizihwan and Mount Shoushan, east over Kaohsiung’s container docks, and west directly into the endless expanse of the sunset-lit Taiwan Strait.'
+    ],
+    specialties: [
+      {
+        title: 'Qing-Dynasty Cihou Fort',
+        description: 'Historic red-brick fort ramparts with auspicious Chinese character brickwork and panoramic clifftop lookouts.'
+      },
+      {
+        title: 'Gushan-Cijin Harbor Ferry',
+        description: 'Frequent 5-minute ferry linking Kaohsiung mainland to Cijin, carrying both pedestrians and streams of mopeds.'
+      },
+      {
+        title: 'Cijin Old Street Seafood Market',
+        description: 'Lively thoroughfare packed with ocean-fresh grilled squid on skewers, sashimi, and sweet shaved ice stalls.'
+      }
+    ],
+    howToGo: {
+      metroOrTrain: 'Take Kaohsiung MRT Orange Line to Sizihwan Station (O1) Exit 1, walk 5 minutes to Gushan Ferry Pier.',
+      busDetails: 'Board the Gushan-Cijin Ferry (operates continuously every few minutes from 5 AM to 2 AM).',
+      bookingAndTickets: 'Ferry fare is NT$30 (NT$20 with EasyCard or iPASS). Tap directly at the turnstiles.',
+      easyCardInfo: 'EasyCard and iPASS work instantly on the ferry turnstiles with zero wait.',
+      tips: [
+        'Walk through the Starry Sky Tunnel (a former military tunnel carved through Cihou Mountain) to reach the ocean boardwalk.',
+        'Sunset from the Cihou Fort ramparts is one of the top photo spots in all of Taiwan.',
+        'Be sure to try the fresh charcoal-grilled giant squid brushed with sweet savory sauce on Cijin Old Street.'
+      ]
+    },
+    gallery: [
+      {
+        id: 'cj-m1',
+        type: 'photo',
+        url: '/taiwan/cijin-island-ferry.jpg',
+        title: 'Gushan to Cijin Harbor Ferry',
+        caption: 'Crossing the blue waters of Kaohsiung Harbor with views of cargo ships and lighthouse hills.'
+      },
+      {
+        id: 'cj-m2',
+        type: 'photo',
+        url: '/taiwan/cijin-coastal-scenery.jpg',
+        title: 'Cijin Rocky Coastal Shoreline',
+        caption: 'Dramatic sea rocks and breaking waves along the perimeter walking trail of Cijin Island.'
+      },
+      {
+        id: 'cj-m3',
+        type: 'photo',
+        url: '/taiwan/cihou-fort-lookout.jpg',
+        title: 'Cihou Fort Historic Ramparts',
+        caption: 'Standing atop the 1875 red-brick coastal fort looking out over the Kaohsiung harbor entrance.'
+      },
+      {
+        id: 'cj-m4',
+        type: 'photo',
+        url: '/taiwan/cijin-sunset-walk.jpg',
+        title: 'Sunset Over the Taiwan Strait',
+        caption: 'Warm golden sunlight washing over the palm-lined seawall as fishing vessels return to port.'
+      }
+    ]
+  },
+
+  // ================= DAY 5 =================
+  {
+    id: 'alishan-forest-railway',
+    name: 'Alishan Forest Railway & Mountain Station',
+    chineseName: '阿里山森林鐵路與阿里山車站',
+    category: 'transit',
+    categoryLabel: 'Alpine Heritage Railway',
+    thumbnail: '/taiwan/alishan-mountain-station.jpg',
+    oneLiner: 'Century-old zigzag mountain narrow-gauge logging railway terminating at the grand all-cypress Alishan station floating 2,216 meters above sea level.',
+    tags: ['Day 5', 'Alishan', 'Alpine Rail', 'Wooden Architecture', 'Transit & Rail', 'Chiayi'],
+    location: 'Alishan Township, Chiayi County',
+    region: 'Central Mountain Range',
+    recommendedDuration: '2 hours',
+    bestTime: 'Early morning to catch morning alpine trains and mist',
+    transitEase: 'Mountain (Scenic Rail / Bus)',
+    overview: [
+      'Constructed in 1912 by the Japanese to transport precious giant red cypress logs down from the peaks, the Alishan Forest Railway is one of only three remaining high-altitude zig-zag mountain railways in the world.',
+      'Climbing from 30 meters at Chiayi up to 2,216 meters at Alishan Station, the 762mm narrow-gauge trains negotiate 50 tunnels, 77 wooden trestle bridges, and four horseshoe switchbacks as the surrounding vegetation shifts from tropical betel palms to subalpine cedar forests.',
+      'Alishan Station itself is Taiwan’s largest all-wooden station structure. Its soaring curved cypress beams and open-air viewing deck command breathless vistas across rolling ridges and the morning sea of clouds.'
+    ],
+    specialties: [
+      {
+        title: 'Alishan Station Timber Architecture',
+        description: 'Massive indigenous Formosan cypress roof pillars and curved eaves filling the station with fragrant cedar aromas.'
+      },
+      {
+        title: 'Z-Shaped Switchback Climbing',
+        description: 'Locomotives push rather than pull the carriages, reversing direction at switchbacks to climb the sheer mountain gradients.'
+      },
+      {
+        title: 'Alpine Railway Bento Box',
+        description: 'Hearty high-mountain railway bento featuring braised chicken leg, local bamboo shoots, and wild Alishan wasabi.'
+      }
+    ],
+    howToGo: {
+      metroOrTrain: 'Take THSR to Chiayi Station, then board Taiwan Tourist Shuttle Bus 7329 direct to Alishan (2.5 hrs). Alternatively, take TRA train to Chiayi Station and board Forest Railway trains to Fenchihu.',
+      busDetails: 'Inside Alishan National Scenic Area, branch line trains run from Alishan Station to Chaoping, Sacred Tree, and Chushan.',
+      bookingAndTickets: 'Forest Railway tickets can be reserved online 14 days in advance via the official AFR website. Scenic Area entry ticket is NT$300 (NT$150 if arriving by public bus).',
+      easyCardInfo: 'EasyCard is accepted on Taiwan Tourist Shuttle buses from Chiayi. Train tickets within the park can also be bought at station counters.',
+      tips: [
+        'High altitude temperatures are 10–15°C cooler than the lowlands; pack a warm fleece or windbreaker.',
+        'Catch the morning branch train to Sacred Tree Station (神木站) and hike back down the giant tree plank trail.',
+        'Try local Alishan high mountain oolong tea harvested from slopes blanketed in mountain clouds.'
+      ]
+    },
+    gallery: [
+      {
+        id: 'ali-m1',
+        type: 'photo',
+        url: '/taiwan/alishan-mountain-station.jpg',
+        title: 'Alishan Mountain Station Wooden Terminal',
+        caption: 'The grand curved all-cypress wooden mountain station with scenic platform lookouts over the peaks.'
+      },
+      {
+        id: 'ali-m2',
+        type: 'photo',
+        url: '/taiwan/alishan-forest-railway.jpg',
+        title: 'Narrow-Gauge Mountain Timber Track',
+        caption: 'Historic 762mm narrow-gauge tracks winding through dense cedar and cypress pine forests.'
+      },
+      {
+        id: 'ali-m3',
+        type: 'photo',
+        url: '/taiwan/alishan-curved-wooden-platform.jpg',
+        title: 'Curved Wooden Boarding Platform',
+        caption: 'Graceful curved architecture built entirely of native Taiwanese timber blending into the misty mountains.'
+      },
+      {
+        id: 'ali-m4',
+        type: 'photo',
+        url: '/taiwan/alishan-red-locomotive.jpg',
+        title: 'Classic Red Mountain Locomotive',
+        caption: 'Iconic red diesel locomotive engineered specifically to climb steep mountain switchbacks.'
+      }
+    ]
+  },
+  {
+    id: 'alishan-giant-trees',
+    name: 'Alishan Giant Tree Plank Trail & Sacred Cypress Forest',
+    chineseName: '阿里山巨木群棧道與神木森林',
+    category: 'nature',
+    categoryLabel: 'Millennium Cypress Forest & Alpine Trails',
+    thumbnail: '/taiwan/alishan-sacred-giant-trees.jpg',
+    oneLiner: 'Enchanting wooden boardwalk winding through primeval misty forests of colossal Formosan red cypress trees up to 2,000 years old.',
+    tags: ['Day 5', 'Alishan', 'Sacred Trees', 'Ancient Cypress', 'Alpine Forest', 'Coastal Trail & Ocean Views'],
+    location: 'Alishan National Scenic Area, Chiayi County',
+    region: 'Central Mountain Range',
+    recommendedDuration: '3 - 4 hours',
+    bestTime: 'Morning when sunlight filters through mountain clouds and mist',
+    transitEase: 'Mountain (Scenic Rail / Bus)',
+    overview: [
+      'Walking into the Alishan Giant Tree Plank Trail feels like entering an ancient cathedral of nature. Spanning across steep mountain ravines, elevated wooden boardwalks meander quietly through groves of colossal Formosan red cypress (Chamaecyparis formosensis) and Taiwan yellow cypress trees.',
+      'Over 36 designated giant sacred trees along the trail have survived for between 800 and 2,300 years, their colossal trunk circumferences exceeding 10 to 13 meters. Mountain mist drifts silently between the canopies, diffusing rays of golden sunlight into celestial beams.',
+      'Along the trail, hikers discover the ruins of the original Alishan Sacred Tree, the Three Generations Tree (where three successive tree trunks grew from one fallen stump), and Shouzhen Temple, surrounded by tranquil alpine streams and bird song.'
+    ],
+    specialties: [
+      {
+        title: 'Millennium Formosan Red Cypress',
+        description: 'Colossal living relics of prehistory, towering over 45 meters with trunks requiring up to 10 adults with outstretched arms to encircle.'
+      },
+      {
+        title: 'Elevated Ecology Boardwalk',
+        description: 'Raised wooden platform trails that protect delicate subterranean tree root networks from foot traffic erosion.'
+      },
+      {
+        title: 'Sea of Clouds & Alpine Mist',
+        description: 'Microclimates generating sudden blankets of ethereal cloud sea (Yun Hai) rolling across the mountain basin.'
+      }
+    ],
+    howToGo: {
+      metroOrTrain: 'Take the Alishan Forest Railway branch line from Alishan Station to Sacred Tree Station (神木車站, 7-minute scenic train ride).',
+      busDetails: 'The trailhead begins directly at Sacred Tree Station and loops past Ciyun Temple to Chaoping Station.',
+      bookingAndTickets: 'Branch line train tickets are NT$100 each way, purchasable at Alishan Station ticket counters.',
+      easyCardInfo: 'Physical paper commemorative tickets are issued for branch railway lines.',
+      tips: [
+        'Take the downhill walk from Chaoping to Sacred Tree Station if you prefer an easy descent.',
+        'The wooden boardwalks can be slick when wet from mountain mist; wear shoes with good rubber traction.',
+        'Breathe deeply: the concentration of cypress phytoncides (forest terpenes) here is among the highest in East Asia.'
+      ]
+    },
+    gallery: [
+      {
+        id: 'ali-gt-m1',
+        type: 'photo',
+        url: '/taiwan/alishan-sacred-giant-trees.jpg',
+        title: 'Colossal Millennium Formosan Cypress',
+        caption: 'Standing beneath giant ancient cypress trees soaring over 40 meters into the alpine cloud canopy.'
+      },
+      {
+        id: 'ali-gt-m2',
+        type: 'photo',
+        url: '/taiwan/alishan-elevated-boardwalk.jpg',
+        title: 'Elevated Wooden Plank Trail',
+        caption: 'Elevated cypress plank walkway protecting fragile root networks while guiding hikers through primeval woods.'
+      },
+      {
+        id: 'ali-gt-m3',
+        type: 'photo',
+        url: '/taiwan/alishan-misty-cypress-woods.jpg',
+        title: 'Misty Ancient Cypress Forest',
+        caption: 'Dense mountain fog drifting through century-old trunks creating an ethereal, otherworldly atmosphere.'
+      },
+      {
+        id: 'ali-gt-m4',
+        type: 'photo',
+        url: '/taiwan/alishan-cypress-roots.jpg',
+        title: 'Ancient Gnarled Root Formations',
+        caption: 'Intricate root formations clinging to mossy rocks and rich alpine soil along the sacred tree trail.'
+      },
+      {
+        id: 'ali-gt-m5',
+        type: 'photo',
+        url: '/taiwan/alishan-mountain-temple.jpg',
+        title: 'Shouzhen Temple in the Mountains',
+        caption: 'The highest temple in Taiwan (altitude 2,150m) providing spiritual solace to mountain pilgrims.'
+      },
+      {
+        id: 'ali-gt-v1',
+        type: 'video',
+        url: '/taiwan/alishan-giant-trees-walk.mp4',
+        title: 'Walking Through the Sacred Cypress Woods Video',
+        caption: 'Strolling peacefully along the elevated wooden boardwalk beneath the massive ancient cypress trees.',
+        duration: '0:07',
+        thumbnailUrl: '/taiwan/alishan-giant-trees-thumb.jpg'
+      }
+    ]
+  },
+
+  // ================= DAY 6 =================
+  {
+    id: 'xiaoyoukeng-fumaroles',
+    name: 'Xiaoyoukeng Geothermal Fumaroles',
+    chineseName: '小油坑硫磺地熱噴氣孔',
+    category: 'nature',
+    categoryLabel: 'Active Volcanic Fumaroles',
+    thumbnail: '/taiwan/xiaoyoukeng-sulfur-fumaroles.jpg',
+    oneLiner: 'Roaring post-volcanic geological crater on Mount Qixing venting plumes of thick sulfur steam and crystalline yellow mineral encrustations.',
+    tags: ['Day 6', 'Yangmingshan', 'Volcano', 'Sulfur Fumaroles', 'Mt Qixing', 'Coastal Trail & Ocean Views'],
+    location: 'Beitou District / Yangmingshan National Park, Taipei',
+    region: 'Northern Volcanic Ridge',
+    recommendedDuration: '1 - 2 hours',
+    bestTime: 'Morning when thermal steam billows starkly against clear mountain air',
+    transitEase: 'Moderate (Bus / Transfer)',
+    overview: [
+      'Xiaoyoukeng sits dramatically at 805 meters elevation on the northwestern flank of Mount Qixing, the highest dormant volcano in the Tatun Volcano Group. It represents Taiwan’s most striking post-volcanic landscape.',
+      'A massive horseshoe-shaped collapse amphitheater reveals bare, sulfur-bleached rock faces where superheated subterranean steam rushes out with an audible hiss. The air is rich with mineral sulfur aromas, and bright yellow sulfur crystals form along the active vents.',
+      'Wooden observation walkways lead visitors right to the edge of the steaming fumaroles and boiling geothermal mud puddles, while a scenic stone trail ascends straight up through lush arrow bamboo groves towards Mount Qixing Main Peak.'
+    ],
+    specialties: [
+      {
+        title: 'Active Post-Volcanic Fumaroles',
+        description: 'Vents releasing superheated steam and sulfur dioxide gases heated by magma chambers beneath the Tatun range.'
+      },
+      {
+        title: 'Bright Yellow Sulfur Crystals',
+        description: 'Acicular needle-like sulfur crystals condensing directly onto rock surfaces from volcanic vapors.'
+      },
+      {
+        title: 'Arrow Bamboo Mountain Corridor',
+        description: 'Dense dwarf bamboo vegetation forming natural green walls flanking the mountain trail towards Mt. Qixing.'
+      }
+    ],
+    howToGo: {
+      metroOrTrain: 'Take Taipei MRT Red Line to Jiantan Station (R15) Exit 1, board Bus Red 5 to Yangmingshan Bus Terminal, then transfer to the 108 Yangmingshan Shuttle Bus.',
+      busDetails: '108 Shuttle Bus loops through Yangmingshan; alight directly at the Xiaoyoukeng (小油坑) stop.',
+      bookingAndTickets: 'Free entry to the park and observation decks. 108 shuttle bus fare is NT$15 per ride.',
+      easyCardInfo: 'EasyCard and Taipei Fun Pass accepted on all Yangmingshan buses.',
+      tips: [
+        'Stay on designated boardwalks; ground around active fumaroles can exceed 95°C and rock can be unstable.',
+        'High elevation means mountain weather changes quickly; carry an umbrella and wind-resistant jacket.',
+        'The hike from Xiaoyoukeng to Mt. Qixing Main Peak (1,120m) takes about 1 hour and offers 360-degree views of the Taipei basin.'
+      ]
+    },
+    gallery: [
+      {
+        id: 'xyk-m1',
+        type: 'photo',
+        url: '/taiwan/xiaoyoukeng-sulfur-fumaroles.jpg',
+        title: 'Xiaoyoukeng Active Geothermal Vents',
+        caption: 'Thick columns of steam escaping violently from sulfur vents on the collapsed flank of Mount Qixing.'
+      },
+      {
+        id: 'xyk-m2',
+        type: 'photo',
+        url: '/taiwan/xiaoyoukeng-volcanic-canyon.jpg',
+        title: 'Sulfur Crater & Steaming Canyon Wall',
+        caption: 'Exposed volcanic rock layers showing vibrant bright yellow sulfur crusts and hydrothermal erosion.'
+      },
+      {
+        id: 'xyk-m3',
+        type: 'photo',
+        url: '/taiwan/xiaoyoukeng-steaming-vents.jpg',
+        title: 'Bubbling Mineral Vents & Crystals',
+        caption: 'Close-up of crystalline yellow sulfur crystals deposited by superheated subterranean volcanic gases.'
+      },
+      {
+        id: 'xyk-m4',
+        type: 'photo',
+        url: '/taiwan/xiaoyoukeng-qixing-trail.jpg',
+        title: 'Trailhead Ascending Mount Qixing',
+        caption: 'Stone steps winding past arrow bamboo groves and steaming volcanic gullies towards Taipei’s highest peak.'
+      }
+    ]
+  },
+  {
+    id: 'lengshuikeng-hotspring',
+    name: 'Lengshuikeng & Jingshan Suspension Bridge',
+    chineseName: '冷水坑與菁山吊橋',
+    category: 'nature',
+    categoryLabel: 'Mineral Springs & Suspension Bridge',
+    thumbnail: '/taiwan/lengshuikeng-suspension-bridge.jpg',
+    oneLiner: 'Scenic highland basin featuring natural mineral hot spring foot-baths, milky sulfur ponds, and the sweeping wooden Jingshan suspension bridge.',
+    tags: ['Day 6', 'Yangmingshan', 'Suspension Bridge', 'Hot Springs', 'Mineral Springs', 'Coastal Trail & Ocean Views'],
+    location: 'Shilin District / Yangmingshan National Park, Taipei',
+    region: 'Northern Volcanic Ridge',
+    recommendedDuration: '2 hours',
+    bestTime: 'Midday to afternoon for pleasant highland walking',
+    transitEase: 'Moderate (Bus / Transfer)',
+    overview: [
+      'Lengshuikeng (literally "Cold Water Pit") is named in contrast to other scorching Yangmingshan hot springs because its natural waters emerge at a pleasant, batheable 40°C rather than boiling 90°C temperatures.',
+      'The basin was created when lava flows from Mount Qixing damned the mountain stream, forming a prehistoric barrier lake. Today it features the striking Milk Lake (牛奶湖)—a turquoise pond tinted opaque white by sulfur precipitate—as well as free public hot spring foot soaking pools.',
+      'A short path through tall Japanese cedar groves leads to the picturesque Jingshan Suspension Bridge (菁山吊橋), a graceful wooden pedestrian bridge spanning 50 meters across a verdant volcanic stream ravine.'
+    ],
+    specialties: [
+      {
+        title: 'Jingshan Pedestrian Suspension Bridge',
+        description: 'Red-cabled timber suspension bridge framing panoramic vistas of Mount Qixing and the forested canyon.'
+      },
+      {
+        title: 'Milk Lake (Niunai Hu)',
+        description: 'Taipei’s only white sulfur lake, where low-temperature thermal springs precipitate fine sulfur particles into milk-like water.'
+      },
+      {
+        title: 'Free Public Foot-Soaking Pavilion',
+        description: 'Open-air stone footbaths fed by natural 40°C mineral spring water, ideal for relaxing tired hikers’ feet.'
+      }
+    ],
+    howToGo: {
+      metroOrTrain: 'Take Taipei MRT Red Line to Jiantan Station (R15), take Bus Small 15 (小15) direct to Lengshuikeng Service Center.',
+      busDetails: 'Alternatively, board the 108 Yangmingshan Shuttle Bus from Xiaoyoukeng or Yangmingshan Bus Terminal.',
+      bookingAndTickets: 'All walking trails, the suspension bridge, and public foot-soaking pools are free to the public.',
+      easyCardInfo: 'EasyCard accepted on Small 15 and 108 shuttle buses.',
+      tips: [
+        'Bring a small towel to dry your feet after soaking in the warm mineral footbaths.',
+        'The walking trail connects Lengshuikeng directly to Qingtiangang Grassland (1.8 km, approx. 45-minute scenic stroll).',
+        'Spring and autumn bring cool mountain breezes and blooming silver grass along the hillsides.'
+      ]
+    },
+    gallery: [
+      {
+        id: 'lsk-m1',
+        type: 'photo',
+        url: '/taiwan/lengshuikeng-suspension-bridge.jpg',
+        title: 'Jingshan Wooden Suspension Bridge',
+        caption: 'Graceful timber pedestrian suspension bridge stretching across the scenic mountain valley.'
+      },
+      {
+        id: 'lsk-m2',
+        type: 'photo',
+        url: '/taiwan/lengshuikeng-mineral-spring.jpg',
+        title: 'Milky Mineral Pond (Milk Lake)',
+        caption: 'Precipitated sulfur particles giving the caldera pool its striking opaque milky-white appearance.'
+      },
+      {
+        id: 'lsk-m3',
+        type: 'photo',
+        url: '/taiwan/lengshuikeng-mountain-valley.jpg',
+        title: 'Lush Volcanic Ridge & Forest Vistas',
+        caption: 'Sweeping views of forested peaks, mountain meadows, and footpaths leading across the ridge.'
+      },
+      {
+        id: 'lsk-m4',
+        type: 'photo',
+        url: '/taiwan/lengshuikeng-cedar-trail.jpg',
+        title: 'Tall Japanese Cedar Woods Trail',
+        caption: 'Shaded woodland stone path flanked by tall cryptomeria cedar trees providing cool mountain shade.'
+      },
+      {
+        id: 'lsk-v1',
+        type: 'video',
+        url: '/taiwan/lengshuikeng-bridge-walk.mp4',
+        title: 'Crossing Jingshan Suspension Bridge Video',
+        caption: 'Walking across the gently swaying suspension bridge with panoramic views of the green mountain valley.',
+        duration: '0:03',
+        thumbnailUrl: '/taiwan/lengshuikeng-bridge-thumb.jpg'
+      }
+    ]
+  },
+  {
+    id: 'qingtiangang-grassland',
+    name: 'Qingtiangang Grassland & Lava Plateau',
+    chineseName: '擎天崗大草原',
+    category: 'nature',
+    categoryLabel: 'Highland Pasture & Volcanic Plateau',
+    thumbnail: '/taiwan/qingtiangang-highland-meadows.jpg',
+    oneLiner: 'Saddle-shaped volcanic lava plateau covered in rolling emerald pastures where historic herd water buffaloes graze peacefully in mountain fog.',
+    tags: ['Day 6', 'Yangmingshan', 'Grassland', 'Water Buffaloes', 'Lava Plateau', 'Coastal Trail & Ocean Views'],
+    location: 'Shilin District / Yangmingshan National Park, Taipei',
+    region: 'Northern Volcanic Ridge',
+    recommendedDuration: '2 - 3 hours',
+    bestTime: 'Late afternoon when the sea of fog rolls over the ridge',
+    transitEase: 'Moderate (Bus / Transfer)',
+    overview: [
+      'Perched at 770 meters elevation, Qingtiangang is a dramatic flat lava plateau formed over thousands of years by lava flows erupting from Mount Zhuzi. During Japanese colonial rule in 1934, it was established as Dalingka Ranch, a high-altitude dairy pasture.',
+      'Today, the plateau is famous for its vast undulating green grasslands framed by rustic split-rail wooden fences. A resident herd of semi-wild water buffaloes—descendants of working draft cattle brought here decades ago—graze peacefully on the highland carpet.',
+      'A circular walking trail loops around the saddle ridge, delivering breathtaking 360-degree vistas stretching north towards the Jinshan coastline and south across the entire Taipei metropolis. As late afternoon approaches, swirling white mountain clouds frequently sweep over the ridge.'
+    ],
+    specialties: [
+      {
+        title: 'Wild Water Buffalo Grazing Herds',
+        description: 'Historic herds of black water buffalo roaming freely across the open grasslands and cooling in mud wallows.'
+      },
+      {
+        title: 'Circular Pasture Boardwalk',
+        description: 'Well-maintained gravel and timber pathway with dual-sided protective wooden fences separating visitors from grazing cattle.'
+      },
+      {
+        title: 'Historic Jinbaoli Fish Trail',
+        description: 'Ancient stone pathway once used by coastal fishermen to carry fresh fish overnight across the mountains to Taipei markets.'
+      }
+    ],
+    howToGo: {
+      metroOrTrain: 'Take Taipei MRT Red Line to Jiantan Station (R15), board Bus Small 15 (小15) direct to Qingtiangang terminus.',
+      busDetails: '108 Shuttle Bus also stops at Qingtiangang Service Center.',
+      bookingAndTickets: 'Free entry to the park and grasslands year-round.',
+      easyCardInfo: 'EasyCard accepted on Small 15 bus.',
+      tips: [
+        'Maintain a respectful distance of at least 20 meters from water buffaloes and never attempt to feed or touch them.',
+        'There is little tree shade on the open grassland; wear sunscreen and bring drinking water.',
+        'In autumn (October to November), the rolling hills are covered in waving silver miscanthus grass feathers.'
+      ]
+    },
+    gallery: [
+      {
+        id: 'qtg-m1',
+        type: 'photo',
+        url: '/taiwan/qingtiangang-highland-meadows.jpg',
+        title: 'Rolling Highland Meadows & Cattle Fence',
+        caption: 'Sweeping green pastures atop the ancient volcanic lava flow, bounded by rustic wooden post fences.'
+      },
+      {
+        id: 'qtg-m2',
+        type: 'photo',
+        url: '/taiwan/qingtiangang-buffalo-trail.jpg',
+        title: 'Grazing Water Buffalo Herd',
+        caption: 'Semi-wild water buffaloes peacefully grazing on the cool plateau grass beneath swirling mountain mist.'
+      },
+      {
+        id: 'qtg-m3',
+        type: 'photo',
+        url: '/taiwan/qingtiangang-rolling-pasture.jpg',
+        title: 'Undulating Grassland Ridges',
+        caption: 'Vast open panoramic walking trail extending along the gentle slopes of the historic tea transport path.'
+      },
+      {
+        id: 'qtg-m4',
+        type: 'photo',
+        url: '/taiwan/qingtiangang-volcanic-mist.jpg',
+        title: 'Swirling Mountain Cloud Inversion',
+        caption: 'Dramatic mountain mist pouring over the ridge and enveloping the highland walking trails in cool air.'
+      },
+      {
+        id: 'qtg-v1',
+        type: 'video',
+        url: '/taiwan/qingtiangang-plateau-breeze.mp4',
+        title: 'Qingtiangang Highland Breeze Video',
+        caption: 'Gentle mountain wind rippling across the vast grassy lava plateau and wooden pasture fences.',
+        duration: '0:06',
+        thumbnailUrl: '/taiwan/qingtiangang-plateau-thumb.jpg'
+      }
+    ]
+  },
+
+  // ================= DAY 7 =================
+  {
+    id: 'jinshan-coastal-highway',
+    name: 'Jinshan Coastal Highway & Northern Shore',
+    chineseName: '金山北海岸與公路',
+    category: 'nature',
+    categoryLabel: 'Pacific Shoreline & Coastal Highway',
+    thumbnail: '/taiwan/jinshan-coastal-pacific.jpg',
+    oneLiner: 'Rugged marine highway carved along dramatic Pacific bluffs, fishing ports, and sea-sculpted rock formations of Taiwan’s northern capes.',
+    tags: ['Day 7', 'Jinshan', 'Northern Coast', 'Pacific Highway', 'Ocean Cliffs', 'Coastal Trail & Ocean Views'],
+    location: 'Jinshan & Shimen Districts, New Taipei',
+    region: 'North Coast',
+    recommendedDuration: '2 hours',
+    bestTime: 'Sunny mornings with sparkling blue Pacific horizon',
+    transitEase: 'Moderate (Bus / Transfer)',
+    overview: [
+      'Provincial Highway 2 hugs Taiwan’s northernmost shoreline as it curves along the Jinshan and Shimen districts. Here, where the volcanic mountain ridges plunge directly into the deep blue Pacific Ocean, the coastal highway provides jaw-dropping seaside vistas.',
+      'Salt spray drifts across the roadway as turquoise breakers crash onto sea arches, basalt columns, and golden sandy coves. Fishing boats return to small harbors lined with drying squid nets and colorful maritime shrines.',
+      'Scenic roadside pullouts provide uninterrupted viewpoints of the horizon, where offshore freighter lanes meet the vast open expanse of the East China Sea and North Pacific.'
+    ],
+    specialties: [
+      {
+        title: 'Pacific Marine Highway Panorama',
+        description: 'Sweeping curves following the coastline with endless blue ocean vistas stretching toward the horizon.'
+      },
+      {
+        title: 'Sea-Carved Coastal Bluffs',
+        description: 'Centuries of wave erosion carving intricate caves, sea stacks, and honeycombed sandstone formations.'
+      },
+      {
+        title: 'Jinshan Duck Meat (Jinshan Yari)',
+        description: 'Famous century-old culinary tradition at Jinshan Old Street where patrons carry their own duck dishes across the alley.'
+      }
+    ],
+    howToGo: {
+      metroOrTrain: 'Take Kuo-Kuang Bus 1815 direct from Taipei Main Station or Taipei City Hall Bus Station to Jinshan (approx. 70 mins).',
+      busDetails: 'Taiwan Tourist Shuttle Crown Northern Coast Route 716 connects Tamsui MRT Station with Jinshan along the scenic shoreline.',
+      bookingAndTickets: 'Bus fare is paid via EasyCard or cash directly upon boarding.',
+      easyCardInfo: 'EasyCard and iPASS fully supported across all North Coast bus routes.',
+      tips: [
+        'Sit on the right side of the bus heading north for the most dramatic direct ocean views.',
+        'Pair your visit with a stop at Jinshan Old Street (Jinbaoli Old Street) for traditional herbal drinks and sweet potato snacks.',
+        'Sunset along the northern headlands casts brilliant orange and magenta reflections over the Pacific water.'
+      ]
+    },
+    gallery: [
+      {
+        id: 'js-m1',
+        type: 'photo',
+        url: '/taiwan/jinshan-coastal-pacific.jpg',
+        title: 'Pacific Coastal Marine Highway',
+        caption: 'Dramatic coastal road skirting sea cliffs, fishing villages, and the sparkling deep blue Pacific Ocean.'
+      },
+      {
+        id: 'js-m2',
+        type: 'photo',
+        url: '/taiwan/jinshan-ocean-cliffs.jpg',
+        title: 'Rugged Volcanic Ocean Bluffs',
+        caption: 'Wave-carved volcanic rock formations and reefs standing resilient against the coastal surf.'
+      },
+      {
+        id: 'js-m3',
+        type: 'photo',
+        url: '/taiwan/jinshan-coastal-highway.jpg',
+        title: 'Northern Cape Scenic Lookout',
+        caption: 'Expansive vistas along the coastal highway with fishing boats dotting the horizon.'
+      },
+      {
+        id: 'js-v1',
+        type: 'video',
+        url: '/taiwan/jinshan-coast-waves.mp4',
+        title: 'Pacific Waves Crashing on Shore Video',
+        caption: 'Rolling ocean surf and coastal sea breeze along the northern Pacific highway.',
+        duration: '0:09',
+        thumbnailUrl: '/taiwan/jinshan-coast-thumb.jpg'
+      }
+    ]
+  },
+  {
+    id: 'beitou-thermal-valley',
+    name: 'Xinbeitou Thermal Valley (Hell Valley)',
+    chineseName: '新北投地熱谷 (地熱地獄谷)',
+    category: 'nature',
+    categoryLabel: 'Emerald Hot Spring Lake',
+    thumbnail: '/taiwan/beitou-thermal-valley-lake.jpg',
+    oneLiner: 'Enigmatic 90°C emerald-green sulfuric thermal lake perpetually shrouded in spectral steam plumes, the volcanic cradle of Taiwan’s onsen culture.',
+    tags: ['Day 7', 'Beitou', 'Thermal Valley', 'Hot Springs', 'Green Sulfur', 'Coastal Trail & Ocean Views'],
+    location: 'Beitou District, Taipei City',
+    region: 'Northern Taipei',
+    recommendedDuration: '1.5 - 2 hours',
+    bestTime: 'Morning or cloudy cool days when the rising steam is most theatrical',
+    transitEase: 'Easy (Direct MRT)',
+    overview: [
+      'Tucked deep inside Beitou Hot Spring Park, Thermal Valley (地熱谷)—historically dubbed "Hell Valley" by locals—is a natural volcanic sulfur lake that serves as the primary source for Beitou’s legendary green sulfur hot spring bathhouses.',
+      'The lake’s superheated emerald waters bubble continuously at temperatures between 80°C and 100°C. Thick, ethereal clouds of white sulfuric mist billow into the surrounding subtropical greenery, creating a dreamlike, mystical atmosphere that has captivated visitors since the Qing Dynasty.',
+      'A revitalized wooden observation boardwalk wraps around the lake, featuring sensory hand-soaking mineral channels, steam inhalation rest pavilions, and lush Japanese-style stone landscape paths beside the Beitou Stream.'
+    ],
+    specialties: [
+      {
+        title: 'Rare "Green Sulfur" Acidic Spring',
+        description: 'One of only two places in the world (along with Akita, Japan) with natural radium-bearing green sulfur spring water containing Hokutolite crystals.'
+      },
+      {
+        title: 'Theatrical Thermal Steam Clouds',
+        description: 'Perpetual volcanic vapors rising from the jade-green lake surface and floating through the forest canopy.'
+      },
+      {
+        title: 'Hand-Soaking Mineral Channel',
+        description: 'Warm outdoor stone basin allowing visitors to touch and experience the smooth, mineral-rich thermal water.'
+      }
+    ],
+    howToGo: {
+      metroOrTrain: 'Take Taipei MRT Red Line to Beitou Station (R22), transfer to the single-stop Xinbeitou Branch Line (Pink) to Xinbeitou Station (R22A).',
+      busDetails: 'From Xinbeitou MRT, walk 10–12 minutes uphill through the beautiful Beitou Hot Spring Park along Zhongshan Road.',
+      bookingAndTickets: 'Free public admission. Open Tuesday to Sunday, 9:00 AM – 5:00 PM (closed Mondays).',
+      easyCardInfo: 'EasyCard accepted on all Taipei MRT trains.',
+      tips: [
+        'Visit the historic Beitou Hot Spring Museum and the award-winning timber Beitou Public Library located right in the park.',
+        'Cooking eggs directly in the thermal lake is strictly prohibited to preserve water quality; you can buy hot spring-boiled eggs at nearby stalls.',
+        'Treat yourself to a private hot spring bath or public foot soak after walking the valley.'
+      ]
+    },
+    gallery: [
+      {
+        id: 'btv-m1',
+        type: 'photo',
+        url: '/taiwan/beitou-thermal-valley-lake.jpg',
+        title: 'Emerald Jade Thermal Sulfur Lake',
+        caption: 'Steaming 90°C green sulfur lake surrounded by lush subtropical valley hills and wooden boardwalks.'
+      },
+      {
+        id: 'btv-m2',
+        type: 'photo',
+        url: '/taiwan/xinbeitou-hotspring-park.jpg',
+        title: 'Xinbeitou Hot Spring Park Stream',
+        caption: 'Mineral-rich thermal waters flowing gently through stone channels in the historic Japanese-era park.'
+      },
+      {
+        id: 'btv-m3',
+        type: 'photo',
+        url: '/taiwan/thermal-valley-steaming-water.jpg',
+        title: 'Rising Thermal Steam Clouds',
+        caption: 'Spectral clouds of sulfuric vapor billowing continuously from the turquoise mineral water surface.'
+      },
+      {
+        id: 'btv-m4',
+        type: 'photo',
+        url: '/taiwan/thermal-valley-wooden-walkway.jpg',
+        title: 'Lakeside Wooden Observation Deck',
+        caption: 'Scenic barrier walkway allowing visitors to experience the gentle warmth and therapeutic sulfur aroma.'
+      }
+    ]
+  },
+  {
+    id: 'beitou-sulfur-valley',
+    name: 'Beitou Sulfur Valley Geothermal Scenic Area',
+    chineseName: '北投硫磺谷地熱景觀區',
+    category: 'nature',
+    categoryLabel: 'Volcanic Caldera Basin',
+    thumbnail: '/taiwan/beitou-sulfur-valley-geothermal.jpg',
+    oneLiner: 'Sprawling amphitheater of rugged yellow rock, boiling geothermal craters, and bubbling mineral streams equipped with scenic wooden boardwalks.',
+    tags: ['Day 7', 'Beitou', 'Sulfur Valley', 'Geothermal', 'Volcano Caldera', 'Coastal Trail & Ocean Views'],
+    location: 'Beitou District, Taipei City',
+    region: 'Northern Taipei',
+    recommendedDuration: '1.5 - 2 hours',
+    bestTime: 'Afternoon for dramatic sunbeam illumination over the steam clouds',
+    transitEase: 'Moderate (Bus / Transfer)',
+    overview: [
+      'Located just above Xinbeitou on the boundary of Yangmingshan National Park, Sulfur Valley (硫磺谷, Liuhuanggu) is a vast, rugged volcanic crater basin measuring over 700 meters across.',
+      'Here, Taiwan’s earliest recorded sulfur mining took place when Qing Dynasty explorer Yu Yonghe arrived in 1697 to quarry sulfur for gunpowder. Today, the dramatic depression remains a breathtaking geothermal showcase of boiling thermal pools, gushing hot mineral streams, and craggy yellow-and-white sulfur-coated boulders.',
+      'Elevated wooden walking trails, stone pavilions, and an open-air public foot-soaking pool invite visitors to take in panoramic views of the bubbling crater basin framed against Mount Datun and Mount Qixing.'
+    ],
+    specialties: [
+      {
+        title: 'Rugged Volcanic Caldera Basin',
+        description: 'Exposed rocky crater terrain with steam vents hissing from cracks and vents in the mineral-stained bedrock.'
+      },
+      {
+        title: 'Public Natural Footbath Pavilion',
+        description: 'Large, clean, covered wooden pavilion offering free public foot soaking in natural white sulfur hot spring water.'
+      },
+      {
+        title: 'Historic Gunpowder Sulfur Quarry',
+        description: 'The historic site where Yu Yonghe recorded his 1697 expedition in the classic travelogue "Small Sea Travel Diary".'
+      }
+    ],
+    howToGo: {
+      metroOrTrain: 'Take Taipei MRT Red Line to Beitou Station (R22), board Bus Small 9 (小9) or Bus Small 7 (小7) to the Sulfur Valley (硫磺谷) stop (approx. 10 mins).',
+      busDetails: 'Alternatively, a scenic 20-minute uphill walk along Quanyuan Road from Xinbeitou Station leads directly to the valley entrance.',
+      bookingAndTickets: 'Completely free admission to the scenic area and public hot spring footbath.',
+      easyCardInfo: 'EasyCard accepted on Small 9 and Small 7 buses.',
+      tips: [
+        'The free footbath pavilion is open Tuesday through Sunday from 8:00 AM to 6:00 PM.',
+        'Sunset across the steam-filled caldera creates surreal, golden photo opportunities.',
+        'Combine with nearby Longfenggu (Dragon Phoenix Valley) for an extensive volcanic hiking experience.'
+      ]
+    },
+    gallery: [
+      {
+        id: 'bsv-m1',
+        type: 'photo',
+        url: '/taiwan/beitou-sulfur-valley-geothermal.jpg',
+        title: 'Volcanic Crater Basin Panorama',
+        caption: 'Grand overview of the rugged geothermal amphitheater with bubbling hot springs and steaming rock faces.'
+      },
+      {
+        id: 'bsv-m2',
+        type: 'photo',
+        url: '/taiwan/sulfur-valley-steaming-crater.jpg',
+        title: 'Billowing Geothermal Fumarole Vent',
+        caption: 'Intense plume of geothermal steam blasting upward from fractured sulfur-stained volcanic bedrock.'
+      },
+      {
+        id: 'bsv-m3',
+        type: 'photo',
+        url: '/taiwan/sulfur-valley-mineral-pools.jpg',
+        title: 'Yellow Sulfur Mineral Pools & Streams',
+        caption: 'Vibrant mineral pools where natural hot spring water collects before being piped to Beitou bathhouses.'
+      },
+      {
+        id: 'bsv-v1',
+        type: 'video',
+        url: '/taiwan/sulfur-valley-steam-plumes.mp4',
+        title: 'Roaring Geothermal Steam Plumes Video',
+        caption: 'Capturing the raw power of earth’s geothermal energy venting continuously into the valley sky.',
+        duration: '0:03',
+        thumbnailUrl: '/taiwan/sulfur-valley-steam-thumb.jpg'
+      }
+    ]
+  },
+  {
+    id: 'shilin-night-market',
+    name: 'Shilin Night Market',
+    chineseName: '士林夜市',
+    category: 'food',
+    categoryLabel: 'Street Gastronomy & Night Bazaar',
+    thumbnail: '/taiwan/shilin-night-market-arcade.jpg',
+    oneLiner: 'Taipei’s most sprawling night market labyrinth packed with world-famous hot star chicken, flame-torched beef, oyster mee sua, and nostalgic carnival games.',
+    tags: ['Day 7', 'Shilin', 'Night Market', 'Street Food', 'Carnival Arcades', 'Street Food & Night Market'],
+    location: 'Shilin District, Taipei City',
+    region: 'Northern Taipei',
+    recommendedDuration: '2 - 3 hours',
+    bestTime: 'Evening from 6:30 PM onwards',
+    transitEase: 'Easy (Direct MRT)',
+    overview: [
+      'Established in 1899 near Cixian Temple, Shilin Night Market is Taiwan’s most internationally famous night bazaar. The market is a sensory explosion of sizzling street food stalls, neon-lit alleys, clothing boutiques, and nostalgic carnival game arcades.',
+      'The market is divided into two distinct zones: the subterranean air-conditioned underground food court housing traditional sit-down eateries, and a sprawling maze of outdoor streets centered on Dadong Road, Danan Road, and Jihe Road.',
+      'From oversized crispy fried chicken cutlets as large as a dinner plate to delicate oyster omelets, flame-torched Angus beef cubes, and icy Taiwanese bubble milk teas, Shilin provides an unforgettable feast for every palate.'
+    ],
+    specialties: [
+      {
+        title: 'Hot Star Large Fried Chicken (大雞排)',
+        description: 'Crispy golden battered chicken cutlet seasoned with five-spice pepper salt, bigger than the palm of your hand.'
+      },
+      {
+        title: 'Flame-Torched Wagyu Beef Cubes',
+        description: 'Tender beef cubes seared to medium-rare perfection on a hot grill with a roaring culinary blowtorch and sea salt.'
+      },
+      {
+        title: 'Retro Carnival Game Arcades',
+        description: 'Balloon dart throwing, mahogany marble pinball tables, and claw machines offering prizes and retro nostalgia.'
+      }
+    ],
+    howToGo: {
+      metroOrTrain: 'Take Taipei MRT Red Line to Jiantan Station (R15) Exit 1 (NOT Shilin Station!). The main entrance is directly across the street from Jiantan Station.',
+      busDetails: 'Over 20 city bus lines stop at Jiantan Station / Shilin Market bus stops.',
+      bookingAndTickets: 'Free entry. Most street food items cost between NT$50 and NT$150.',
+      easyCardInfo: 'Many food vendors now accept EasyCard, LINE Pay, and cash.',
+      tips: [
+        'Always get off at Jiantan Station (R15), which is directly adjacent to the market; Shilin Station is a 10-minute walk away.',
+        'Visit between 7:00 PM and 10:00 PM when all food stalls and game booths are fully operational.',
+        'Carry small change and tissue packets, as street food stalls do not provide table napkins.'
+      ]
+    },
+    gallery: [
+      {
+        id: 'snm-m1',
+        type: 'photo',
+        url: '/taiwan/shilin-night-market-arcade.jpg',
+        title: 'Glowing Night Market Street Arcade',
+        caption: 'Vibrant neon street filled with carnival shooting games, retro pinball, and crowds of eager night owls.'
+      },
+      {
+        id: 'snm-m2',
+        type: 'photo',
+        url: '/taiwan/shilin-street-food-vendors.jpg',
+        title: 'Sizzling Night Market Food Stalls',
+        caption: 'Skilled vendors tossing stir-fries, flame-torching premium beef cubes, and grilling giant squid.'
+      },
+      {
+        id: 'snm-m3',
+        type: 'photo',
+        url: '/taiwan/shilin-food-street-neon.jpg',
+        title: 'Illuminated Food Lanes & Signs',
+        caption: 'Bustling covered pedestrian lanes bathed in the warm glow of traditional lanterns and food stall signs.'
+      },
+      {
+        id: 'snm-v1',
+        type: 'video',
+        url: '/taiwan/shilin-night-market-walk.mp4',
+        title: 'Walking Through Shilin Night Market Video',
+        caption: 'Immersing in the lively sounds, sizzling grills, and electric atmosphere of Taiwan’s premier night market.',
+        duration: '0:06',
+        thumbnailUrl: '/taiwan/shilin-night-market-thumb.jpg'
+      }
+    ]
+  }
 ];
 
 export interface TaiwanObservation {
