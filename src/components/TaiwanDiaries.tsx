@@ -268,8 +268,8 @@ export default function TaiwanDiaries({ onNavigateSection, initialPlaceId = null
               Taiwan Diaries <span className="text-zinc-500 font-normal">/ 台灣日記</span>
             </h1>
             <div className="space-y-3 max-w-3xl">
-              <p className="mt-3 text-base sm:text-lg md:text-xl font-medium text-zinc-100 leading-relaxed">
-                Most places make you choose: the energy of the metropolis or the quiet of the wild; the heights of the mountain or the spray of the ocean. <span className="text-emerald-400 font-semibold">Taiwan refuses the compromise.</span>
+              <p className="mt-3 text-base sm:text-lg md:text-xl font-medium text-zinc-200 leading-relaxed">
+                Most places make you choose: the energy of the <span className="text-amber-400 font-semibold">metropolis</span> or the quiet of the <span className="text-emerald-400 font-semibold">wild</span>; the heights of the <span className="text-teal-300 font-semibold">mountain</span> or the spray of the <span className="text-cyan-400 font-semibold">ocean</span>. <span className="text-emerald-400 font-bold">Taiwan refuses the compromise.</span>
               </p>
               <p className="text-xs sm:text-sm md:text-base text-zinc-300 leading-relaxed">
                 Here, you can sip morning coffee beneath gleaming glass spires, hop on a bus, and within thirty minutes find yourself wrapped in cold mountain fog, hiking through primordial green valleys. By late afternoon, you’re watching the Pacific horizon turn amber from a sea cliff. By evening, you’re standing in the courtyard of a lively temple, spellbound by traditional music and dancing under paper lanterns, before following your nose into a bustling night market for oyster omelets and street-side camaraderie.
