@@ -267,13 +267,21 @@ export default function TaiwanDiaries({ onNavigateSection, initialPlaceId = null
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
               Taiwan Diaries <span className="text-zinc-500 font-normal">/ 台灣日記</span>
             </h1>
-            <p className="mt-3 text-base md:text-lg text-zinc-300 max-w-3xl leading-relaxed">
-              Taiwan is a breathtaking blend of lush nature, living culture, cutting-edge modernity, and unmatched everyday convenience. From misty Pacific mountain headlands and ancient temple incense to precision high-speed transit and 24/7 convenience life, it is an island of remarkable civil discipline, seamless exploration, and warm hospitality.
-            </p>
+            <div className="space-y-3 max-w-3xl">
+              <p className="mt-3 text-base sm:text-lg md:text-xl font-medium text-zinc-100 leading-relaxed">
+                Most places make you choose: the energy of the metropolis or the quiet of the wild; the heights of the mountain or the spray of the ocean. <span className="text-emerald-400 font-semibold">Taiwan refuses the compromise.</span>
+              </p>
+              <p className="text-xs sm:text-sm md:text-base text-zinc-300 leading-relaxed">
+                Here, you can sip morning coffee beneath gleaming glass spires, hop on a bus, and within thirty minutes find yourself wrapped in cold mountain fog, hiking through primordial green valleys. By late afternoon, you’re watching the Pacific horizon turn amber from a sea cliff. By evening, you’re standing in the courtyard of a lively temple, spellbound by traditional music and dancing under paper lanterns, before following your nose into a bustling night market for oyster omelets and street-side camaraderie.
+              </p>
+              <p className="text-xs sm:text-xs md:text-sm text-zinc-400 font-mono tracking-tight leading-relaxed">
+                This is a diary of that rhythm: high-speed rail and ancient rituals, vertical peaks and ocean shores, modern precision and warm island soul.
+              </p>
+            </div>
           </div>
 
           {/* Quick Metrics Bar */}
-          <div className="grid grid-cols-3 gap-2 sm:gap-3 bg-zinc-900/60 p-3 rounded-xl border border-zinc-800/60 backdrop-blur-sm self-start md:self-auto">
+          <div className="grid grid-cols-3 gap-2 sm:gap-3 bg-zinc-900/60 p-3 rounded-xl border border-zinc-800/60 backdrop-blur-sm self-start md:self-auto shrink-0">
             <div className="text-center px-2 py-1">
               <span className="block text-lg sm:text-xl font-bold font-mono text-emerald-400">{TAIWAN_PLACES.length}</span>
               <span className="text-[10px] uppercase tracking-wider text-zinc-500">Places Visited</span>
@@ -283,8 +291,8 @@ export default function TaiwanDiaries({ onNavigateSection, initialPlaceId = null
               <span className="text-[10px] uppercase tracking-wider text-zinc-500">Field Stories</span>
             </div>
             <div className="text-center px-2 py-1">
-              <span className="block text-lg sm:text-xl font-bold font-mono text-cyan-400">2 Regions</span>
-              <span className="text-[10px] uppercase tracking-wider text-zinc-500">Taipei • Keelung</span>
+              <span className="block text-lg sm:text-xl font-bold font-mono text-cyan-400">7 Days</span>
+              <span className="text-[10px] uppercase tracking-wider text-zinc-500">North to South</span>
             </div>
           </div>
         </div>
