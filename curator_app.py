@@ -1,110 +1,124 @@
 #!/usr/bin/env python3
 """
-Taiwan Photo Curator & Reviewer - Upgraded
-A standalone, ultra-fast local web application for reviewing, selecting, rejecting,
-captioning/annotating photos, selecting by post, and picking featured cover photos.
+Taiwan Photo Curator & Post Manager - Internal Tool
+Standalone, ultra-fast local web application for triaging, selecting, rejecting,
+annotating, selecting by post, and setting featured cover photos.
 Runs locally at: http://localhost:8765
 """
 
 import http.server
-import socketserver
+import socket
 import json
 import os
 import shutil
+import threading
 import urllib.parse
 from pathlib import Path
-from PIL import Image, ImageOps
+try:
+    from PIL import Image, ImageOps
+    HAS_PIL = True
+except ImportError:
+    HAS_PIL = False
 
 PORT = 8765
 BASE_DIR = Path('/Users/harshap/shreeharsha/taiwan-photos').resolve()
 WEB_APP_DIR = Path('/Users/harshap/shreeharsha/shreeharsha.com').resolve()
 SELECTIONS_FILE = BASE_DIR / 'CURATION_STATE.json'
+STATE_LOCK = threading.Lock()
 
-# Comprehensive metadata mapping prefix clusters to friendly post / destination names
+# Clean English metadata mapping prefix clusters to friendly post / destination names
 POSTS_METADATA = {
     # Day 1
-    "day1_00_transit_flight": {"name": "Flight & Arrival", "chinese": "航班抵達桃園", "day": "day1", "placeId": "taoyuan-airport"},
-    "day1_01_taoyuan_airport": {"name": "Taoyuan Airport & MRT", "chinese": "桃園機場與機場捷運", "day": "day1", "placeId": "taoyuan-airport"},
-    "day1_02_taipei_main_station": {"name": "Taipei Main Station", "chinese": "台北車站大廳", "day": "day1", "placeId": "taipei-main-station"},
-    "day1_03_ximending": {"name": "Ximending Youth District", "chinese": "西門町徒步區", "day": "day1", "placeId": "ximending"},
-    "day1_04_longshan_temple": {"name": "Mengjia Longshan Temple", "chinese": "艋舺龍山寺", "day": "day1", "placeId": "longshan-temple"},
-    "day1_05_guangzhou_night_market": {"name": "Guangzhou St Night Market", "chinese": "廣州街夜市", "day": "day1", "placeId": "guangzhou-night-market"},
+    "day1_00_transit_flight": {"name": "Flight & Arrival", "day": "day1", "placeId": "taoyuan-airport"},
+    "day1_01_taoyuan_airport": {"name": "Taoyuan Airport & MRT", "day": "day1", "placeId": "taoyuan-airport"},
+    "day1_02_taipei_main_station": {"name": "Taipei Main Station", "day": "day1", "placeId": "taipei-main-station"},
+    "day1_03_ximending": {"name": "Ximending Youth District", "day": "day1", "placeId": "ximending"},
+    "day1_04_longshan_temple": {"name": "Mengjia Longshan Temple", "day": "day1", "placeId": "longshan-temple"},
+    "day1_05_guangzhou_night_market": {"name": "Guangzhou Street Night Market", "day": "day1", "placeId": "guangzhou-night-market"},
 
     # Day 2
-    "day2_00_taipei_viahotel": {"name": "Via Hotel & Taipei Morning", "chinese": "台北晨間散步", "day": "day2", "placeId": "ximending"},
-    "day2_01_jiufen_old_street": {"name": "Jiufen Old Street", "chinese": "九份老街與山城步道", "day": "day2", "placeId": "jiufen-old-street"},
-    "day2_02_jiufen_qingyun_temple": {"name": "Jiufen Qingyun Temple", "chinese": "九份青雲殿 (神農大帝廟)", "day": "day2", "placeId": "jiufen-qingyun-temple"},
-    "day2_02_transit_route303": {"name": "Ruifang Coastal Highway", "chinese": "瑞芳濱海公路", "day": "day2", "placeId": "jiufen-qingyun-temple"},
-    "day2_02_transit_to_badouzi": {"name": "Transit to Badouzi", "chinese": "前往八斗子沿線", "day": "day2", "placeId": "badouzi-trail"},
-    "day2_03_badouzi_coastal_trail": {"name": "Badouzi Coastal Trail & Wangyou", "chinese": "八斗子濱海步道與望幽谷", "day": "day2", "placeId": "badouzi-trail"},
-    "day2_04_taipei_evening": {"name": "Taipei Evening Return", "chinese": "傍晚台北回程", "day": "day2", "placeId": "ximending"},
+    "day2_00_taipei_viahotel": {"name": "Taipei Morning Walk", "day": "day2", "placeId": "ximending"},
+    "day2_01_jiufen_old_street": {"name": "Jiufen Old Street", "day": "day2", "placeId": "jiufen-old-street"},
+    "day2_02_jiufen_qingyun_temple": {"name": "Jiufen Qingyun Temple", "day": "day2", "placeId": "jiufen-qingyun-temple"},
+    "day2_02_transit_route303": {"name": "Ruifang Coastal Highway", "day": "day2", "placeId": "jiufen-qingyun-temple"},
+    "day2_02_transit_to_badouzi": {"name": "Transit to Badouzi", "day": "day2", "placeId": "badouzi-trail"},
+    "day2_03_badouzi_coastal_trail": {"name": "Badouzi Coastal Trail & Wangyou Valley", "day": "day2", "placeId": "badouzi-trail"},
+    "day2_04_taipei_evening": {"name": "Taipei Evening Return", "day": "day2", "placeId": "ximending"},
 
     # Day 3
-    "day3_00_transit_cards": {"name": "Transit Cards & EasyCard", "chinese": "悠遊卡與交通紀錄", "day": "day3", "placeId": "xinyi-district"},
-    "day3_01_mrt_commute_right_escalator": {"name": "MRT Escalator Etiquette", "chinese": "捷運右側站立文化", "day": "day3", "placeId": "xinyi-district"},
-    "day3_02_taipei_101_exterior": {"name": "Taipei 101 Skyline & Exterior", "chinese": "台北101大樓外觀", "day": "day3", "placeId": "taipei-101"},
-    "day3_03_taipei_101_observatory": {"name": "Taipei 101 Observatory 89F", "chinese": "台北101觀景台", "day": "day3", "placeId": "taipei-101"},
-    "day3_04_taipei_101_wind_damper": {"name": "Taipei 101 Tuned Mass Damper", "chinese": "660公噸風阻尼球", "day": "day3", "placeId": "taipei-101"},
-    "day3_05_xinyi_skybridge_district": {"name": "Xinyi Commercial District", "chinese": "信義商圈天橋夜景", "day": "day3", "placeId": "xinyi-district"},
-    "day3_06_xiangti_avenue_plaza": {"name": "Xiangti Avenue Plaza", "chinese": "香堤大道廣場", "day": "day3", "placeId": "xinyi-district"},
+    "day3_00_transit_cards": {"name": "Transit & EasyCard", "day": "day3", "placeId": "xinyi-district"},
+    "day3_01_mrt_commute_right_escalator": {"name": "MRT Escalator Commute", "day": "day3", "placeId": "xinyi-district"},
+    "day3_02_taipei_101_exterior": {"name": "Taipei 101 Skyline & Exterior", "day": "day3", "placeId": "taipei-101"},
+    "day3_03_taipei_101_observatory": {"name": "Taipei 101 Observatory (89F)", "day": "day3", "placeId": "taipei-101"},
+    "day3_04_taipei_101_wind_damper": {"name": "Taipei 101 Tuned Mass Damper", "day": "day3", "placeId": "taipei-101"},
+    "day3_05_xinyi_skybridge_district": {"name": "Xinyi Commercial District", "day": "day3", "placeId": "xinyi-district"},
+    "day3_06_xiangti_avenue_plaza": {"name": "Xiangti Avenue Plaza", "day": "day3", "placeId": "xinyi-district"},
 
     # Day 4
-    "day4_00_thsr_transit": {"name": "THSR 700T Bullet Train", "chinese": "台灣高鐵700T (台北-左營)", "day": "day4", "placeId": "thsr-bullet-train"},
-    "day4_01_fo_guang_shan": {"name": "Fo Guang Shan Buddha Museum", "chinese": "佛光山佛陀紀念館", "day": "day4", "placeId": "fo-guang-shan"},
-    "day4_02_pier2_art_center": {"name": "Pier-2 Art Center & Harbor", "chinese": "駁二藝術特區與輕軌", "day": "day4", "placeId": "pier2-art-center"},
-    "day4_03_cijin_island": {"name": "Cijin Island & Cihou Fort", "chinese": "旗津島與旗後砲台", "day": "day4", "placeId": "cijin-island"},
-    "day4_04_kaohsiung_city": {"name": "Kaohsiung Harbor & City Night", "chinese": "高雄港灣夜景", "day": "day4", "placeId": "pier2-art-center"},
+    "day4_00_thsr_transit": {"name": "THSR 700T Bullet Train (300 km/h)", "day": "day4", "placeId": "thsr-bullet-train"},
+    "day4_01_fo_guang_shan": {"name": "Fo Guang Shan Buddha Museum", "day": "day4", "placeId": "fo-guang-shan"},
+    "day4_02_pier2_art_center": {"name": "Pier-2 Art Center & Harbor", "day": "day4", "placeId": "pier2-art-center"},
+    "day4_03_cijin_island": {"name": "Cijin Island & Cihou Fort", "day": "day4", "placeId": "cijin-island"},
+    "day4_04_kaohsiung_city": {"name": "Kaohsiung Harbor & Night View", "day": "day4", "placeId": "pier2-art-center"},
 
     # Day 5
-    "day5_00_alishan_highway": {"name": "Alishan Highway Ascent", "chinese": "阿里山公路與雲海", "day": "day5", "placeId": "alishan-forest-railway"},
-    "day5_01_alishan_station": {"name": "Alishan Forest Railway & Station", "chinese": "阿里山車站與森林鐵路", "day": "day5", "placeId": "alishan-forest-railway"},
-    "day5_02_giant_trees_trail": {"name": "Giant Tree Plank Trail", "chinese": "巨木群棧道", "day": "day5", "placeId": "alishan-giant-trees"},
-    "day5_03_alishan_forest": {"name": "Alishan Sacred Cypress Forest", "chinese": "神木森林與受鎮宮", "day": "day5", "placeId": "alishan-giant-trees"},
-    "day5_04_evening_transit": {"name": "Alishan Mountain Descent", "chinese": "阿里山下山回程", "day": "day5", "placeId": "alishan-forest-railway"},
+    "day5_00_alishan_highway": {"name": "Alishan Highway Ascent", "day": "day5", "placeId": "alishan-forest-railway"},
+    "day5_01_alishan_station": {"name": "Alishan Forest Railway & Station", "day": "day5", "placeId": "alishan-forest-railway"},
+    "day5_02_giant_trees_trail": {"name": "Giant Tree Plank Trail", "day": "day5", "placeId": "alishan-giant-trees"},
+    "day5_03_alishan_forest": {"name": "Alishan Sacred Cypress Forest", "day": "day5", "placeId": "alishan-giant-trees"},
+    "day5_04_evening_transit": {"name": "Alishan Mountain Descent", "day": "day5", "placeId": "alishan-forest-railway"},
 
     # Day 6
-    "day6_00_mountain_drive": {"name": "Yangmingshan Mountain Drive", "chinese": "陽明山景觀公路", "day": "day6", "placeId": "xiaoyoukeng-fumaroles"},
-    "day6_01_xiaoyoukeng_fumaroles": {"name": "Xiaoyoukeng Sulfur Fumaroles", "chinese": "小油坑硫磺地熱噴氣孔", "day": "day6", "placeId": "xiaoyoukeng-fumaroles"},
-    "day6_02_lengshuikeng_hotspring": {"name": "Lengshuikeng & Suspension Bridge", "chinese": "冷水坑與菁山吊橋", "day": "day6", "placeId": "lengshuikeng-hotspring"},
-    "day6_03_qingtiangang_grassland": {"name": "Qingtiangang Grassland & Buffaloes", "chinese": "擎天崗大草原與水牛群", "day": "day6", "placeId": "qingtiangang-grassland"},
-    "day6_04_shilin_evening": {"name": "Yangmingshan Evening Descent", "chinese": "陽明山傍晚回程", "day": "day6", "placeId": "qingtiangang-grassland"},
+    "day6_00_mountain_drive": {"name": "Yangmingshan Mountain Drive", "day": "day6", "placeId": "xiaoyoukeng-fumaroles"},
+    "day6_01_xiaoyoukeng_fumaroles": {"name": "Xiaoyoukeng Sulfur Fumaroles", "day": "day6", "placeId": "xiaoyoukeng-fumaroles"},
+    "day6_02_lengshuikeng_hotspring": {"name": "Lengshuikeng & Suspension Bridge", "day": "day6", "placeId": "lengshuikeng-hotspring"},
+    "day6_03_qingtiangang_grassland": {"name": "Qingtiangang Grassland & Buffaloes", "day": "day6", "placeId": "qingtiangang-grassland"},
+    "day6_04_shilin_evening": {"name": "Yangmingshan Evening Descent", "day": "day6", "placeId": "qingtiangang-grassland"},
 
     # Day 7
-    "day7_00_jinshan_coast": {"name": "Jinshan Coastal Highway", "chinese": "金山北海岸公路", "day": "day7", "placeId": "jinshan-coastal-highway"},
-    "day7_01_thermal_valley": {"name": "Xinbeitou Thermal Valley", "chinese": "新北投地熱谷", "day": "day7", "placeId": "beitou-thermal-valley"},
-    "day7_02_sulfur_valley": {"name": "Beitou Sulfur Valley Geothermal", "chinese": "北投硫磺谷地熱景觀區", "day": "day7", "placeId": "beitou-sulfur-valley"},
-    "day7_03_shilin_night_market": {"name": "Shilin Night Market", "chinese": "士林夜市美食", "day": "day7", "placeId": "shilin-night-market"},
-    "day7_04_yongkang_street": {"name": "Yongkang Street Stroll", "chinese": "永康街美食散步", "day": "day7", "placeId": "shilin-night-market"},
+    "day7_00_jinshan_coast": {"name": "Jinshan Coastal Highway", "day": "day7", "placeId": "jinshan-coastal-highway"},
+    "day7_01_thermal_valley": {"name": "Xinbeitou Thermal Valley", "day": "day7", "placeId": "beitou-thermal-valley"},
+    "day7_02_sulfur_valley": {"name": "Beitou Sulfur Valley Geothermal Area", "day": "day7", "placeId": "beitou-sulfur-valley"},
+    "day7_03_shilin_night_market": {"name": "Shilin Night Market", "day": "day7", "placeId": "shilin-night-market"},
+    "day7_04_yongkang_street": {"name": "Yongkang Street Stroll", "day": "day7", "placeId": "shilin-night-market"},
 }
 
 def load_state():
-    if SELECTIONS_FILE.exists():
-        try:
-            with open(SELECTIONS_FILE, 'r', encoding='utf-8') as f:
-                data = json.load(f)
-                if 'captions' not in data:
-                    data['captions'] = {}
-                if 'featured' not in data:
-                    data['featured'] = {}
-                return data
-        except Exception:
-            pass
-    return {'selected': {}, 'rejected': {}, 'captions': {}, 'featured': {}}
+    with STATE_LOCK:
+        if SELECTIONS_FILE.exists():
+            try:
+                with open(SELECTIONS_FILE, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    if 'selected' not in data: data['selected'] = {}
+                    if 'rejected' not in data: data['rejected'] = {}
+                    if 'captions' not in data: data['captions'] = {}
+                    if 'featured' not in data: data['featured'] = {}
+                    return data
+            except Exception as e:
+                print(f"[load_state error]: {e}")
+        return {'selected': {}, 'rejected': {}, 'captions': {}, 'featured': {}}
 
 def save_state(state):
-    with open(SELECTIONS_FILE, 'w', encoding='utf-8') as f:
-        json.dump(state, f, indent=2, ensure_ascii=False)
+    with STATE_LOCK:
+        try:
+            tmp_file = SELECTIONS_FILE.with_suffix('.tmp')
+            with open(tmp_file, 'w', encoding='utf-8') as f:
+                json.dump(state, f, indent=2, ensure_ascii=False)
+            os.replace(tmp_file, SELECTIONS_FILE)
+            return True
+        except Exception as e:
+            print(f"[save_state error]: {e}")
+            return False
 
 def get_post_info(filename, folder_rel):
     stem = Path(filename).stem
     post_id = stem.split('_photo_')[0].split('_video_')[0]
     if post_id in POSTS_METADATA:
         info = POSTS_METADATA[post_id]
-        return post_id, info['name'], info['chinese'], info['day'], info['placeId']
-    # Fallback derivation
+        return post_id, info['name'], info['day'], info['placeId']
     clean_name = post_id.replace('_', ' ').title()
     day = folder_rel.split('/')[0]
-    return post_id, clean_name, '', day, ''
+    return post_id, clean_name, day, ''
 
 def scan_catalog():
     days = ['day1', 'day2', 'day3', 'day4', 'day5', 'day6', 'day7']
@@ -122,15 +136,13 @@ def scan_catalog():
                 'count': len(files)
             })
 
-            # Scan posts in this day
             for f in sorted(p.iterdir()):
                 if not f.name.startswith('.') and f.suffix.lower() in ['.jpg', '.jpeg', '.png', '.mp4', '.heic']:
-                    post_id, post_name, chinese, day, place_id = get_post_info(f.name, name)
+                    post_id, post_name, day, place_id = get_post_info(f.name, name)
                     if post_id not in posts_dict:
                         posts_dict[post_id] = {
                             'id': post_id,
                             'name': post_name,
-                            'chinese': chinese,
                             'day': day,
                             'placeId': place_id,
                             'folder': name,
@@ -144,7 +156,7 @@ def scan_catalog():
                     else:
                         posts_dict[post_id]['photos'] += 1
 
-    # Also scan split subfolders if any
+    # Also include split subfolders if present
     for split_parent in ['day1-3', 'day4-7']:
         parent_p = BASE_DIR / split_parent
         if parent_p.is_dir():
@@ -178,13 +190,13 @@ class CuratorHandler(http.server.SimpleHTTPRequestHandler):
         if url.path == '/':
             self.send_response(200)
             self.send_header('Content-type', 'text/html; charset=utf-8')
+            self.send_header('Cache-Control', 'no-cache')
             self.end_headers()
             self.wfile.write(HTML_PAGE.encode('utf-8'))
 
         elif url.path == '/api/folders':
             day_folders, posts_list = scan_catalog()
             state = load_state()
-            # Annotate posts with featured and selected counts
             for p in posts_list:
                 p_id = p['id']
                 p['featured'] = state.get('featured', {}).get(p_id, None)
@@ -203,7 +215,6 @@ class CuratorHandler(http.server.SimpleHTTPRequestHandler):
             state = load_state()
             items = []
 
-            # If folder is 'all', scan all primary days
             scan_dirs = []
             if folder_rel == 'all':
                 scan_dirs = [BASE_DIR / f'day{i}' for i in range(1, 8) if (BASE_DIR / f'day{i}').is_dir()]
@@ -218,16 +229,13 @@ class CuratorHandler(http.server.SimpleHTTPRequestHandler):
                     if not f.name.startswith('.') and f.suffix.lower() in ['.jpg', '.jpeg', '.png', '.mp4', '.heic']:
                         rel_path = str(f.relative_to(BASE_DIR))
                         is_video = f.suffix.lower() == '.mp4'
-                        post_id, post_name, chinese, day, place_id = get_post_info(f.name, curr_folder)
+                        post_id, post_name, day, place_id = get_post_info(f.name, curr_folder)
 
-                        # Filter by post if specified
                         if post_filter != 'all' and post_id != post_filter:
                             continue
 
-                        # Check if featured
                         is_featured = (state.get('featured', {}).get(post_id) == rel_path)
 
-                        # Search filter
                         if search_query:
                             cap = state.get('captions', {}).get(rel_path, '').lower()
                             if search_query not in f.name.lower() and search_query not in post_name.lower() and search_query not in cap:
@@ -241,7 +249,6 @@ class CuratorHandler(http.server.SimpleHTTPRequestHandler):
                             'isVideo': is_video,
                             'post': post_id,
                             'postName': post_name,
-                            'chinese': chinese,
                             'isFeatured': is_featured,
                             'size': f.stat().st_size
                         })
@@ -275,7 +282,6 @@ class CuratorHandler(http.server.SimpleHTTPRequestHandler):
             elif decision == 'rejected':
                 state['rejected'][item_id] = True
                 state['selected'].pop(item_id, None)
-                # If was featured, remove featured
                 for p_id, f_path in list(state.get('featured', {}).items()):
                     if f_path == item_id:
                         del state['featured'][p_id]
@@ -294,12 +300,10 @@ class CuratorHandler(http.server.SimpleHTTPRequestHandler):
 
             current_featured = state['featured'].get(post_id)
             if current_featured == item_id:
-                # Toggle off
                 del state['featured'][post_id]
                 is_now_featured = False
             else:
                 state['featured'][post_id] = item_id
-                # Automatically select the featured photo
                 state['selected'][item_id] = True
                 state['rejected'].pop(item_id, None)
                 is_now_featured = True
@@ -322,18 +326,17 @@ class CuratorHandler(http.server.SimpleHTTPRequestHandler):
 
         elif url.path == '/api/post_action':
             post_id = payload.get('post')
-            action = payload.get('action')  # 'select_all', 'reject_all', 'reset'
+            action = payload.get('action')
             folder = payload.get('folder', 'day1')
             state = load_state()
 
-            # Find all files belonging to this post
             affected = []
             target_dirs = [BASE_DIR / folder] if folder != 'all' else [BASE_DIR / f'day{i}' for i in range(1, 8)]
             for d in target_dirs:
                 if d.is_dir():
                     for f in d.iterdir():
                         if not f.name.startswith('.') and f.suffix.lower() in ['.jpg', '.jpeg', '.png', '.mp4', '.heic']:
-                            p_id, _, _, _, _ = get_post_info(f.name, d.name)
+                            p_id, _, _, _ = get_post_info(f.name, d.name)
                             if p_id == post_id:
                                 rel = str(f.relative_to(BASE_DIR))
                                 affected.append(rel)
@@ -380,28 +383,27 @@ class CuratorHandler(http.server.SimpleHTTPRequestHandler):
                 json.dump(featured_export, f, indent=2, ensure_ascii=False)
 
             with open(target_dir / 'CURATED_SELECTIONS.md', 'w', encoding='utf-8') as f:
-                f.write('# Curated Taiwan Photos, Stories & Featured Covers\n\n')
+                f.write('# Curated Taiwan Photos & Featured Post Covers\n\n')
                 f.write(f'Total selected files: {copied}\n')
                 f.write(f'Total featured post covers: {len(featured_export)}\n\n')
 
-                # Group by post
                 items_by_post = {}
                 for item_id in sorted(state.get('selected', {}).keys()):
-                    p_id, p_name, p_cn, day, _ = get_post_info(Path(item_id).name, Path(item_id).parent.name)
+                    p_id, p_name, day, _ = get_post_info(Path(item_id).name, Path(item_id).parent.name)
                     if p_id not in items_by_post:
-                        items_by_post[p_id] = {'name': p_name, 'chinese': p_cn, 'day': day, 'items': []}
+                        items_by_post[p_id] = {'name': p_name, 'day': day, 'items': []}
                     items_by_post[p_id]['items'].append(item_id)
 
                 for p_id, p_data in sorted(items_by_post.items()):
                     feat_cover = featured_export.get(p_id)
-                    f.write(f'## {p_data["name"]} ({p_data["chinese"]})\n')
+                    f.write(f'## {p_data["name"]}\n')
                     f.write(f'- **Day**: {p_data["day"].upper()}\n')
                     if feat_cover:
-                        f.write(f'- **🌟 Featured Cover**: `{feat_cover}`\n')
+                        f.write(f'- **Featured Cover**: `{feat_cover}`\n')
                     f.write(f'- **Selected Photos ({len(p_data["items"])})**:\n')
                     for it in p_data['items']:
                         cap = state.get('captions', {}).get(it, '')
-                        is_cov = ' 🌟 **[COVER]**' if it == feat_cover else ''
+                        is_cov = ' [FEATURED COVER]' if it == feat_cover else ''
                         if cap:
                             f.write(f'  - `{it}`{is_cov}: "{cap}"\n')
                         else:
@@ -411,7 +413,6 @@ class CuratorHandler(http.server.SimpleHTTPRequestHandler):
             self.send_json({'success': True, 'copied': copied, 'featured': len(featured_export), 'target': str(target_dir)})
 
         elif url.path == '/api/sync_website':
-            # Synchronize chosen featured photos to web app public/taiwan/ thumbnails
             state = load_state()
             featured = state.get('featured', {})
             synced = 0
@@ -425,25 +426,27 @@ class CuratorHandler(http.server.SimpleHTTPRequestHandler):
                     src_file = BASE_DIR / photo_rel
                     if src_file.exists() and src_file.suffix.lower() in ['.jpg', '.jpeg', '.png']:
                         try:
-                            # Generate an optimized cover photo named cover-<place_id>.jpg
                             dst_filename = f'cover-{place_id}.jpg' if place_id else f'cover-{post_id}.jpg'
                             dst_file = public_taiwan / dst_filename
-                            with Image.open(src_file) as im:
-                                im = ImageOps.exif_transpose(im)
-                                w, h = im.size
-                                max_dim = 1920
-                                if max(w, h) > max_dim:
-                                    if w > h:
-                                        new_w = max_dim
-                                        new_h = int(h * (max_dim / w))
-                                    else:
-                                        new_h = max_dim
-                                        new_w = int(w * (max_dim / h))
-                                    im = im.resize((new_w, new_h), Image.Resampling.LANCZOS)
-                                im.save(dst_file, 'JPEG', quality=85, optimize=True)
+                            if HAS_PIL:
+                                with Image.open(src_file) as im:
+                                    im = ImageOps.exif_transpose(im)
+                                    w, h = im.size
+                                    max_dim = 1920
+                                    if max(w, h) > max_dim:
+                                        if w > h:
+                                            new_w = max_dim
+                                            new_h = int(h * (max_dim / w))
+                                        else:
+                                            new_h = max_dim
+                                            new_w = int(w * (max_dim / h))
+                                        im = im.resize((new_w, new_h), Image.Resampling.LANCZOS)
+                                    im.save(dst_file, 'JPEG', quality=85, optimize=True)
+                            else:
+                                shutil.copy2(src_file, dst_file)
                             synced += 1
                             details.append(f'{post_id} -> {dst_filename}')
-                        except Exception as e:
+                        except Exception:
                             pass
 
             self.send_json({'success': True, 'synced': synced, 'details': details})
@@ -463,280 +466,513 @@ HTML_PAGE = """<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Taiwan Photo Curator & Post Manager</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <title>Taiwan Photo Curator (Internal)</title>
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    code, .font-mono { font-family: 'JetBrains Mono', monospace; }
-    .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
-    .custom-scrollbar::-webkit-scrollbar-track { background: rgba(24, 24, 27, 0.5); }
-    .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(63, 63, 70, 0.6); border-radius: 9999px; }
-    @keyframes pulseGlow {
-      0%, 100% { box-shadow: 0 0 15px rgba(251, 191, 36, 0.2); }
-      50% { box-shadow: 0 0 25px rgba(251, 191, 36, 0.45); }
+    :root {
+      --bg: #09090b;
+      --card-bg: #18181b;
+      --card-border: #27272a;
+      --text: #f4f4f5;
+      --text-muted: #a1a1aa;
+      --accent: #f59e0b;
+      --accent-glow: rgba(245, 158, 11, 0.25);
+      --success: #10b981;
+      --danger: #ef4444;
+      --sidebar-w: 280px;
     }
-    .featured-glow { animation: pulseGlow 2.5s infinite ease-in-out; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: rgba(24, 24, 27, 0.5); }
+    ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 9999px; }
+
+    /* Top Navigation */
+    header {
+      background: #121215;
+      border-bottom: 1px solid #27272a;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      z-index: 30;
+    }
+    .header-brand { display: flex; align-items: center; gap: 10px; }
+    .brand-icon {
+      width: 34px; height: 34px; border-radius: 10px;
+      background: linear-gradient(135deg, #f59e0b, #10b981);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: bold; color: #000;
+    }
+    .brand-title { font-size: 15px; font-weight: 700; color: #fff; }
+    .brand-tag {
+      font-size: 10px; font-family: monospace; background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 2px 7px; border-radius: 999px; margin-left: 6px;
+    }
+    .brand-subtitle { font-size: 11px; color: #71717a; font-family: monospace; }
+
+    .header-actions { display: flex; align-items: center; gap: 12px; }
+    .search-input {
+      background: #18181b; border: 1px solid #27272a; border-radius: 8px;
+      padding: 6px 12px; color: #fff; font-size: 12px; width: 200px;
+      outline: none; transition: border-color 0.15s;
+    }
+    .search-input:focus { border-color: var(--accent); }
+    .counter-badge {
+      display: flex; align-items: center; gap: 8px; font-family: monospace;
+      font-size: 11px; background: #18181b; border: 1px solid #27272a;
+      padding: 5px 12px; border-radius: 8px;
+    }
+    .counter-badge .counter-btn {
+      cursor: pointer; padding: 2px 5px; border-radius: 4px; transition: all 0.15s;
+    }
+    .counter-badge .counter-btn:hover {
+      background: rgba(255,255,255,0.1); text-decoration: underline;
+    }
+    #save-status {
+      font-size: 10px; font-family: monospace; font-weight: 700;
+      padding: 3px 8px; border-radius: 6px; opacity: 0;
+      transition: opacity 0.25s; display: none;
+    }
+    .btn {
+      font-size: 11px; font-weight: 700; padding: 6px 12px; border-radius: 8px;
+      border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+      transition: all 0.15s;
+    }
+    .btn-export {
+      background: linear-gradient(135deg, #f59e0b, #10b981); color: #000;
+    }
+    .btn-export:hover { opacity: 0.9; }
+    .btn-sync {
+      background: #18181b; border: 1px solid #3f3f46; color: #fbbf24;
+    }
+    .btn-sync:hover { background: #27272a; }
+
+    /* Layout */
+    .app-body { display: flex; flex: 1; overflow: hidden; }
+    aside {
+      width: var(--sidebar-w); background: #0e0e11; border-right: 1px solid #27272a;
+      display: flex; flex-direction: column; justify-content: space-between;
+      overflow-y: auto; flex-shrink: 0;
+    }
+    .sidebar-section { padding: 14px; border-bottom: 1px solid #1f1f23; }
+    .sidebar-title {
+      font-size: 10px; font-family: monospace; font-weight: 700; color: #71717a;
+      text-transform: uppercase; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;
+    }
+    .sidebar-link-btn {
+      background: none; border: none; font-size: 10px; color: #71717a;
+      cursor: pointer; text-decoration: underline;
+    }
+    .sidebar-link-btn:hover { color: var(--accent); }
+
+    /* Day Grid */
+    .day-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
+    .day-btn {
+      background: #18181b; border: 1px solid #27272a; color: #a1a1aa;
+      font-size: 11px; font-family: monospace; font-weight: 700;
+      padding: 7px 0; border-radius: 6px; cursor: pointer; text-align: center;
+      transition: all 0.15s;
+    }
+    .day-btn:hover { color: #fff; border-color: #3f3f46; }
+    .day-btn.active {
+      background: var(--accent); color: #000; border-color: var(--accent);
+    }
+
+    /* Post list */
+    .post-list { max-height: 38vh; overflow-y: auto; display: flex; flex-direction: column; gap: 2px; }
+    .post-item-btn {
+      background: transparent; border: 1px solid transparent; border-radius: 6px;
+      padding: 6px 8px; text-align: left; font-size: 12px; color: #a1a1aa;
+      cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+      transition: all 0.15s; width: 100%;
+    }
+    .post-item-btn:hover { background: #18181b; color: #fff; }
+    .post-item-btn.active {
+      background: rgba(245, 158, 11, 0.12); color: #fbbf24;
+      border-color: rgba(245, 158, 11, 0.3); font-weight: 700;
+    }
+    .post-item-name {
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .post-item-count {
+      font-size: 9px; font-family: monospace; background: #27272a;
+      padding: 2px 6px; border-radius: 4px; color: #a1a1aa; flex-shrink: 0;
+    }
+
+    /* Filter buttons */
+    .filter-list { display: flex; flex-direction: column; gap: 3px; }
+    .filter-btn {
+      background: transparent; border: none; border-radius: 6px;
+      padding: 6px 10px; font-size: 11px; color: #a1a1aa; cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center; text-align: left;
+    }
+    .filter-btn:hover { background: #18181b; color: #fff; }
+    .filter-btn.active { background: #27272a; color: #fff; font-weight: 700; }
+
+    /* Shortcuts panel */
+    .shortcuts-panel {
+      padding: 12px 14px; background: #09090b; border-top: 1px solid #1f1f23;
+      font-size: 10px; font-family: monospace; color: #71717a;
+    }
+    .shortcuts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-top: 6px; }
+    kbd {
+      background: #27272a; padding: 2px 5px; border-radius: 4px; color: #fff; font-weight: bold;
+    }
+
+    /* Main Content */
+    main {
+      flex: 1; overflow-y: auto; padding: 20px 24px; display: flex; flex-direction: column;
+    }
+    .post-hero {
+      background: #141417; border: 1px solid #27272a; border-radius: 14px;
+      padding: 16px 20px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;
+    }
+    .post-hero-title { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+    .post-hero-crumbs { font-size: 11px; font-family: monospace; color: #71717a; margin-bottom: 4px; }
+    .post-hero-crumbs span { color: var(--accent); }
+    .post-hero-desc { font-size: 12px; color: #a1a1aa; font-family: monospace; }
+
+    .post-hero-right { display: flex; align-items: center; gap: 12px; }
+    .featured-indicator {
+      background: #09090b; border: 1px solid rgba(245, 158, 11, 0.4);
+      padding: 8px 14px; border-radius: 10px; font-size: 11px; font-family: monospace;
+    }
+    .featured-indicator b { color: #fbbf24; }
+    .post-action-btn {
+      background: #1f1f23; border: 1px solid #3f3f46; color: #f4f4f5;
+      padding: 7px 12px; border-radius: 8px; font-size: 11px; font-weight: 700;
+      cursor: pointer; transition: all 0.15s; font-family: monospace;
+    }
+    .post-action-btn:hover { background: #27272a; border-color: #71717a; }
+    .post-action-btn.select-all {
+      background: rgba(16, 185, 129, 0.15); color: #34d399; border-color: rgba(16, 185, 129, 0.35);
+    }
+    .post-action-btn.select-all:hover { background: #10b981; color: #000; }
+
+    /* Gallery Grid */
+    .gallery-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .photo-card {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 12px; overflow: hidden; display: flex; flex-direction: column;
+      justify-content: space-between; transition: all 0.2s; position: relative;
+    }
+    .photo-card:hover { border-color: #3f3f46; }
+    .photo-card.is-featured {
+      border-color: #fbbf24; box-shadow: 0 0 16px var(--accent-glow);
+    }
+    .photo-card.is-selected:not(.is-featured) {
+      border-color: var(--success); box-shadow: 0 0 12px rgba(16, 185, 129, 0.2);
+    }
+    .photo-card.is-rejected { opacity: 0.35; }
+
+    .thumb-wrap {
+      position: relative; aspect-ratio: 16/10; background: #000;
+      cursor: pointer; overflow: hidden;
+    }
+    .thumb-wrap img, .thumb-wrap video {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.2s;
+    }
+    .thumb-wrap:hover img { transform: scale(1.03); }
+    .video-play-icon {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.35); color: #fff; font-size: 28px;
+    }
+
+    .badge-bar { position: absolute; top: 8px; left: 8px; display: flex; flex-direction: column; gap: 4px; }
+    .badge {
+      font-size: 9px; font-family: monospace; font-weight: 800; padding: 3px 7px;
+      border-radius: 999px; text-transform: uppercase;
+    }
+    .badge-cover { background: #fbbf24; color: #000; }
+    .badge-selected { background: #10b981; color: #000; }
+    .badge-rejected { background: #ef4444; color: #fff; }
+    .badge-caption { background: #38bdf8; color: #000; }
+
+    .cover-toggle-btn {
+      position: absolute; top: 8px; right: 8px; font-size: 10px; font-weight: 800;
+      font-family: monospace; border: none; border-radius: 6px; padding: 4px 8px;
+      cursor: pointer; background: rgba(0,0,0,0.7); color: #a1a1aa; backdrop-filter: blur(4px);
+      transition: all 0.15s;
+    }
+    .cover-toggle-btn:hover { background: #000; color: #fbbf24; }
+    .cover-toggle-btn.active {
+      background: #fbbf24; color: #000;
+    }
+
+    .card-footer {
+      padding: 10px 12px; background: #141417; border-top: 1px solid #27272a;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .card-meta { display: flex; justify-content: space-between; font-size: 10px; font-family: monospace; color: #71717a; }
+    .card-meta span { color: #fbbf24; max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .caption-input {
+      width: 100%; background: #09090b; border: 1px solid #27272a; border-radius: 6px;
+      padding: 5px 8px; color: #e4e4e7; font-size: 11px; outline: none;
+    }
+    .caption-input:focus { border-color: #fbbf24; }
+    .card-decision-bar { display: flex; gap: 6px; }
+    .decision-btn {
+      flex: 1; padding: 6px 0; border-radius: 6px; border: none; font-size: 11px;
+      font-weight: 700; font-family: monospace; cursor: pointer; text-align: center;
+      transition: all 0.15s;
+    }
+    .decision-btn.select { background: #18181b; color: #a1a1aa; }
+    .decision-btn.select:hover { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+    .decision-btn.select.active { background: #10b981; color: #000; }
+
+    .decision-btn.reject { background: #18181b; color: #a1a1aa; }
+    .decision-btn.reject:hover { background: rgba(239, 68, 68, 0.15); color: #f87171; }
+    .decision-btn.reject.active { background: #ef4444; color: #fff; }
+
+    /* Lightbox Modal */
+    #lightbox-modal {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.96); backdrop-filter: blur(10px);
+      z-index: 100; display: none; flex-direction: column; justify-content: space-between;
+      padding: 16px 24px;
+    }
+    #lightbox-modal.open { display: flex; }
+    .lightbox-header {
+      display: flex; justify-content: space-between; align-items: center; color: #fff;
+      font-family: monospace; font-size: 12px;
+    }
+    .lightbox-media {
+      flex: 1; display: flex; align-items: center; justify-content: center; position: relative;
+    }
+    .lightbox-media img, .lightbox-media video {
+      max-height: 68vh; max-width: 88vw; object-fit: contain; border-radius: 8px;
+    }
+    .lightbox-nav-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(24,24,27,0.8); border: 1px solid #3f3f46; color: #fff;
+      font-size: 20px; width: 44px; height: 44px; border-radius: 50%;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+    .lightbox-nav-btn.prev { left: 20px; }
+    .lightbox-nav-btn.next { right: 20px; }
+    .lightbox-nav-btn:hover { background: #fbbf24; color: #000; border-color: #fbbf24; }
+
+    .lightbox-bottom {
+      max-width: 760px; margin: 0 auto; width: 100%; display: flex; flex-direction: column; gap: 10px;
+    }
+    .lightbox-caption-row {
+      display: flex; gap: 8px; background: #18181b; border: 1px solid #27272a;
+      border-radius: 10px; padding: 6px 12px; align-items: center;
+    }
+    .lightbox-caption-input {
+      flex: 1; background: transparent; border: none; color: #fff; font-size: 13px; outline: none;
+    }
+    .lightbox-controls { display: flex; justify-content: center; gap: 12px; }
+    .lb-btn {
+      font-size: 12px; font-weight: 700; font-family: monospace; padding: 10px 20px;
+      border-radius: 10px; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px;
+    }
+    .lb-btn.cover { background: #18181b; border: 1px solid #fbbf24; color: #fbbf24; }
+    .lb-btn.cover.active { background: #fbbf24; color: #000; }
+    .lb-btn.select { background: #10b981; color: #000; }
+    .lb-btn.reject { background: #ef4444; color: #fff; }
+    .lb-btn.reset { background: #27272a; color: #a1a1aa; }
   </style>
 </head>
-<body class="bg-zinc-950 text-zinc-100 min-h-screen flex flex-col antialiased selection:bg-amber-500/30 selection:text-amber-300">
+<body>
 
   <!-- Top Navigation Header -->
-  <header class="sticky top-0 z-40 bg-zinc-950/90 backdrop-blur-xl border-b border-zinc-800/80 px-4 sm:px-6 py-2.5 flex items-center justify-between">
-    <div class="flex items-center space-x-3">
-      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 via-orange-500 to-emerald-500 flex items-center justify-center font-black text-zinc-950 shadow-lg shadow-amber-500/20 text-lg">
-        📸
-      </div>
+  <header>
+    <div class="header-brand">
+      <div class="brand-icon">📸</div>
       <div>
-        <h1 class="text-sm sm:text-base font-bold tracking-tight text-white flex items-center space-x-2">
-          <span>Taiwan Photo Curator</span>
-          <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">Post & Cover Studio</span>
-        </h1>
-        <p class="text-[11px] text-zinc-400 font-mono">Filter by Post • Select Featured Covers • Add Story Captions</p>
+        <div class="brand-title">
+          Taiwan Photo Curator <span class="brand-tag">Internal Review</span>
+        </div>
+        <div class="brand-subtitle">Organized by Day & Post • Set Featured Covers</div>
       </div>
     </div>
 
-    <!-- Search Input & Stats Bar -->
-    <div class="flex items-center space-x-3">
-      <!-- Search Input -->
-      <div class="relative w-44 sm:w-64 hidden sm:block">
-        <input 
-          type="text" 
-          id="search-input" 
-          placeholder="Search post, note, file..." 
-          oninput="handleSearch(this.value)"
-          class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-1.5 text-xs text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-amber-400 transition font-sans"
-        />
-        <span class="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-500 text-xs">🔍</span>
+    <div class="header-actions">
+      <input type="text" id="search-input" class="search-input" placeholder="Search files, posts, notes..." oninput="handleSearch(this.value)" />
+
+      <div class="counter-badge">
+        <span class="counter-btn" style="color:#fbbf24;" id="featured-counter" onclick="viewAllState('featured')" title="View all featured covers across the trip">★ 0 Covers</span>
+        <span style="color:#3f3f46;">|</span>
+        <span class="counter-btn" style="color:#10b981;" id="selected-counter" onclick="viewAllState('selected')" title="View all selected photos across the trip">✓ 0 Selected</span>
+        <span style="color:#3f3f46;">|</span>
+        <span class="counter-btn" style="color:#ef4444;" id="rejected-counter" onclick="viewAllState('rejected')" title="View all rejected photos">✕ 0 Rejected</span>
+        <span style="color:#3f3f46;">|</span>
+        <span class="counter-btn" style="color:#71717a;" id="total-counter" onclick="viewAllState('all')" title="View all photos">0 Total</span>
       </div>
 
-      <!-- Counters -->
-      <div class="hidden lg:flex items-center space-x-2 bg-zinc-900/80 border border-zinc-800 px-3 py-1 rounded-xl text-xs font-mono">
-        <span class="text-amber-400 font-bold" id="featured-counter">★ 0 Covers</span>
-        <span class="text-zinc-600">|</span>
-        <span class="text-emerald-400 font-bold" id="selected-counter">✓ 0 Sel</span>
-        <span class="text-zinc-600">|</span>
-        <span class="text-rose-400 font-bold" id="rejected-counter">✕ 0 Rej</span>
-        <span class="text-zinc-600">|</span>
-        <span class="text-zinc-400" id="total-counter">0 Total</span>
-      </div>
+      <span id="save-status">Saved ✓</span>
 
-      <!-- Action Buttons -->
-      <div class="flex items-center space-x-2">
-        <button onclick="syncToWebsite()" title="Sync chosen cover photos directly to website thumbnails" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-700/80 text-amber-400 font-bold text-xs px-3 py-1.5 rounded-xl transition flex items-center space-x-1 cursor-pointer">
-          <span>🚀</span>
-          <span class="hidden sm:inline">Sync Covers</span>
-        </button>
-        <button onclick="exportSelected()" class="bg-gradient-to-r from-amber-500 to-emerald-500 hover:from-amber-400 hover:to-emerald-400 text-zinc-950 font-bold text-xs px-3.5 py-1.5 rounded-xl transition shadow-lg shadow-amber-500/10 flex items-center space-x-1 cursor-pointer">
-          <span>Export Curated</span>
-          <span>→</span>
-        </button>
-      </div>
+      <button onclick="syncToWebsite()" class="btn btn-sync" title="Sync chosen featured photos to website">
+        🚀 Sync Covers
+      </button>
+      <button onclick="exportSelected()" class="btn btn-export">
+        Export Curated →
+      </button>
     </div>
   </header>
 
-  <!-- Main Layout -->
-  <div class="flex-1 flex overflow-hidden">
+  <!-- App Body -->
+  <div class="app-body">
     
     <!-- Sidebar -->
-    <aside class="w-72 bg-zinc-900/40 border-r border-zinc-800/80 flex flex-col justify-between shrink-0 overflow-hidden">
-      
-      <!-- Top Section: Days & Posts Explorer -->
-      <div class="flex-1 overflow-y-auto p-3.5 custom-scrollbar space-y-4">
-        
-        <!-- Day Selector Tabs -->
-        <div>
-          <div class="flex items-center justify-between mb-2">
-            <h2 class="text-[11px] font-mono uppercase tracking-wider text-zinc-400 font-bold">1. Select Day</h2>
-            <button onclick="loadDay('all')" class="text-[10px] font-mono text-zinc-400 hover:text-amber-400 transition cursor-pointer">All Days</button>
+    <aside>
+      <div>
+        <!-- 1. Day Selector -->
+        <div class="sidebar-section">
+          <div class="sidebar-title">
+            <span>1. Select Day</span>
+            <button onclick="loadDay('all')" class="sidebar-link-btn">All Days</button>
           </div>
-          <div class="grid grid-cols-4 gap-1.5" id="day-pill-list">
-            <!-- Day buttons rendered via JS -->
-          </div>
+          <div class="day-grid" id="day-pill-list"></div>
         </div>
 
-        <!-- Post Filter List for Active Day -->
-        <div class="pt-2 border-t border-zinc-800/60">
-          <div class="flex items-center justify-between mb-2">
-            <h2 class="text-[11px] font-mono uppercase tracking-wider text-zinc-400 font-bold flex items-center space-x-1">
-              <span>2. Posts in</span>
-              <span class="text-amber-400 font-bold" id="posts-sub-title">Day 1</span>
-            </h2>
-            <button onclick="selectPost('all')" id="post-all-btn" class="text-[10px] font-mono text-zinc-400 hover:text-amber-400 cursor-pointer">All Posts</button>
+        <!-- 2. Post Selector -->
+        <div class="sidebar-section">
+          <div class="sidebar-title">
+            <span>2. Posts in <b style="color:#fbbf24;" id="posts-sub-title">Day 1</b></span>
+            <button onclick="selectPost('all')" id="post-all-btn" class="sidebar-link-btn">All Posts</button>
           </div>
-          
-          <div class="space-y-1 max-h-[38vh] overflow-y-auto custom-scrollbar pr-1" id="post-list">
-            <!-- Post item buttons inserted via JS -->
-          </div>
+          <div class="post-list" id="post-list"></div>
         </div>
 
-        <!-- View Filter Mode -->
-        <div class="pt-2 border-t border-zinc-800/60">
-          <h2 class="text-[11px] font-mono uppercase tracking-wider text-zinc-400 mb-2 font-bold">3. Filter Media</h2>
-          <div class="space-y-1">
-            <button onclick="setFilter('all')" id="filter-all" class="w-full flex items-center justify-between px-3 py-1.5 rounded-lg text-xs font-medium transition bg-zinc-800 text-white font-bold cursor-pointer">
+        <!-- 3. Filter View -->
+        <div class="sidebar-section" style="border-bottom:none;">
+          <div class="sidebar-title"><span>3. View Mode</span></div>
+          <div class="filter-list">
+            <button onclick="setFilter('all')" id="filter-all" class="filter-btn active">
               <span>All Media in Post</span>
-              <span class="text-[10px] font-mono" id="filter-count-all">0</span>
+              <span id="filter-count-all" style="font-family:monospace;font-size:10px;">0</span>
             </button>
-            <button onclick="setFilter('featured')" id="filter-featured" class="w-full flex items-center justify-between px-3 py-1.5 rounded-lg text-xs font-medium transition text-amber-400 hover:bg-zinc-800/60 cursor-pointer">
-              <span class="flex items-center space-x-1.5">
-                <span>★</span>
-                <span>Featured Covers Only</span>
-              </span>
-              <span class="text-[10px] font-mono px-1.5 rounded bg-amber-500/20" id="filter-count-featured">0</span>
+            <button onclick="setFilter('featured')" id="filter-featured" class="filter-btn" style="color:#fbbf24;">
+              <span>★ Featured Covers Only</span>
+              <span id="filter-count-featured" style="font-family:monospace;font-size:10px;background:rgba(245,158,11,0.2);padding:2px 5px;border-radius:4px;">0</span>
             </button>
-            <button onclick="setFilter('selected')" id="filter-selected" class="w-full flex items-center justify-between px-3 py-1.5 rounded-lg text-xs font-medium transition text-emerald-400 hover:bg-zinc-800/60 cursor-pointer">
+            <button onclick="setFilter('selected')" id="filter-selected" class="filter-btn" style="color:#10b981;">
               <span>✓ Selected Only</span>
-              <span class="text-[10px] font-mono px-1.5 rounded bg-emerald-500/20" id="filter-count-selected">0</span>
+              <span id="filter-count-selected" style="font-family:monospace;font-size:10px;background:rgba(16,185,129,0.2);padding:2px 5px;border-radius:4px;">0</span>
             </button>
-            <button onclick="setFilter('captioned')" id="filter-captioned" class="w-full flex items-center justify-between px-3 py-1.5 rounded-lg text-xs font-medium transition text-sky-400 hover:bg-zinc-800/60 cursor-pointer">
+            <button onclick="setFilter('captioned')" id="filter-captioned" class="filter-btn" style="color:#38bdf8;">
               <span>💬 With Notes / Captions</span>
-              <span class="text-[10px] font-mono" id="filter-count-captioned">0</span>
+              <span id="filter-count-captioned" style="font-family:monospace;font-size:10px;">0</span>
             </button>
-            <button onclick="setFilter('unreviewed')" id="filter-unreviewed" class="w-full flex items-center justify-between px-3 py-1.5 rounded-lg text-xs font-medium transition text-zinc-400 hover:bg-zinc-800/60 cursor-pointer">
+            <button onclick="setFilter('unreviewed')" id="filter-unreviewed" class="filter-btn">
               <span>⏳ Unreviewed Only</span>
-              <span class="text-[10px] font-mono" id="filter-count-unreviewed">0</span>
+              <span id="filter-count-unreviewed" style="font-family:monospace;font-size:10px;">0</span>
             </button>
-            <button onclick="setFilter('rejected')" id="filter-rejected" class="w-full flex items-center justify-between px-3 py-1.5 rounded-lg text-xs font-medium transition text-rose-400 hover:bg-zinc-800/60 cursor-pointer">
+            <button onclick="setFilter('rejected')" id="filter-rejected" class="filter-btn" style="color:#f87171;">
               <span>✕ Rejected Only</span>
-              <span class="text-[10px] font-mono" id="filter-count-rejected">0</span>
+              <span id="filter-count-rejected" style="font-family:monospace;font-size:10px;">0</span>
             </button>
           </div>
         </div>
-
       </div>
 
-      <!-- Bottom Keyboard Shortcuts Guide -->
-      <div class="p-3 bg-zinc-950/80 border-t border-zinc-800/80 text-[11px] font-mono text-zinc-400">
-        <span class="text-zinc-200 font-bold block mb-1">⚡ Hotkeys</span>
-        <div class="grid grid-cols-2 gap-y-1 text-zinc-400">
-          <div><kbd class="bg-zinc-800 px-1 py-0.5 rounded text-amber-400 font-bold">F</kbd> Cover</div>
-          <div><kbd class="bg-zinc-800 px-1 py-0.5 rounded text-emerald-400 font-bold">S</kbd> Select</div>
-          <div><kbd class="bg-zinc-800 px-1 py-0.5 rounded text-rose-400 font-bold">R</kbd> Reject</div>
-          <div><kbd class="bg-zinc-800 px-1 py-0.5 rounded text-white font-bold">C</kbd> Caption</div>
-          <div><kbd class="bg-zinc-800 px-1 py-0.5 rounded text-white font-bold">← / →</kbd> Nav</div>
-          <div><kbd class="bg-zinc-800 px-1 py-0.5 rounded text-white font-bold">Space</kbd> View</div>
+      <!-- Shortcuts -->
+      <div class="shortcuts-panel">
+        <b style="color:#d4d4d8;">⚡ Quick Keys</b>
+        <div class="shortcuts-grid">
+          <div><kbd>F</kbd> Cover</div>
+          <div><kbd>S</kbd> Select</div>
+          <div><kbd>R</kbd> Reject</div>
+          <div><kbd>C</kbd> Caption</div>
+          <div><kbd>← / →</kbd> Nav</div>
+          <div><kbd>Space</kbd> View</div>
         </div>
       </div>
     </aside>
 
-    <!-- Main Content Area -->
-    <main class="flex-1 flex flex-col overflow-y-auto custom-scrollbar p-5 sm:p-6" id="gallery-container">
-      
-      <!-- Top Post Context Bar & Post Actions -->
-      <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-4 mb-6 backdrop-blur">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          
-          <!-- Post Details -->
-          <div>
-            <div class="flex items-center space-x-2 text-xs font-mono text-zinc-400 mb-1">
-              <span class="px-2 py-0.5 rounded-md bg-zinc-800 text-zinc-300 font-bold" id="badge-day">DAY 1</span>
-              <span>›</span>
-              <span class="text-amber-400" id="badge-post-category">POST</span>
-            </div>
-            <h2 class="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center space-x-2">
-              <span id="post-header-title">Ximending Youth District</span>
-              <span class="text-sm font-normal text-zinc-400" id="post-header-chinese">(西門町徒步區)</span>
-            </h2>
-            <p class="text-xs text-zinc-400 font-mono mt-0.5" id="post-header-stats">Loading items...</p>
+    <!-- Main Content -->
+    <main>
+      <!-- Post Hero Bar -->
+      <div class="post-hero">
+        <div>
+          <div class="post-hero-crumbs">
+            <span id="badge-day">DAY 1</span> › <span id="badge-post-category">POST</span>
           </div>
+          <h2 class="post-hero-title" id="post-header-title">Ximending Youth District</h2>
+          <div class="post-hero-desc" id="post-header-stats">Loading items...</div>
+        </div>
 
-          <!-- Featured Photo Callout & Post Bulk Controls -->
-          <div class="flex items-center space-x-3 shrink-0">
-            
-            <!-- Current Featured Indicator -->
-            <div class="flex items-center space-x-2 bg-zinc-950/80 border border-amber-500/30 px-3 py-1.5 rounded-xl" id="post-featured-display">
-              <span class="text-amber-400 text-sm">★</span>
-              <div class="text-[11px] font-mono leading-tight">
-                <span class="text-zinc-400 block">Featured Cover:</span>
-                <span class="text-amber-300 font-bold truncate max-w-[130px] block" id="post-featured-name">None chosen</span>
-              </div>
-            </div>
-
-            <!-- Post Quick Actions -->
-            <div class="flex items-center space-x-1.5">
-              <button onclick="postBulkAction('select_all')" title="Select all photos in this post" class="px-3 py-2 rounded-xl text-xs font-mono font-bold bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500 hover:text-zinc-950 transition cursor-pointer">
-                ✓ Select All Post
-              </button>
-              <button onclick="postBulkAction('reject_all')" title="Reject all photos in this post" class="px-2.5 py-2 rounded-xl text-xs font-mono bg-zinc-800/80 border border-zinc-700/60 text-zinc-400 hover:text-rose-400 hover:border-rose-500/40 transition cursor-pointer">
-                ✕ Reject
-              </button>
-              <button onclick="postBulkAction('reset')" title="Reset decisions for this post" class="px-2.5 py-2 rounded-xl text-xs font-mono bg-zinc-800/80 border border-zinc-700/60 text-zinc-400 hover:text-white transition cursor-pointer">
-                ↺ Reset
-              </button>
-            </div>
-
+        <div class="post-hero-right">
+          <div class="featured-indicator" id="post-featured-display">
+            <span>Featured Cover:</span> <b id="post-featured-name">None chosen</b>
           </div>
-
+          <button onclick="postBulkAction('select_all')" class="post-action-btn select-all">
+            ✓ Select All Post
+          </button>
+          <button onclick="postBulkAction('reject_all')" class="post-action-btn">
+            ✕ Reject Rest
+          </button>
+          <button onclick="postBulkAction('reset')" class="post-action-btn">
+            ↺ Reset
+          </button>
         </div>
       </div>
 
-      <!-- Photo Cards Grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4" id="photo-grid">
-        <!-- Rendered via JS -->
-      </div>
+      <!-- Photos Grid -->
+      <div class="gallery-grid" id="photo-grid"></div>
     </main>
+
   </div>
 
-  <!-- Fullscreen Modal Viewer -->
-  <div id="lightbox-modal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-md hidden flex flex-col justify-between p-4" onclick="closeLightbox(event)">
-    <div class="flex items-center justify-between text-white font-mono text-xs px-2">
-      <div class="flex items-center space-x-3">
+  <!-- Lightbox Modal -->
+  <div id="lightbox-modal" onclick="closeLightbox(event)">
+    <div class="lightbox-header">
+      <div style="display:flex;align-items:center;gap:12px;">
         <span id="lightbox-title">Photo Title</span>
-        <span id="lightbox-badge-featured" class="hidden px-2 py-0.5 rounded-full bg-amber-400 text-zinc-950 font-bold text-[10px]">★ FEATURED COVER</span>
+        <span id="lightbox-badge-featured" class="badge badge-cover" style="display:none;">★ FEATURED COVER</span>
       </div>
-      <div class="flex items-center space-x-3">
-        <span class="text-zinc-500 hidden sm:inline">Press ESC to close • F for Cover • S for Select • R for Reject</span>
-        <button onclick="closeLightbox()" class="p-1 text-zinc-400 hover:text-white text-lg font-bold">✕</button>
+      <div>
+        <span style="color:#71717a;margin-right:12px;">ESC to close • F for Cover • S Select • R Reject</span>
+        <button onclick="closeLightbox()" style="background:none;border:none;color:#fff;font-size:18px;cursor:pointer;">✕</button>
       </div>
     </div>
 
-    <!-- Media Container -->
-    <div class="flex-1 flex items-center justify-center my-2 relative overflow-hidden" onclick="event.stopPropagation()">
-      <img id="lightbox-img" class="max-h-[66vh] max-w-[88vw] object-contain rounded-lg shadow-2xl" src="" />
-      <video id="lightbox-video" class="max-h-[66vh] max-w-[88vw] object-contain rounded-lg shadow-2xl hidden" controls autoplay></video>
-      
-      <button onclick="prevItem()" class="absolute left-4 p-3 rounded-full bg-zinc-900/80 border border-zinc-700 text-white hover:bg-amber-500 hover:text-black transition cursor-pointer">←</button>
-      <button onclick="nextItem()" class="absolute right-4 p-3 rounded-full bg-zinc-900/80 border border-zinc-700 text-white hover:bg-amber-500 hover:text-black transition cursor-pointer">→</button>
+    <div class="lightbox-media" onclick="event.stopPropagation()">
+      <img id="lightbox-img" src="" />
+      <video id="lightbox-video" controls autoplay style="display:none;"></video>
+      <button onclick="prevItem()" class="lightbox-nav-btn prev">←</button>
+      <button onclick="nextItem()" class="lightbox-nav-btn next">→</button>
     </div>
 
-    <!-- Caption / Story Input -->
-    <div class="w-full max-w-3xl mx-auto px-4" onclick="event.stopPropagation()">
-      <div class="bg-zinc-900/90 border border-zinc-800 rounded-xl p-2.5 flex items-center space-x-2">
-        <span class="text-amber-400 text-sm pl-1">💬</span>
-        <input 
-          type="text" 
-          id="lightbox-caption-input" 
-          placeholder="Add an explanation or story note for this photo (press Enter to save)..." 
-          class="flex-1 bg-transparent border-0 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none"
-          onkeydown="handleCaptionKey(event)"
-        />
-        <button onclick="saveLightboxCaption()" class="px-3 py-1 rounded-lg text-xs font-mono font-bold bg-amber-500/20 text-amber-400 hover:bg-amber-500 hover:text-zinc-950 transition cursor-pointer">
-          Save Note
+    <div class="lightbox-bottom" onclick="event.stopPropagation()">
+      <div class="lightbox-caption-row">
+        <span>💬</span>
+        <input type="text" id="lightbox-caption-input" class="lightbox-caption-input" placeholder="Type a story note / caption and press Enter..." onkeydown="handleCaptionKey(event)" />
+        <button onclick="saveLightboxCaption()" class="btn btn-sync">Save Note</button>
+      </div>
+
+      <div class="lightbox-controls">
+        <button onclick="toggleCurrentFeatured()" id="lightbox-btn-featured" class="lb-btn cover">
+          ★ Set as Featured Cover (F)
+        </button>
+        <button onclick="decideCurrent('selected')" class="lb-btn select">
+          ✓ Select (S)
+        </button>
+        <button onclick="decideCurrent('none')" class="lb-btn reset">
+          Reset
+        </button>
+        <button onclick="decideCurrent('rejected')" class="lb-btn reject">
+          ✕ Reject (R)
         </button>
       </div>
-    </div>
-
-    <!-- Lightbox Bottom Actions -->
-    <div class="flex items-center justify-center space-x-3 py-2" onclick="event.stopPropagation()">
-      <!-- Set as Featured Button -->
-      <button onclick="toggleCurrentFeatured()" id="lightbox-btn-featured" class="px-5 py-2.5 rounded-xl font-bold text-xs font-mono border transition flex items-center space-x-1.5 cursor-pointer bg-zinc-900 border-amber-500/40 text-amber-400 hover:bg-amber-500 hover:text-zinc-950">
-        <span class="text-base leading-none">★</span>
-        <span id="lightbox-featured-label">Set as Featured Cover (F)</span>
-      </button>
-
-      <button onclick="decideCurrent('selected')" class="px-5 py-2.5 rounded-xl font-bold text-xs font-mono bg-emerald-500 hover:bg-emerald-400 text-zinc-950 shadow-lg shadow-emerald-500/20 flex items-center space-x-1.5 transition cursor-pointer">
-        <span>✓ Select (S)</span>
-      </button>
-
-      <button onclick="decideCurrent('none')" class="px-3.5 py-2 rounded-xl text-xs font-mono bg-zinc-800 hover:bg-zinc-700 text-zinc-300 transition cursor-pointer">
-        Reset
-      </button>
-
-      <button onclick="decideCurrent('rejected')" class="px-5 py-2.5 rounded-xl font-bold text-xs font-mono bg-rose-600 hover:bg-rose-500 text-white shadow-lg shadow-rose-600/20 flex items-center space-x-1.5 transition cursor-pointer">
-        <span>✕ Reject (R)</span>
-      </button>
     </div>
   </div>
 
@@ -744,52 +980,97 @@ HTML_PAGE = """<!DOCTYPE html>
     let folders = [];
     let posts = [];
     let state = { selected: {}, rejected: {}, captions: {}, featured: {} };
-    let currentDay = 'day1';
-    let currentPost = 'all';
-    let currentFilter = 'all';
+    let currentDay = localStorage.getItem('curator_day') || 'day1';
+    let currentPost = localStorage.getItem('curator_post') || 'all';
+    let currentFilter = localStorage.getItem('curator_filter') || 'all';
     let searchQuery = '';
     let currentItems = [];
     let activeIndex = 0;
+    let saveStatusTimer = null;
+
+    function showSaveIndicator(msg, isError = false) {
+      const el = document.getElementById('save-status');
+      if (!el) return;
+      el.innerText = msg;
+      el.style.display = 'inline-block';
+      el.style.opacity = '1';
+      if (isError) {
+        el.style.color = '#ef4444';
+        el.style.background = 'rgba(239, 68, 68, 0.2)';
+        el.style.borderColor = 'rgba(239, 68, 68, 0.4)';
+      } else {
+        el.style.color = '#10b981';
+        el.style.background = 'rgba(16, 185, 129, 0.15)';
+        el.style.borderColor = 'rgba(16, 185, 129, 0.3)';
+      }
+      clearTimeout(saveStatusTimer);
+      saveStatusTimer = setTimeout(() => {
+        el.style.opacity = '0';
+        setTimeout(() => { if (el.style.opacity === '0') el.style.display = 'none'; }, 250);
+      }, 2000);
+    }
+
+    function syncStorage() {
+      localStorage.setItem('curator_day', currentDay);
+      localStorage.setItem('curator_post', currentPost);
+      localStorage.setItem('curator_filter', currentFilter);
+      try {
+        history.replaceState(null, '', `#${currentDay}/${currentPost}/${currentFilter}`);
+      } catch (e) {}
+    }
 
     async function init() {
-      const res = await fetch('/api/folders');
-      const data = await res.json();
-      folders = data.folders;
-      posts = data.posts;
-      state = data.state;
-      if (!state.captions) state.captions = {};
-      if (!state.featured) state.featured = {};
+      try {
+        // Check URL hash first (#day/post/filter)
+        if (location.hash && location.hash.length > 2) {
+          const parts = location.hash.slice(1).split('/');
+          if (parts[0]) currentDay = parts[0];
+          if (parts[1]) currentPost = parts[1];
+          if (parts[2]) currentFilter = parts[2];
+        }
 
-      renderDayPills();
-      loadDay('day1');
-      updateGlobalCounters();
+        const res = await fetch('/api/folders');
+        const data = await res.json();
+        folders = data.folders || [];
+        posts = data.posts || [];
+        state = data.state || { selected: {}, rejected: {}, captions: {}, featured: {} };
+        if (!state.selected) state.selected = {};
+        if (!state.rejected) state.rejected = {};
+        if (!state.captions) state.captions = {};
+        if (!state.featured) state.featured = {};
+
+        renderDayPills();
+        renderPostList();
+        setFilter(currentFilter, false);
+        await fetchItems();
+        updateGlobalCounters();
+      } catch (err) {
+        console.error('Init failed:', err);
+        document.getElementById('post-header-title').innerText = 'Error connecting to local server';
+        document.getElementById('post-header-stats').innerText = String(err);
+      }
     }
 
     function renderDayPills() {
-      const pillContainer = document.getElementById('day-pill-list');
-      const days = ['day1', 'day2', 'day3', 'day4', 'day5', 'day6', 'day7'];
-      pillContainer.innerHTML = days.map(d => {
-        const num = d.replace('day', '');
+      const container = document.getElementById('day-pill-list');
+      const days = ['all', 'day1', 'day2', 'day3', 'day4', 'day5', 'day6', 'day7'];
+      container.innerHTML = days.map(d => {
+        const label = d === 'all' ? 'ALL' : `D${d.replace('day', '')}`;
         const isActive = currentDay === d;
-        return `
-          <button onclick="loadDay('${d}')" id="day-pill-${d}" class="py-1.5 text-center rounded-lg text-xs font-mono font-bold transition cursor-pointer ${isActive ? 'bg-amber-500 text-zinc-950 shadow-md shadow-amber-500/20' : 'bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700'}">
-            D${num}
-          </button>
-        `;
+        return `<button onclick="loadDay('${d}')" class="day-btn ${isActive ? 'active' : ''}">${label}</button>`;
       }).join('');
     }
 
     function renderPostList() {
       const list = document.getElementById('post-list');
       const dayPosts = posts.filter(p => currentDay === 'all' || p.day === currentDay);
-      
       document.getElementById('posts-sub-title').innerText = currentDay === 'all' ? 'All Days' : `Day ${currentDay.replace('day', '')}`;
       
       const allBtn = document.getElementById('post-all-btn');
-      allBtn.className = currentPost === 'all' ? 'text-[10px] font-mono text-amber-400 font-bold' : 'text-[10px] font-mono text-zinc-400 hover:text-amber-400 cursor-pointer';
+      allBtn.style.color = currentPost === 'all' ? '#fbbf24' : '#71717a';
 
       if (dayPosts.length === 0) {
-        list.innerHTML = '<div class="text-xs text-zinc-500 font-mono py-2">No posts for this selection.</div>';
+        list.innerHTML = '<div style="font-size:11px;color:#71717a;padding:8px 0;">No posts in this selection.</div>';
         return;
       }
 
@@ -797,20 +1078,21 @@ HTML_PAGE = """<!DOCTYPE html>
         const isSelected = currentPost === p.id;
         const hasCover = !!state.featured[p.id];
         return `
-          <button onclick="selectPost('${p.id}')" id="post-btn-${p.id}" class="w-full text-left px-2.5 py-1.5 rounded-lg text-xs transition flex items-center justify-between cursor-pointer ${isSelected ? 'bg-amber-500/10 border border-amber-500/30 text-amber-300 font-bold' : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/60'}">
-            <span class="truncate flex items-center space-x-1.5 mr-1">
-              ${hasCover ? '<span class="text-amber-400 text-xs" title="Featured cover selected">★</span>' : '<span class="text-zinc-600 text-xs">☆</span>'}
-              <span class="truncate">${p.name}</span>
+          <button onclick="selectPost('${p.id}')" class="post-item-btn ${isSelected ? 'active' : ''}">
+            <span class="post-item-name">
+              <span style="color:${hasCover ? '#fbbf24' : '#3f3f46'};font-size:12px;">★</span>
+              <span>${p.name}</span>
             </span>
-            <span class="text-[10px] font-mono px-1.5 py-0.2 rounded bg-zinc-800 text-zinc-400 shrink-0">${p.count}</span>
+            <span class="post-item-count">${p.count}</span>
           </button>
         `;
       }).join('');
     }
 
-    async function loadDay(day) {
+    async function loadDay(day, keepPost = false) {
       currentDay = day;
-      currentPost = 'all';
+      if (!keepPost) currentPost = 'all';
+      syncStorage();
       renderDayPills();
       renderPostList();
       await fetchItems();
@@ -818,68 +1100,79 @@ HTML_PAGE = """<!DOCTYPE html>
 
     async function selectPost(postId) {
       currentPost = postId;
+      syncStorage();
       renderPostList();
+      await fetchItems();
+    }
+
+    async function viewAllState(filterName) {
+      currentDay = 'all';
+      currentPost = 'all';
+      currentFilter = filterName;
+      syncStorage();
+      renderDayPills();
+      renderPostList();
+      setFilter(filterName, false);
       await fetchItems();
     }
 
     async function fetchItems() {
       const url = `/api/items?folder=${encodeURIComponent(currentDay)}&post=${encodeURIComponent(currentPost)}&q=${encodeURIComponent(searchQuery)}`;
-      const res = await fetch(url);
-      const data = await res.json();
-      currentItems = data.items;
-      updatePostHeaderInfo();
-      renderGrid();
-      updateFilterCounts();
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        currentItems = data.items || [];
+        updatePostHeaderInfo();
+        renderGrid();
+        updateFilterCounts();
+      } catch (err) {
+        console.error('Fetch items failed:', err);
+      }
     }
 
     function updatePostHeaderInfo() {
       const dayBadge = document.getElementById('badge-day');
       const catBadge = document.getElementById('badge-post-category');
       const title = document.getElementById('post-header-title');
-      const chinese = document.getElementById('post-header-chinese');
       const featuredName = document.getElementById('post-featured-name');
       const featuredBox = document.getElementById('post-featured-display');
 
       dayBadge.innerText = currentDay === 'all' ? 'ALL DAYS' : `DAY ${currentDay.replace('day', '')}`;
 
       if (currentPost === 'all') {
-        catBadge.innerText = 'ALL DESTINATIONS';
-        title.innerText = currentDay === 'all' ? 'All Expeditions & Days' : `All Posts in Day ${currentDay.replace('day', '')}`;
-        chinese.innerText = '';
-        featuredBox.classList.add('opacity-50');
+        catBadge.innerText = 'ALL POSTS';
+        title.innerText = currentDay === 'all' ? 'All Trip Photos' : `All Posts in Day ${currentDay.replace('day', '')}`;
+        featuredBox.style.opacity = '0.4';
         featuredName.innerText = 'Select a specific post';
       } else {
         const postObj = posts.find(p => p.id === currentPost);
         catBadge.innerText = 'DESTINATION POST';
         title.innerText = postObj ? postObj.name : currentPost;
-        chinese.innerText = postObj && postObj.chinese ? `(${postObj.chinese})` : '';
 
         const featPath = state.featured[currentPost];
         if (featPath) {
-          featuredBox.classList.remove('opacity-50');
-          featuredBox.classList.add('border-amber-400');
+          featuredBox.style.opacity = '1';
+          featuredBox.style.borderColor = '#fbbf24';
           featuredName.innerText = featPath.split('/').pop();
         } else {
-          featuredBox.classList.remove('opacity-50');
-          featuredBox.classList.remove('border-amber-400');
+          featuredBox.style.opacity = '0.9';
+          featuredBox.style.borderColor = 'rgba(245, 158, 11, 0.4)';
           featuredName.innerText = 'None chosen (click ★)';
         }
       }
     }
 
-    function setFilter(filter) {
+    function setFilter(filter, doRender = true) {
       currentFilter = filter;
+      syncStorage();
       ['all', 'featured', 'selected', 'captioned', 'unreviewed', 'rejected'].forEach(f => {
         const btn = document.getElementById('filter-' + f);
         if (btn) {
-          if (f === filter) {
-            btn.className = 'w-full flex items-center justify-between px-3 py-1.5 rounded-lg text-xs font-medium transition bg-zinc-800 text-white font-bold cursor-pointer';
-          } else {
-            btn.className = 'w-full flex items-center justify-between px-3 py-1.5 rounded-lg text-xs font-medium transition text-zinc-400 hover:text-white hover:bg-zinc-800/60 cursor-pointer';
-          }
+          if (f === filter) btn.classList.add('active');
+          else btn.classList.remove('active');
         }
       });
-      renderGrid();
+      if (doRender) renderGrid();
     }
 
     function getFilteredItems() {
@@ -918,11 +1211,11 @@ HTML_PAGE = """<!DOCTYPE html>
 
     function renderGrid() {
       const filtered = getFilteredItems();
-      document.getElementById('post-header-stats').innerText = `${filtered.length} photos shown (out of ${currentItems.length} in this view)`;
+      document.getElementById('post-header-stats').innerText = `${filtered.length} photos shown (${currentItems.length} total in this view)`;
 
       const grid = document.getElementById('photo-grid');
       if (filtered.length === 0) {
-        grid.innerHTML = `<div class="col-span-full py-16 text-center text-zinc-500 font-mono text-sm">No photos match the current filter.</div>`;
+        grid.innerHTML = `<div style="grid-column:1/-1;padding:60px 0;text-align:center;color:#71717a;font-family:monospace;font-size:13px;">No photos match the current filter.</div>`;
         return;
       }
 
@@ -932,82 +1225,60 @@ HTML_PAGE = """<!DOCTYPE html>
         const isFeat = (state.featured[item.post] === item.id);
         const caption = state.captions[item.id] || '';
 
-        let borderClass = 'border-zinc-800/80 hover:border-zinc-700';
-        if (isFeat) {
-          borderClass = 'border-amber-400 ring-2 ring-amber-400/50 featured-glow bg-amber-950/10';
-        } else if (isSel) {
-          borderClass = 'border-emerald-500 shadow-md shadow-emerald-500/10 ring-1 ring-emerald-500/40';
-        } else if (isRej) {
-          borderClass = 'border-rose-900/60 opacity-40';
-        }
+        let cardClass = 'photo-card';
+        if (isFeat) cardClass += ' is-featured';
+        else if (isSel) cardClass += ' is-selected';
+        else if (isRej) cardClass += ' is-rejected';
 
         return `
-          <div class="group relative rounded-xl overflow-hidden border transition-all duration-200 bg-zinc-900/70 flex flex-col justify-between ${borderClass}" id="card-${idx}">
-            
-            <!-- Media Thumbnail Container -->
-            <div class="relative aspect-video overflow-hidden bg-black cursor-pointer" onclick="openLightbox(${idx})">
+          <div class="${cardClass}" id="card-${idx}">
+            <div class="thumb-wrap" onclick="openLightbox(${idx})">
               ${item.isVideo ? `
-                <div class="w-full h-full flex items-center justify-center bg-zinc-900">
-                  <video src="${item.url}#t=0.5" class="w-full h-full object-cover" preload="metadata"></video>
-                  <span class="absolute inset-0 flex items-center justify-center bg-black/40 text-white text-xl">▶</span>
-                </div>
+                <video src="${item.url}#t=0.5" preload="metadata"></video>
+                <div class="video-play-icon">▶</div>
               ` : `
-                <img src="${item.url}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" />
+                <img src="${item.url}" loading="lazy" />
               `}
 
-              <!-- Top Left Badges -->
-              <div class="absolute top-2 left-2 flex flex-col space-y-1">
-                ${isFeat ? '<span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-400 text-zinc-950 shadow-lg shadow-amber-400/30">★ COVER</span>' : ''}
-                ${isSel && !isFeat ? '<span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500 text-zinc-950 shadow">✓ SELECTED</span>' : ''}
-                ${isRej ? '<span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-rose-600 text-white shadow">✕ REJECTED</span>' : ''}
-                ${caption ? '<span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-sky-400 text-zinc-950 shadow">💬 NOTE</span>' : ''}
+              <div class="badge-bar">
+                ${isFeat ? '<span class="badge badge-cover">★ COVER</span>' : ''}
+                ${isSel && !isFeat ? '<span class="badge badge-selected">✓ SELECTED</span>' : ''}
+                ${isRej ? '<span class="badge badge-rejected">✕ REJECTED</span>' : ''}
+                ${caption ? '<span class="badge badge-caption">💬 NOTE</span>' : ''}
               </div>
 
-              <!-- Top Right Feature Button -->
-              <div class="absolute top-2 right-2">
-                <button 
-                  onclick="toggleFeatured('${item.id}', '${item.post}', event)" 
-                  title="${isFeat ? 'Unset featured cover' : 'Set as Featured Cover for this post'}" 
-                  class="p-1.5 rounded-lg text-xs font-mono font-bold transition cursor-pointer backdrop-blur-md ${isFeat ? 'bg-amber-400 text-zinc-950 shadow-lg shadow-amber-400/40' : 'bg-black/60 text-zinc-400 hover:text-amber-400 hover:bg-black/80'}"
-                >
-                  ${isFeat ? '★ COVER' : '☆ COVER'}
-                </button>
-              </div>
-
+              <button 
+                onclick="toggleFeatured('${item.id}', '${item.post}', event)" 
+                class="cover-toggle-btn ${isFeat ? 'active' : ''}" 
+                title="${isFeat ? 'Unset featured cover' : 'Set as Featured Cover'}"
+              >
+                ${isFeat ? '★ COVER' : '☆ COVER'}
+              </button>
             </div>
 
-            <!-- Card Bottom: Caption & Quick Deciders -->
-            <div class="p-2.5 bg-zinc-900/90 border-t border-zinc-800/60 flex flex-col justify-between flex-1">
-              
-              <!-- Post tag & filename -->
-              <div class="flex items-center justify-between text-[10px] font-mono text-zinc-400 mb-1">
-                <span class="truncate max-w-[130px] text-amber-400/80" title="${item.postName}"># ${item.postName}</span>
-                <span class="text-zinc-500 text-[9px]">${item.name.slice(-10)}</span>
+            <div class="card-footer">
+              <div class="card-meta">
+                <span title="${item.postName}"># ${item.postName}</span>
+                <span style="color:#52525b;">${item.name.slice(-10)}</span>
               </div>
 
-              <!-- Inline Caption Input -->
-              <div class="mb-2">
-                <input 
-                  type="text" 
-                  value="${escapeHtml(caption)}" 
-                  placeholder="Click to add note / caption..." 
-                  onblur="saveInlineCaption('${item.id}', this.value)"
-                  onkeydown="if(event.key === 'Enter') { this.blur(); }"
-                  class="w-full bg-zinc-950/80 border border-zinc-800 focus:border-amber-400/70 rounded-lg px-2 py-1 text-xs text-zinc-200 placeholder-zinc-500 focus:outline-none font-sans"
-                />
-              </div>
+              <input 
+                type="text" 
+                value="${escapeHtml(caption)}" 
+                placeholder="Click to add note / caption..." 
+                onblur="saveInlineCaption('${item.id}', this.value)"
+                onkeydown="if(event.key === 'Enter') { this.blur(); }"
+                class="caption-input"
+              />
 
-              <!-- Select / Reject Action Buttons -->
-              <div class="flex items-center justify-between text-xs pt-1 border-t border-zinc-800/40">
-                <button onclick="setDecision('${item.id}', '${isSel ? 'none' : 'selected'}')" class="flex-1 py-1 text-center font-bold font-mono text-[11px] rounded transition cursor-pointer ${isSel ? 'bg-emerald-500 text-black' : 'text-zinc-400 hover:text-emerald-400 hover:bg-emerald-500/10'}">
+              <div class="card-decision-bar">
+                <button onclick="setDecision('${item.id}', '${isSel ? 'none' : 'selected'}')" class="decision-btn select ${isSel ? 'active' : ''}">
                   ✓ Select
                 </button>
-                <div class="w-px h-3.5 bg-zinc-800 mx-1"></div>
-                <button onclick="setDecision('${item.id}', '${isRej ? 'none' : 'rejected'}')" class="flex-1 py-1 text-center font-bold font-mono text-[11px] rounded transition cursor-pointer ${isRej ? 'bg-rose-600 text-white' : 'text-zinc-400 hover:text-rose-400 hover:bg-rose-500/10'}">
+                <button onclick="setDecision('${item.id}', '${isRej ? 'none' : 'rejected'}')" class="decision-btn reject ${isRej ? 'active' : ''}">
                   ✕ Reject
                 </button>
               </div>
-
             </div>
           </div>
         `;
@@ -1020,21 +1291,32 @@ HTML_PAGE = """<!DOCTYPE html>
 
     async function toggleFeatured(itemId, postId, event) {
       if (event) event.stopPropagation();
-      const res = await fetch('/api/feature', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: itemId, post: postId })
-      });
-      const data = await res.json();
-      if (data.success) {
-        state.featured = data.featured;
-        state.selected = data.state.selected;
-        state.rejected = data.state.rejected;
-        updatePostHeaderInfo();
-        updateGlobalCounters();
-        renderPostList();
-        renderGrid();
-        updateFilterCounts();
+      showSaveIndicator('Saving cover...');
+      try {
+        const res = await fetch('/api/feature', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: itemId, post: postId })
+        });
+        const data = await res.json();
+        if (data.success) {
+          state.featured = data.featured || {};
+          if (data.state) {
+            state.selected = data.state.selected || {};
+            state.rejected = data.state.rejected || {};
+          }
+          updatePostHeaderInfo();
+          updateGlobalCounters();
+          renderPostList();
+          renderGrid();
+          updateFilterCounts();
+          showSaveIndicator('Cover Saved ✓');
+        } else {
+          showSaveIndicator('Save Error ✕', true);
+        }
+      } catch (err) {
+        console.error('Toggle feature error:', err);
+        showSaveIndicator('Save Failed ✕', true);
       }
     }
 
@@ -1056,12 +1338,32 @@ HTML_PAGE = """<!DOCTYPE html>
       updateGlobalCounters();
       renderGrid();
       updateFilterCounts();
+      showSaveIndicator('Saving...');
 
-      fetch('/api/decide', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: itemId, decision })
-      });
+      try {
+        const res = await fetch('/api/decide', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: itemId, decision })
+        });
+        const data = await res.json();
+        if (data.success) {
+          if (data.state) {
+            state.selected = data.state.selected || {};
+            state.rejected = data.state.rejected || {};
+            state.featured = data.state.featured || {};
+            state.captions = data.state.captions || {};
+          }
+          updateGlobalCounters();
+          updateFilterCounts();
+          showSaveIndicator('Saved to file ✓');
+        } else {
+          showSaveIndicator('Save Error ✕', true);
+        }
+      } catch (err) {
+        console.error('Save decision error:', err);
+        showSaveIndicator('Save Failed ✕', true);
+      }
     }
 
     async function postBulkAction(action) {
@@ -1069,17 +1371,23 @@ HTML_PAGE = """<!DOCTYPE html>
         alert('Please select a specific post from the left sidebar to perform post-level bulk actions.');
         return;
       }
-      const res = await fetch('/api/post_action', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ post: currentPost, action, folder: currentDay })
-      });
-      const data = await res.json();
-      if (data.success) {
-        state = data.state;
-        updateGlobalCounters();
-        renderGrid();
-        updateFilterCounts();
+      showSaveIndicator('Applying bulk action...');
+      try {
+        const res = await fetch('/api/post_action', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ post: currentPost, action, folder: currentDay })
+        });
+        const data = await res.json();
+        if (data.success && data.state) {
+          state = data.state;
+          updateGlobalCounters();
+          renderGrid();
+          updateFilterCounts();
+          showSaveIndicator('Saved to file ✓');
+        }
+      } catch (err) {
+        showSaveIndicator('Bulk Action Failed ✕', true);
       }
     }
 
@@ -1092,11 +1400,20 @@ HTML_PAGE = """<!DOCTYPE html>
       }
       updateGlobalCounters();
       updateFilterCounts();
-      fetch('/api/caption', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: itemId, caption })
-      });
+      showSaveIndicator('Saving note...');
+      try {
+        const res = await fetch('/api/caption', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: itemId, caption })
+        });
+        const data = await res.json();
+        if (data.success) {
+          showSaveIndicator('Note Saved ✓');
+        }
+      } catch (err) {
+        showSaveIndicator('Save Failed ✕', true);
+      }
     }
 
     function updateGlobalCounters() {
@@ -1106,8 +1423,8 @@ HTML_PAGE = """<!DOCTYPE html>
       const totalAll = folders.reduce((sum, f) => sum + f.count, 0);
 
       document.getElementById('featured-counter').innerText = `★ ${featCount} Covers`;
-      document.getElementById('selected-counter').innerText = `✓ ${selCount} Sel`;
-      document.getElementById('rejected-counter').innerText = `✕ ${rejCount} Rej`;
+      document.getElementById('selected-counter').innerText = `✓ ${selCount} Selected`;
+      document.getElementById('rejected-counter').innerText = `✕ ${rejCount} Rejected`;
       document.getElementById('total-counter').innerText = `${totalAll} Total`;
     }
 
@@ -1116,7 +1433,7 @@ HTML_PAGE = """<!DOCTYPE html>
       fetchItems();
     }
 
-    // Lightbox Controls
+    // Lightbox Modal
     function openLightbox(idx) {
       activeIndex = idx;
       const filtered = getFilteredItems();
@@ -1127,17 +1444,16 @@ HTML_PAGE = """<!DOCTYPE html>
       document.getElementById('lightbox-title').innerText = `${item.name} (${idx + 1} of ${filtered.length})`;
 
       const featBadge = document.getElementById('lightbox-badge-featured');
-      const featBtnLabel = document.getElementById('lightbox-featured-label');
       const featBtn = document.getElementById('lightbox-btn-featured');
 
       if (isFeat) {
-        featBadge.classList.remove('hidden');
-        featBtnLabel.innerText = 'Featured Cover (Click to Unset)';
-        featBtn.className = 'px-5 py-2.5 rounded-xl font-bold text-xs font-mono border transition flex items-center space-x-1.5 cursor-pointer bg-amber-400 text-zinc-950 border-amber-400';
+        featBadge.style.display = 'inline-block';
+        featBtn.innerText = '★ Featured Cover (Click to Unset)';
+        featBtn.classList.add('active');
       } else {
-        featBadge.classList.add('hidden');
-        featBtnLabel.innerText = 'Set as Featured Cover (F)';
-        featBtn.className = 'px-5 py-2.5 rounded-xl font-bold text-xs font-mono border transition flex items-center space-x-1.5 cursor-pointer bg-zinc-900 border-amber-500/40 text-amber-400 hover:bg-amber-500 hover:text-zinc-950';
+        featBadge.style.display = 'none';
+        featBtn.innerText = '★ Set as Featured Cover (F)';
+        featBtn.classList.remove('active');
       }
 
       const img = document.getElementById('lightbox-img');
@@ -1146,20 +1462,20 @@ HTML_PAGE = """<!DOCTYPE html>
       capInput.value = state.captions[item.id] || '';
 
       if (item.isVideo) {
-        img.classList.add('hidden');
-        vid.classList.remove('hidden');
+        img.style.display = 'none';
+        vid.style.display = 'block';
         vid.src = item.url;
       } else {
-        vid.classList.add('hidden');
-        img.classList.remove('hidden');
+        vid.style.display = 'none';
+        img.style.display = 'block';
         img.src = item.url;
       }
 
-      document.getElementById('lightbox-modal').classList.remove('hidden');
+      document.getElementById('lightbox-modal').classList.add('open');
     }
 
     function closeLightbox() {
-      document.getElementById('lightbox-modal').classList.add('hidden');
+      document.getElementById('lightbox-modal').classList.remove('open');
       const vid = document.getElementById('lightbox-video');
       vid.pause();
       vid.src = '';
@@ -1210,9 +1526,9 @@ HTML_PAGE = """<!DOCTYPE html>
     }
 
     window.addEventListener('keydown', (e) => {
-      const isModalOpen = !document.getElementById('lightbox-modal').classList.contains('hidden');
+      const isModalOpen = document.getElementById('lightbox-modal').classList.contains('open');
       const isTyping = document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA');
-      
+
       if (e.key === 'Escape') {
         closeLightbox();
         return;
@@ -1250,12 +1566,12 @@ HTML_PAGE = """<!DOCTYPE html>
         alert('No photos selected yet! Select some photos first.');
         return;
       }
-      if (!confirm(`Export ${selCount} selected photos, ${featCount} featured covers, and story notes to taiwan-photos/curated_selected/?`)) return;
+      if (!confirm(`Export ${selCount} selected photos, ${featCount} featured covers, and story notes to curated_selected/?`)) return;
 
       const res = await fetch('/api/export', { method: 'POST' });
       const data = await res.json();
       if (data.success) {
-        alert(`Export completed!\n• ${data.copied} selected media files copied\n• ${data.featured} featured cover photos indexed\n• CURATED_CAPTIONS.json and CURATED_SELECTIONS.md created at:\n${data.target}`);
+        alert(`Export completed!\n• ${data.copied} selected media files copied\n• ${data.featured} featured cover photos indexed\n• Files saved in:\n${data.target}`);
       }
     }
 
@@ -1270,21 +1586,41 @@ HTML_PAGE = """<!DOCTYPE html>
       const res = await fetch('/api/sync_website', { method: 'POST' });
       const data = await res.json();
       if (data.success) {
-        alert(`Successfully synced ${data.synced} featured photos to shreeharsha.com web assets:\n` + data.details.slice(0, 10).join('\n') + (data.details.length > 10 ? `\n...and ${data.details.length - 10} more` : ''));
+        alert(`Successfully synced ${data.synced} featured photos to shreeharsha.com website assets!`);
       }
     }
 
-    window.onload = init;
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
   </script>
 </body>
 </html>
 """
 
-if __name__ == '__main__':
-    socketserver.TCPServer.allow_reuse_address = True
-    with socketserver.TCPServer(('', PORT), CuratorHandler) as httpd:
-        print(f'Starting Taiwan Photo Curator & Post Manager at http://localhost:{PORT}...')
+class DualStackThreadingServer(http.server.ThreadingHTTPServer):
+    address_family = socket.AF_INET6
+    daemon_threads = True
+    def server_bind(self):
         try:
-            httpd.serve_forever()
-        except KeyboardInterrupt:
-            print('\nShutting down server.')
+            self.socket.setsockopt(socket.IPPROTO_IPV6, socket.IPV6_V6ONLY, 0)
+        except Exception:
+            pass
+        super().server_bind()
+
+if __name__ == '__main__':
+    DualStackThreadingServer.allow_reuse_address = True
+    try:
+        httpd = DualStackThreadingServer(('::', PORT), CuratorHandler)
+    except Exception:
+        # Fallback to standard IPv4 if IPv6 socket fails
+        http.server.ThreadingHTTPServer.allow_reuse_address = True
+        httpd = http.server.ThreadingHTTPServer(('0.0.0.0', PORT), CuratorHandler)
+
+    print(f'Starting Taiwan Photo Curator at http://localhost:{PORT}...')
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        print('\nShutting down server.')
