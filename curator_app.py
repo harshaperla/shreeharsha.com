@@ -812,6 +812,8 @@ HTML_PAGE = """<!DOCTYPE html>
         <span style="color:#3f3f46;">|</span>
         <span class="counter-btn" style="color:#10b981;" id="selected-counter" onclick="viewAllState('selected')" title="View all selected photos across the trip">✓ 0 Selected</span>
         <span style="color:#3f3f46;">|</span>
+        <span class="counter-btn" style="color:#94a3b8;" id="unselected-counter" onclick="viewAllState('unselected')" title="View all unselected photos across the trip">○ 0 Unselected</span>
+        <span style="color:#3f3f46;">|</span>
         <span class="counter-btn" style="color:#ef4444;" id="rejected-counter" onclick="viewAllState('rejected')" title="View all rejected photos">✕ 0 Rejected</span>
         <span style="color:#3f3f46;">|</span>
         <span class="counter-btn" style="color:#71717a;" id="total-counter" onclick="viewAllState('all')" title="View all photos">0 Total</span>
@@ -867,6 +869,10 @@ HTML_PAGE = """<!DOCTYPE html>
             <button onclick="setFilter('selected')" id="filter-selected" class="filter-btn" style="color:#10b981;">
               <span>✓ Selected Only</span>
               <span id="filter-count-selected" style="font-family:monospace;font-size:10px;background:rgba(16,185,129,0.2);padding:2px 5px;border-radius:4px;">0</span>
+            </button>
+            <button onclick="setFilter('unselected')" id="filter-unselected" class="filter-btn" style="color:#94a3b8;">
+              <span>○ Unselected Only</span>
+              <span id="filter-count-unselected" style="font-family:monospace;font-size:10px;background:rgba(148,163,184,0.18);padding:2px 5px;border-radius:4px;">0</span>
             </button>
             <button onclick="setFilter('captioned')" id="filter-captioned" class="filter-btn" style="color:#38bdf8;">
               <span>💬 With Notes / Captions</span>
@@ -1165,7 +1171,7 @@ HTML_PAGE = """<!DOCTYPE html>
     function setFilter(filter, doRender = true) {
       currentFilter = filter;
       syncStorage();
-      ['all', 'featured', 'selected', 'captioned', 'unreviewed', 'rejected'].forEach(f => {
+      ['all', 'featured', 'selected', 'unselected', 'captioned', 'unreviewed', 'rejected'].forEach(f => {
         const btn = document.getElementById('filter-' + f);
         if (btn) {
           if (f === filter) btn.classList.add('active');
@@ -1184,6 +1190,7 @@ HTML_PAGE = """<!DOCTYPE html>
 
         if (currentFilter === 'featured') return isFeat;
         if (currentFilter === 'selected') return isSel;
+        if (currentFilter === 'unselected') return !isSel;
         if (currentFilter === 'rejected') return isRej;
         if (currentFilter === 'captioned') return hasCap;
         if (currentFilter === 'unreviewed') return !isSel && !isRej;
@@ -1193,10 +1200,11 @@ HTML_PAGE = """<!DOCTYPE html>
 
     function updateFilterCounts() {
       let cAll = currentItems.length;
-      let cFeat = 0, cSel = 0, cCap = 0, cUnrev = 0, cRej = 0;
+      let cFeat = 0, cSel = 0, cUnsel = 0, cCap = 0, cUnrev = 0, cRej = 0;
       currentItems.forEach(it => {
         if (state.featured[it.post] === it.id) cFeat++;
         if (state.selected[it.id]) cSel++;
+        else cUnsel++;
         if (state.rejected[it.id]) cRej++;
         if (state.captions[it.id]) cCap++;
         if (!state.selected[it.id] && !state.rejected[it.id]) cUnrev++;
@@ -1204,6 +1212,8 @@ HTML_PAGE = """<!DOCTYPE html>
       document.getElementById('filter-count-all').innerText = cAll;
       document.getElementById('filter-count-featured').innerText = cFeat;
       document.getElementById('filter-count-selected').innerText = cSel;
+      const unselEl = document.getElementById('filter-count-unselected');
+      if (unselEl) unselEl.innerText = cUnsel;
       document.getElementById('filter-count-captioned').innerText = cCap;
       document.getElementById('filter-count-unreviewed').innerText = cUnrev;
       document.getElementById('filter-count-rejected').innerText = cRej;
@@ -1421,9 +1431,12 @@ HTML_PAGE = """<!DOCTYPE html>
       const selCount = Object.keys(state.selected).length;
       const rejCount = Object.keys(state.rejected).length;
       const totalAll = folders.reduce((sum, f) => sum + f.count, 0);
+      const unselCount = Math.max(0, totalAll - selCount);
 
       document.getElementById('featured-counter').innerText = `★ ${featCount} Covers`;
       document.getElementById('selected-counter').innerText = `✓ ${selCount} Selected`;
+      const unselEl = document.getElementById('unselected-counter');
+      if (unselEl) unselEl.innerText = `○ ${unselCount} Unselected`;
       document.getElementById('rejected-counter').innerText = `✕ ${rejCount} Rejected`;
       document.getElementById('total-counter').innerText = `${totalAll} Total`;
     }
