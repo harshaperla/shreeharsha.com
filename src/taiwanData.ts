@@ -59,7 +59,7 @@ export const TAIWAN_HIGHLIGHTS: TaiwanHighlightSlide[] = [
       subtitle: 'Majestic Taoist shrine with golden Taiji sanctuary commanding panoramic Pacific coastlines',
       location: 'Ruifang District, New Taipei',
       badge: 'DAY 2 • COASTAL MOUNTAIN TEMPLE',
-      imageUrl: '/taiwan/jiufen-qingyun-temple.jpg',
+      imageUrl: '/taiwan/curated/day2_02_jiufen_qingyun_temple_photo_42.jpg',
       placeId: 'jiufen-qingyun-temple',
     },
   {
@@ -69,7 +69,7 @@ export const TAIWAN_HIGHLIGHTS: TaiwanHighlightSlide[] = [
       subtitle: 'Lush seaside boardwalk winding along cliff edges directly overlooking the deep Pacific Ocean',
       location: 'Zhongzheng District, Keelung City',
       badge: 'DAY 2 • PACIFIC COASTAL TRAIL',
-      imageUrl: '/taiwan/badouzi-trail.jpg',
+      imageUrl: '/taiwan/curated/day2_03_badouzi_coastal_trail_photo_05.jpg',
       placeId: 'badouzi-trail',
     },
   {
@@ -139,7 +139,7 @@ export const TAIWAN_HIGHLIGHTS: TaiwanHighlightSlide[] = [
       subtitle: 'Historic mountain gold-rush town with cascading stairways and panoramic coastal ocean lookouts',
       location: 'Ruifang District, New Taipei',
       badge: 'DAY 2 • MOUNTAIN VILLAGE',
-      imageUrl: '/taiwan/jiufen-old-street.jpg',
+      imageUrl: '/taiwan/curated/day2_01_jiufen_old_street_photo_09.jpg',
       placeId: 'jiufen-old-street',
     },
   {
@@ -170,7 +170,7 @@ export const TAIWAN_HIGHLIGHTS: TaiwanHighlightSlide[] = [
     subtitle: 'Monumental seated Buddha presiding over the symmetrical Great Pathway and sacred monastic halls',
     location: 'Dashu District, Kaohsiung',
     badge: 'DAY 4 • SACRED BUDDHIST MONUMENT',
-    imageUrl: '/taiwan/foguangshan-buddha.jpg',
+    imageUrl: '/taiwan/curated/day4_01_fo_guang_shan_photo_04.jpg',
     placeId: 'fo-guang-shan',
   },
   {
@@ -276,7 +276,7 @@ export const TAIWAN_PLACES: TaiwanPlace[] = [
       chineseName: '九份青雲殿 (神農大帝廟)',
       category: 'heritage',
       categoryLabel: 'Temple & Coastal Vistas',
-      thumbnail: '/taiwan/jiufen-qingyun-temple.jpg',
+      thumbnail: '/taiwan/curated/day2_02_jiufen_qingyun_temple_photo_42.jpg',
       oneLiner: 'Monumental multi-tiered Taoist mountain sanctuary in Ruifang dedicated to Emperor Shennong, commanding panoramic sea-to-mountain views.',
       tags: ['Qingyun Temple', 'Shennong Emperor', 'Ruifang', 'Coastal Views', 'Mountain Sanctuary'],
       location: 'Ruifang District, New Taipei City',
@@ -317,6 +317,125 @@ export const TAIWAN_PLACES: TaiwanPlace[] = [
       },
       gallery: [
         {
+          id: 'cur-qy-42',
+          type: 'photo',
+          url: '/taiwan/curated/day2_02_jiufen_qingyun_temple_photo_42.jpg',
+          title: "Jiufen Qingyun Temple Grand Sanctuary Over the Sea",
+          caption: "Multi-tiered Taoist mountain sanctuary commanding sweeping, unobstructed vistas over the Pacific coast."
+        },
+        {
+          id: 'cur-qy-04',
+          type: 'photo',
+          url: '/taiwan/curated/day2_02_jiufen_qingyun_temple_photo_04.jpg',
+          title: "Golden Taiji Dragon Pillars & Carvings",
+          caption: "Exquisitely sculpted stone dragon pillars framing the entrance to the main temple pavilion."
+        },
+        {
+          id: 'cur-qy-09',
+          type: 'photo',
+          url: '/taiwan/curated/day2_02_jiufen_qingyun_temple_photo_09.jpg',
+          title: "Temple Roof Ridge & Flying Dragons",
+          caption: "Vibrant ceramic mosaic (Jiannian) ornamentation with mythical dragons guarding the temple gables."
+        },
+        {
+          id: 'cur-qy-13',
+          type: 'photo',
+          url: '/taiwan/curated/day2_02_jiufen_qingyun_temple_photo_13.jpg',
+          title: "Incense Burner & Sacred Altar Hall",
+          caption: "Centuries of devotion visible in the ornate bronze censers and gold-gilded Taoist deities."
+        },
+        {
+          id: 'cur-qy-23',
+          type: 'photo',
+          url: '/taiwan/curated/day2_02_jiufen_qingyun_temple_photo_23.jpg',
+          title: "Temple Terrace Mountain & Bay Panorama",
+          caption: "Breathtaking coastal lookout from the upper courtyard overlooking Ruifang and the northern coastline."
+        },
+        {
+          id: 'cur-qy-26',
+          type: 'photo',
+          url: '/taiwan/curated/day2_02_jiufen_qingyun_temple_photo_26.jpg',
+          title: "Traditional Stone Lions & Guardian Sculptures",
+          caption: "Hand-carved green granite guardian lions watching over the sacred stone stairway."
+        },
+        {
+          id: 'cur-qy-30',
+          type: 'photo',
+          url: '/taiwan/curated/day2_02_jiufen_qingyun_temple_photo_30.jpg',
+          title: "Sacred Courtyard & Coastal Breeze",
+          caption: "Peaceful mountain breezes carrying incense smoke across the scenic temple verandas."
+        },
+        {
+          id: 'cur-qy-31',
+          type: 'photo',
+          url: '/taiwan/curated/day2_02_jiufen_qingyun_temple_photo_31.jpg',
+          title: "Intricate Ceiling Octagon & Caisson Dome",
+          caption: "Master craftsmanship displayed in the complex wooden bracket interlocking ceiling."
+        },
+        {
+          id: 'cur-qy-33',
+          type: 'photo',
+          url: '/taiwan/curated/day2_02_jiufen_qingyun_temple_photo_33.jpg',
+          title: "Sacred Deities & Golden Lanterns",
+          caption: "Glow of hanging red prayer lanterns illuminating the revered temple sanctum."
+        },
+        {
+          id: 'cur-qy-43',
+          type: 'photo',
+          url: '/taiwan/curated/day2_02_jiufen_qingyun_temple_photo_43.jpg',
+          title: "Upper Tier Observation Deck",
+          caption: "Panoramic perspective showing the tiered temple roof lines against the Pacific Ocean horizon."
+        },
+        {
+          id: 'cur-qy-44',
+          type: 'photo',
+          url: '/taiwan/curated/day2_02_jiufen_qingyun_temple_photo_44.jpg',
+          title: "Mountain Mist Over Ocean Cliffs",
+          caption: "Dramatic afternoon cloud shadows rolling across the coastal ridges behind the temple."
+        },
+        {
+          id: 'cur-qy-47',
+          type: 'photo',
+          url: '/taiwan/curated/day2_02_jiufen_qingyun_temple_photo_47.jpg',
+          title: "Temple Archway & Stone Inscriptions",
+          caption: "Engraved couplets honoring heaven and earth overlooking the emerald valleys."
+        },
+        {
+          id: 'cur-qy-48',
+          type: 'photo',
+          url: '/taiwan/curated/day2_02_jiufen_qingyun_temple_photo_48.jpg',
+          title: "Jiannian Mosaic Artistry",
+          caption: "Close-up of the delicate porcelain cutting and pasting technique adorning temple roof eaves."
+        },
+        {
+          id: 'cur-qy-50',
+          type: 'photo',
+          url: '/taiwan/curated/day2_02_jiufen_qingyun_temple_photo_50.jpg',
+          title: "Mountain Highway Winding Below",
+          caption: "Serpentine curves of the Ruifang coastal highway visible from the temple ramparts."
+        },
+        {
+          id: 'cur-qy-52',
+          type: 'photo',
+          url: '/taiwan/curated/day2_02_jiufen_qingyun_temple_photo_52.jpg',
+          title: "Qingyun Sanctuary Bell & Drum Towers",
+          caption: "Symmetrical belfry towers standing tall against the coastal sky."
+        },
+        {
+          id: 'cur-qy-55',
+          type: 'photo',
+          url: '/taiwan/curated/day2_02_jiufen_qingyun_temple_photo_55.jpg',
+          title: "Quiet Mountain Refuge Atmosphere",
+          caption: "Serene spiritual atmosphere away from the crowded tourist streets of central Jiufen."
+        },
+        {
+          id: 'cur-qy-57',
+          type: 'photo',
+          url: '/taiwan/curated/day2_02_jiufen_qingyun_temple_photo_57.jpg',
+          title: "Farewell Vista of Coastal Ruifang",
+          caption: "Golden hour light illuminating the sacred rooftops and the distant ocean headlands."
+        },
+        {
           id: 'qy-m1',
           type: 'photo',
           url: '/taiwan/jiufen-qingyun-temple.jpg',
@@ -354,7 +473,7 @@ export const TAIWAN_PLACES: TaiwanPlace[] = [
       chineseName: '八斗子海濱步道與望幽谷',
       category: 'nature',
       categoryLabel: 'Nature & Coastal Trail',
-      thumbnail: '/taiwan/badouzi-trail.jpg',
+      thumbnail: '/taiwan/curated/day2_03_badouzi_coastal_trail_photo_05.jpg',
       oneLiner: 'Dramatic coastal boardwalk winding along emerald cliff ridges with panoramic Pacific Ocean views and Keelung Islet on the horizon.',
       tags: ['Badouzi Trail', 'Wangyou Valley', 'Coastal Boardwalk', 'Pacific Ocean', 'Keelung'],
       location: 'Zhongzheng District, Keelung City',
@@ -396,6 +515,69 @@ export const TAIWAN_PLACES: TaiwanPlace[] = [
         ]
       },
       gallery: [
+        {
+          id: 'cur-bd-05',
+          type: 'photo',
+          url: '/taiwan/curated/day2_03_badouzi_coastal_trail_photo_05.jpg',
+          title: "Wangyou Valley Seaside Boardwalk & Emerald Slopes",
+          caption: "Wooden pathway meandering between lush green coastal hills and the azure Pacific Ocean."
+        },
+        {
+          id: 'cur-bd-36',
+          type: 'photo',
+          url: '/taiwan/curated/day2_03_badouzi_coastal_trail_photo_36.jpg',
+          title: "Keelung Islet Horizon View",
+          caption: "Volcanic Keelung Islet rising majestically out of the sea on the northern horizon."
+        },
+        {
+          id: 'cur-bd-45',
+          type: 'photo',
+          url: '/taiwan/curated/day2_03_badouzi_coastal_trail_photo_45.jpg',
+          title: "Rocky Shoreline & Sea Erosion Terraces",
+          caption: "Centuries of wave action carving intricate patterns into the sedimentary coastal rocks."
+        },
+        {
+          id: 'cur-bd-47',
+          type: 'photo',
+          url: '/taiwan/curated/day2_03_badouzi_coastal_trail_photo_47.jpg',
+          title: "Coastal Ridge Hiking Trail",
+          caption: "Stairs climbing along the ridgeline offering 360-degree views of sea and sky."
+        },
+        {
+          id: 'cur-bd-49',
+          type: 'photo',
+          url: '/taiwan/curated/day2_03_badouzi_coastal_trail_photo_49.jpg',
+          title: "Wangyou Valley Grassy Basin",
+          caption: "The famous 'Valley of Forgetting Sorrows' nestled peacefully between steep coastal hills."
+        },
+        {
+          id: 'cur-bd-51',
+          type: 'photo',
+          url: '/taiwan/curated/day2_03_badouzi_coastal_trail_photo_51.jpg',
+          title: "Pacific Waves Crashing on Reefs",
+          caption: "Crisp sea spray and white foam breaking over coastal reefs beneath the trail."
+        },
+        {
+          id: 'cur-bd-55',
+          type: 'photo',
+          url: '/taiwan/curated/day2_03_badouzi_coastal_trail_photo_55.jpg',
+          title: "Hilltop Viewing Gazebo & Promenade",
+          caption: "Rest pavilion overlooking fishing boats and open ocean waters."
+        },
+        {
+          id: 'cur-bd-57',
+          type: 'photo',
+          url: '/taiwan/curated/day2_03_badouzi_coastal_trail_photo_57.jpg',
+          title: "Coastal Flora & Mountain Wildflowers",
+          caption: "Hardy maritime shrubs and grasses thriving in the saline Pacific breeze."
+        },
+        {
+          id: 'cur-bd-58',
+          type: 'photo',
+          url: '/taiwan/curated/day2_03_badouzi_coastal_trail_photo_58.jpg',
+          title: "Sunset Glow over Badouzi Coastline",
+          caption: "Warm golden rays bathing the coastal cliffs and ocean as dusk settles over Keelung."
+        },
         {
           id: 'bd-m1',
           type: 'photo',
@@ -562,6 +744,22 @@ export const TAIWAN_PLACES: TaiwanPlace[] = [
         ]
       },
       gallery: [
+        {
+          id: 'cur-t101-06',
+          type: 'photo',
+          url: '/taiwan/curated/day3_02_taipei_101_exterior_photo_06.jpg',
+          title: "Taipei 101 Bamboo Pagoda Silhouette",
+          caption: "Iconic upward view of the 508-meter megatall engineering marvel rising above Xinyi District."
+        },
+        {
+          id: 'cur-t101-v02',
+          type: 'video',
+          url: '/taiwan/curated/day3_02_taipei_101_exterior_video_02.mp4',
+          duration: '0:06',
+          thumbnailUrl: '/taiwan/curated/day3_02_taipei_101_exterior_photo_06.jpg',
+          title: "Taipei 101 Tower & Skyline Motion",
+          caption: "Video perspective of the tower's soaring segmented architecture and plaza energy."
+        },
         {
           id: 't101-m1',
           type: 'photo',
@@ -923,7 +1121,7 @@ export const TAIWAN_PLACES: TaiwanPlace[] = [
       chineseName: '九份老街與阿妹茶樓',
       category: 'heritage',
       categoryLabel: 'Mountain Village & Heritage',
-      thumbnail: '/taiwan/jiufen-old-street.jpg',
+      thumbnail: '/taiwan/curated/day2_01_jiufen_old_street_photo_09.jpg',
       oneLiner: 'Legendary misty mountain gold-rush town with cascading stone staircases, glowing crimson lanterns, and historic teahouses overlooking the Pacific Ocean.',
       tags: ['Jiufen', 'A-Mei Teahouse', 'Taro Balls', 'Mountain Mist', 'Ruifang'],
       location: 'Ruifang District, New Taipei City',
@@ -964,6 +1162,41 @@ export const TAIWAN_PLACES: TaiwanPlace[] = [
         ]
       },
       gallery: [
+        {
+          id: 'cur-jf-09',
+          type: 'photo',
+          url: '/taiwan/curated/day2_01_jiufen_old_street_photo_09.jpg',
+          title: "Jiufen Mountain Terrace & Coastal Vista",
+          caption: "Featured Cover: Panoramic hilltop vista from Jiufen Old Street commanding panoramic views over the verdant mountains and deep blue Pacific Ocean."
+        },
+        {
+          id: 'cur-jf-01',
+          type: 'photo',
+          url: '/taiwan/curated/day2_01_jiufen_old_street_photo_01.jpg',
+          title: "Traditional Peanut Ice Cream Roll (\u82b1\u751f\u6372\u51b0\u6dc7\u6dcb)",
+          caption: "Freshly shaved peanut brittle, sweet creamy ice cream, and fresh cilantro wrapped in a delicate handmade spring roll wrapper on Jiufen Old Street."
+        },
+        {
+          id: 'cur-jf-13',
+          type: 'photo',
+          url: '/taiwan/curated/day2_01_jiufen_old_street_photo_13.jpg',
+          title: "Jiufen Historic Hillside Alleys",
+          caption: "Atmospheric stone pathways winding through traditional tea shops, souvenir stalls, and hillside timber architecture."
+        },
+        {
+          id: 'cur-jf-14',
+          type: 'photo',
+          url: '/taiwan/curated/day2_01_jiufen_old_street_photo_14.jpg',
+          title: "Jishan Street Market Stalls",
+          caption: "Bustling covered market alley filled with local street food specialties, handmade taro balls, and fragrant Taiwanese teas."
+        },
+        {
+          id: 'cur-jf-15',
+          type: 'photo',
+          url: '/taiwan/curated/day2_01_jiufen_old_street_photo_15.jpg',
+          title: "Cascading Teahouses of Mt. Jilong",
+          caption: "Multi-tiered wooden teahouses perched along the mountain slope with red lanterns and sea views."
+        },
         {
           id: 'jf-m1',
           type: 'photo',
@@ -1043,6 +1276,70 @@ export const TAIWAN_PLACES: TaiwanPlace[] = [
         ]
       },
       gallery: [
+        {
+          id: 'cur-xy-02',
+          type: 'photo',
+          url: '/taiwan/curated/day3_06_xiangti_avenue_plaza_photo_02.jpg',
+          title: "Xiangti Avenue Plaza Neon Atmosphere",
+          caption: "Vibrant pedestrian plaza connecting Mitsukoshi department stores with live street performances."
+        },
+        {
+          id: 'cur-xy-03',
+          type: 'photo',
+          url: '/taiwan/curated/day3_06_xiangti_avenue_plaza_photo_03.jpg',
+          title: "Tree-Lined Evening Promenade",
+          caption: "Canopy of illuminated trees and glowing architectural facades in Taipei's premier shopping quarter."
+        },
+        {
+          id: 'cur-xy-11',
+          type: 'photo',
+          url: '/taiwan/curated/day3_06_xiangti_avenue_plaza_photo_11.jpg',
+          title: "Elevated Skybridge System",
+          caption: "Modern covered walkway network allowing seamless transit between skyscrapers without touching street level."
+        },
+        {
+          id: 'cur-xy-13',
+          type: 'photo',
+          url: '/taiwan/curated/day3_06_xiangti_avenue_plaza_photo_13.jpg',
+          title: "Bustling Nightlife & Urban Energy",
+          caption: "Cosmopolitan crowds enjoying open-air dining, artisan pop-ups, and contemporary architecture."
+        },
+        {
+          id: 'cur-xy-v02',
+          type: 'video',
+          url: '/taiwan/curated/day3_05_xinyi_skybridge_district_video_02.mp4',
+          duration: '0:07',
+          thumbnailUrl: '/taiwan/curated/day3_06_xiangti_avenue_plaza_photo_02.jpg',
+          title: "Xinyi Skybridge Evening Walk",
+          caption: "Gliding through the elevated skywalk system with views of neon-lit boulevards below."
+        },
+        {
+          id: 'cur-xy-v08',
+          type: 'video',
+          url: '/taiwan/curated/day3_05_xinyi_skybridge_district_video_08.mp4',
+          duration: '0:08',
+          thumbnailUrl: '/taiwan/curated/day3_06_xiangti_avenue_plaza_photo_03.jpg',
+          title: "Night Lights of Commercial District",
+          caption: "Vibrant urban motion and city lights radiating around Taipei 101 mall."
+        },
+        {
+          id: 'cur-xy-v04',
+          type: 'video',
+          url: '/taiwan/curated/day3_06_xiangti_avenue_plaza_video_04.mp4',
+          duration: '0:12',
+          thumbnailUrl: '/taiwan/curated/day3_06_xiangti_avenue_plaza_photo_11.jpg',
+          title: "Live Street Dance & Busking Energy",
+          caption: "Dynamic youth dance performances and crowd cheers at Xiangti Avenue Plaza."
+        },
+        {
+          id: 'cur-xy-v06',
+          type: 'video',
+          url: '/taiwan/curated/day3_06_xiangti_avenue_plaza_video_06.mp4',
+          duration: '0:06',
+          thumbnailUrl: '/taiwan/curated/day3_06_xiangti_avenue_plaza_photo_13.jpg',
+          title: "Plaza Promenade Motion",
+          caption: "Walking through the illuminated heart of Taipei's modern entertainment corridor."
+        },
         {
           id: 'xy-m1',
           type: 'photo',
@@ -1159,7 +1456,7 @@ export const TAIWAN_PLACES: TaiwanPlace[] = [
     chineseName: '佛光山佛陀紀念館',
     category: 'heritage',
     categoryLabel: 'Sacred Sanctuary & Colossal Buddha',
-    thumbnail: '/taiwan/foguangshan-buddha.jpg',
+    thumbnail: '/taiwan/curated/day4_01_fo_guang_shan_photo_04.jpg',
     oneLiner: 'Monumental 108-meter seated bronze Buddha framed by eight soaring pagodas, Bodhi Square, and sacred Buddhist relics in Kaohsiung.',
     tags: ['Day 4', 'Kaohsiung', 'Buddhism', 'Bronze Buddha', 'Eight Pagodas', 'Historic & Temples'],
     location: 'Dashu District, Kaohsiung City',
@@ -1198,6 +1495,43 @@ export const TAIWAN_PLACES: TaiwanPlace[] = [
       ]
     },
     gallery: [
+        {
+          id: 'cur-fgs-04',
+          type: 'photo',
+          url: '/taiwan/curated/day4_01_fo_guang_shan_photo_04.jpg',
+          title: "Fo Guang Shan Great Pathway & Giant Bronze Buddha",
+          caption: "Featured Cover: Symmetrical promenade flanked by eight monumental Chinese pagodas leading toward the 108m bronze Buddha statue."
+        },
+        {
+          id: 'cur-fgs-13',
+          type: 'photo',
+          url: '/taiwan/curated/day4_01_fo_guang_shan_photo_13.jpg',
+          title: "Eight Pagodas of Wisdom & Moral Teachings",
+          caption: "Majestic multi-tiered pagodas representing the Eightfold Path of Buddhist philosophy."
+        },
+        {
+          id: 'cur-fgs-19',
+          type: 'photo',
+          url: '/taiwan/curated/day4_01_fo_guang_shan_photo_19.jpg',
+          title: "Bodhi Square & Ceremonial Promenade",
+          caption: "Expansive stone plaza with statues of the 18 Arhats and classical monastic architecture."
+        },
+        {
+          id: 'cur-fgs-26',
+          type: 'photo',
+          url: '/taiwan/curated/day4_01_fo_guang_shan_photo_26.jpg',
+          title: "Main Shrine Stupas & Sacred Relic Halls",
+          caption: "Grand ceremonial stupas standing at the foot of the monumental Buddha colossus."
+        },
+        {
+          id: 'cur-fgs-v02',
+          type: 'video',
+          url: '/taiwan/curated/day4_01_fo_guang_shan_video_02.mp4',
+          duration: '0:10',
+          thumbnailUrl: '/taiwan/curated/day4_01_fo_guang_shan_photo_04.jpg',
+          title: "Great Pathway Panoramic Walk",
+          caption: "Video stroll through the serene monastic grounds under clear southern Taiwan skies."
+        },
       {
         id: 'fgs-m1',
         type: 'photo',
@@ -1280,6 +1614,20 @@ export const TAIWAN_PLACES: TaiwanPlace[] = [
       ]
     },
     gallery: [
+        {
+          id: 'cur-p2-06',
+          type: 'photo',
+          url: '/taiwan/curated/day4_02_pier2_art_center_photo_06.jpg',
+          title: "Historic Sugar Warehouses & Modern Murals",
+          caption: "Kaohsiung harbor warehouses transformed into creative workshops, design galleries, and craft boutiques."
+        },
+        {
+          id: 'cur-p2-39',
+          type: 'photo',
+          url: '/taiwan/curated/day4_02_pier2_art_center_photo_39.jpg',
+          title: "Industrial Sculptures & Harbor Waterfront",
+          caption: "Iconic worker and fisherman giant statues overlooking the modern light rail tracks and harbor breeze."
+        },
       {
         id: 'p2-m1',
         type: 'photo',
@@ -1355,6 +1703,34 @@ export const TAIWAN_PLACES: TaiwanPlace[] = [
       ]
     },
     gallery: [
+        {
+          id: 'cur-cj-01',
+          type: 'photo',
+          url: '/taiwan/curated/day4_03_cijin_island_photo_01.jpg',
+          title: "Seasonal Fresh Fruits Over Shaved Ice (\u6c34\u679c\u632b\u51b0)",
+          caption: "Generous bowl of fresh tropical fruits piled high over sweet shaved ice\u2014a beloved local specialty by Cijin harbor."
+        },
+        {
+          id: 'cur-cj-02',
+          type: 'photo',
+          url: '/taiwan/curated/day4_03_cijin_island_photo_02.jpg',
+          title: "Cijin Old Street Food Promenade",
+          caption: "Lively pedestrian strip brimming with charcoal grilled squid, fresh seafood catches, and cold fruit drinks."
+        },
+        {
+          id: 'cur-cj-10',
+          type: 'photo',
+          url: '/taiwan/curated/day4_03_cijin_island_photo_10.jpg',
+          title: "Cihou Fort Historic Ramparts",
+          caption: "19th-century coastal fortress gates commanding sweeping vistas over Kaohsiung harbor channel."
+        },
+        {
+          id: 'cur-cj-12',
+          type: 'photo',
+          url: '/taiwan/curated/day4_03_cijin_island_photo_12.jpg',
+          title: "Cijin Beach & Coastal Horizon",
+          caption: "Black sand ocean shoreline where cargo ships and ferries crisscross the Taiwan Strait."
+        },
       {
         id: 'cj-m1',
         type: 'photo',
@@ -1432,6 +1808,27 @@ export const TAIWAN_PLACES: TaiwanPlace[] = [
       ]
     },
     gallery: [
+        {
+          id: 'cur-afr-02',
+          type: 'photo',
+          url: '/taiwan/curated/day5_00_alishan_highway_photo_02.jpg',
+          title: "Alishan Mountain Highway Ascent",
+          caption: "Climbing high into the alpine clouds through emerald tea terraces and mountain villages."
+        },
+        {
+          id: 'cur-afr-08',
+          type: 'photo',
+          url: '/taiwan/curated/day5_00_alishan_highway_photo_08.jpg',
+          title: "Alishan Sea of Clouds (\u96f2\u6d77)",
+          caption: "Spectacular cloud ocean blanketing the deep valleys of Chiayi County below the peaks."
+        },
+        {
+          id: 'cur-afr-15',
+          type: 'photo',
+          url: '/taiwan/curated/day5_01_alishan_station_photo_15.jpg',
+          title: "Alishan Mountain Station Wooden Concourse",
+          caption: "Grand curved timber station platform constructed from native cypress wood at 2,216 meters elevation."
+        },
       {
         id: 'ali-m1',
         type: 'photo',
@@ -1468,7 +1865,7 @@ export const TAIWAN_PLACES: TaiwanPlace[] = [
     chineseName: '阿里山巨木群棧道與神木森林',
     category: 'nature',
     categoryLabel: 'Millennium Cypress Forest & Alpine Trails',
-    thumbnail: '/taiwan/alishan-sacred-giant-trees.jpg',
+    thumbnail: '/taiwan/curated/day5_03_alishan_forest_photo_07.jpg',
     oneLiner: 'Enchanting wooden boardwalk winding through primeval misty forests of colossal Formosan red cypress trees up to 2,000 years old.',
     tags: ['Day 5', 'Alishan', 'Sacred Trees', 'Ancient Cypress', 'Alpine Forest', 'Coastal Trail & Ocean Views'],
     location: 'Alishan National Scenic Area, Chiayi County',
@@ -1507,6 +1904,41 @@ export const TAIWAN_PLACES: TaiwanPlace[] = [
       ]
     },
     gallery: [
+        {
+          id: 'cur-agt-07',
+          type: 'photo',
+          url: '/taiwan/curated/day5_03_alishan_forest_photo_07.jpg',
+          title: "Three-Generation Sacred Tree (\u4e09\u4ee3\u6728)",
+          caption: "Legendary forest marvel where three successive generations of ancient Taiwan red cypress grow atop the fallen trunks of ancestors."
+        },
+        {
+          id: 'cur-agt-02',
+          type: 'photo',
+          url: '/taiwan/curated/day5_03_alishan_forest_photo_02.jpg',
+          title: "Giant Tree Plank Trail Boardwalk",
+          caption: "Elevated wooden walkway winding gently among millennia-old cypress trees in the alpine mist."
+        },
+        {
+          id: 'cur-agt-09',
+          type: 'photo',
+          url: '/taiwan/curated/day5_03_alishan_forest_photo_09.jpg',
+          title: "Towering Cypress Canopy in Morning Light",
+          caption: "Massive straight-trunked forest giants reaching over 45 meters high into the mountain canopy."
+        },
+        {
+          id: 'cur-agt-10',
+          type: 'photo',
+          url: '/taiwan/curated/day5_03_alishan_forest_photo_10.jpg',
+          title: "Ancient Root Systems & Forest Ecology",
+          caption: "Sprawling moss-draped root structures supporting Taiwan's most precious ancient forest."
+        },
+        {
+          id: 'cur-agt-19',
+          type: 'photo',
+          url: '/taiwan/curated/day5_03_alishan_forest_photo_19.jpg',
+          title: "Historic Alishan Sacred Shrine Trail",
+          caption: "Peaceful mountain walking path flanked by lush ferns and sacred timber pillars."
+        },
       {
         id: 'ali-gt-m1',
         type: 'photo',
@@ -1600,6 +2032,20 @@ export const TAIWAN_PLACES: TaiwanPlace[] = [
       ]
     },
     gallery: [
+        {
+          id: 'cur-xyk-01',
+          type: 'photo',
+          url: '/taiwan/curated/day6_01_xiaoyoukeng_fumaroles_photo_01.jpg',
+          title: "Xiaoyoukeng Active Geothermal Fumaroles",
+          caption: "Dramatic post-volcanic crater basin spewing billowing plumes of sulfur steam and boiling mineral water."
+        },
+        {
+          id: 'cur-xyk-drive',
+          type: 'photo',
+          url: '/taiwan/curated/day6_00_mountain_drive_photo_01.jpg',
+          title: "Yangmingshan Mountain Pass Drive",
+          caption: "Winding national park highway surrounded by volcanic peaks and fields of silver grass."
+        },
       {
         id: 'xyk-m1',
         type: 'photo',
@@ -1675,6 +2121,34 @@ export const TAIWAN_PLACES: TaiwanPlace[] = [
       ]
     },
     gallery: [
+        {
+          id: 'cur-lsk-37',
+          type: 'photo',
+          url: '/taiwan/curated/day6_02_lengshuikeng_hotspring_photo_37.jpg',
+          title: "Lengshuikeng Geothermal Hot Spring Foot Bath (\u51b7\u6c34\u5751\u6eab\u6cc9\u6ce1\u8173\u6c60)",
+          caption: "Therapeutic public mineral spring foot bath warmed to 40\u00b0C by natural volcanic heat."
+        },
+        {
+          id: 'cur-lsk-11',
+          type: 'photo',
+          url: '/taiwan/curated/day6_02_lengshuikeng_hotspring_photo_11.jpg',
+          title: "Jingshan Suspension Bridge (\u83c1\u5c71\u540a\u6a4b)",
+          caption: "Picturesque red suspension bridge spanning the geothermal brook between Japanese cedar groves."
+        },
+        {
+          id: 'cur-lsk-16',
+          type: 'photo',
+          url: '/taiwan/curated/day6_02_lengshuikeng_hotspring_photo_16.jpg',
+          title: "Cedar Forest Boardwalk Walkway",
+          caption: "Serene trail winding through dense evergreen woodlands and mountain meadows."
+        },
+        {
+          id: 'cur-lsk-33',
+          type: 'photo',
+          url: '/taiwan/curated/day6_02_lengshuikeng_hotspring_photo_33.jpg',
+          title: "Volcanic Basin & Mountain Slopes",
+          caption: "Panoramic view of the collapsed crater lake basin now carpeted in vibrant high-altitude vegetation."
+        },
       {
         id: 'lsk-m1',
         type: 'photo',
@@ -1759,6 +2233,34 @@ export const TAIWAN_PLACES: TaiwanPlace[] = [
       ]
     },
     gallery: [
+        {
+          id: 'cur-qtg-15',
+          type: 'photo',
+          url: '/taiwan/curated/day6_03_qingtiangang_grassland_photo_15.jpg',
+          title: "Qingtiangang Highland Plateau & Silver Grass",
+          caption: "Sprawling volcanic plateau meadow formed by prehistoric lava flows, blanketed in soft silver grass."
+        },
+        {
+          id: 'cur-qtg-22',
+          type: 'photo',
+          url: '/taiwan/curated/day6_03_qingtiangang_grassland_photo_22.jpg',
+          title: "Historic Water Buffalo Grazing Pasture",
+          caption: "Rolling pastoral slopes where herds of free-roaming water buffalo graze along the fenced footpaths."
+        },
+        {
+          id: 'cur-qtg-s05',
+          type: 'photo',
+          url: '/taiwan/curated/day6_04_shilin_evening_photo_05.jpg',
+          title: "Golden Hour Descent from Yangmingshan",
+          caption: "Sunset glow illuminating the mountain ridges and winding roads descending toward Shilin."
+        },
+        {
+          id: 'cur-qtg-s08',
+          type: 'photo',
+          url: '/taiwan/curated/day6_04_shilin_evening_photo_08.jpg',
+          title: "Twilight Horizon Over Taipei Basin",
+          caption: "Dusk settling over the mountain valleys as the sparkling lights of Taipei emerge below."
+        },
       {
         id: 'qtg-m1',
         type: 'photo',
